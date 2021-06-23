@@ -1,7 +1,9 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.db.models.signals import post_save, post_delete
 from posts.models import Post
+from notifications.models import Notification
 from django.conf import settings
 import os
 from PIL import Image
@@ -67,3 +69,27 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.user_name
+
+
+class Follow(models.Model):
+	follower = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='follower')
+	following = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='following')
+
+	def user_follow(sender, instance, *args, **kwargs):
+		follow = instance
+		sender = follow.follower
+		following = follow.following
+		notify = Notification(sender=sender, user=following, notification_type=3)
+		notify.save()
+
+	def user_unfollow(sender, instance, *args, **kwargs):
+		follow = instance
+		sender = follow.follower
+		following = follow.following
+
+		notify = Notification.objects.filter(sender=sender, user=following, notification_type=3)
+		notify.delete()
+
+
+post_save.connect(Follow.user_follow, sender=Follow)
+post_delete.connect(Follow.user_unfollow, sender=Follow)
