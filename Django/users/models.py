@@ -6,7 +6,6 @@ from posts.models import Post
 from notifications.models import Notification
 from django.conf import settings
 import os
-from PIL import Image
 
 def user_directory_path(instance, filename):
     # MEDIA_ROOT/user_<id>/<filename>
@@ -14,7 +13,7 @@ def user_directory_path(instance, filename):
     full_path = os.path.join(settings.MEDIA_ROOT, profile_pic_name)
 
     if os.path.exists(full_path):
-    	os.remove(full_path)
+        os.remove(full_path)
 
     return profile_pic_name
 
@@ -69,27 +68,33 @@ class User(AbstractBaseUser, PermissionsMixin):
     
     def __str__(self):
         return self.user_name
+    
 
 
 class Follow(models.Model):
-	follower = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='follower')
-	following = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='following')
+    follower = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='follower')
+    following = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='following')
 
-	def user_follow(sender, instance, *args, **kwargs):
-		follow = instance
-		sender = follow.follower
-		following = follow.following
-		notify = Notification(sender=sender, user=following, notification_type=3)
-		notify.save()
+    def __str__(self):
+        return str(str(self.follower) + ' follows ' + str(self.following))
+    
 
-	def user_unfollow(sender, instance, *args, **kwargs):
-		follow = instance
-		sender = follow.follower
-		following = follow.following
+    def user_follow(sender, instance, *args, **kwargs):
+        follow = instance
+        sender = follow.follower
+        following = follow.following
+        notify = Notification(sender=sender, user=following, notification_type=3)
+        notify.save()
 
-		notify = Notification.objects.filter(sender=sender, user=following, notification_type=3)
-		notify.delete()
+    def user_unfollow(sender, instance, *args, **kwargs):
+        follow = instance
+        sender = follow.follower
+        following = follow.following
 
+        notify = Notification.objects.filter(sender=sender, user=following, notification_type=3)
+        notify.delete()
+
+    
 
 post_save.connect(Follow.user_follow, sender=Follow)
 post_delete.connect(Follow.user_unfollow, sender=Follow)

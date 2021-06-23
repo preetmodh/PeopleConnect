@@ -4,4 +4,8 @@ from .models import User,Follow
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
     exclude = ('password',)
-admin.site.register(Follow)
+    list_display = ('id', 'user_name', 'email')
+
+@admin.register(Follow)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'follower', 'following')

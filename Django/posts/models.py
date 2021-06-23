@@ -44,6 +44,7 @@ class Post(models.Model):
 		return str(self.title)
 
 
+
 class Likes(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_like')
@@ -54,14 +55,22 @@ class Likes(models.Model):
 		sender = like.user
 		notify = Notification(post=post, sender=sender, user=post.user, notification_type=1)
 		notify.save()
+		post.likes+=1
+		post.save()
 
 	def user_unlike_post(sender, instance, *args, **kwargs):
 		like = instance
 		post = like.post
 		sender = like.user
-
+		post.likes-=1
+		post.save()
 		notify = Notification.objects.filter(post=post, sender=sender, notification_type=1)
 		notify.delete()
+		
+
+	def __str__(self):
+		return str(self.post)
 
 post_save.connect(Likes.user_liked_post, sender=Likes)
 post_delete.connect(Likes.user_unlike_post, sender=Likes)
+
