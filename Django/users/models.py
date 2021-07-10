@@ -54,7 +54,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=150, blank=True)
     last_name = models.CharField(max_length=150, blank=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
     profile_info = models.TextField(max_length=150, null=True, blank=True)
     created = models.DateField(auto_now_add=True)
     favorites = models.ManyToManyField(Post,related_name='profile')
