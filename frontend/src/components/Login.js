@@ -81,7 +81,7 @@ const Login=()=>{
     };
 
     const postData=()=>{
-        axios.post('http://127.0.0.1:8000/person/token',{
+        axios.post('http://127.0.0.1:8000/user/token',{
             // email:email,
             username:email,
             password:password,
@@ -98,7 +98,7 @@ const Login=()=>{
                     console.log(response.data);
                     localStorage.setItem('token',response.data.token);
                     localStorage.setItem('email',response.data.email);
-                    localStorage.setItem('is_student',response.data.is_student);
+                    alert('logged in');
                     window.location.replace('/home');
                     
                 }
@@ -178,7 +178,13 @@ const Login=()=>{
             Sign In
           </Button>
          
-        
+          <Grid container justify="flex-end">
+            <Grid item>
+              <Link href="/register" variant="body2">
+                don't have an account? Sign up
+              </Link>
+            </Grid>
+          </Grid>
       </div>
      
     </Container>
