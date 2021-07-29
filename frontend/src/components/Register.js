@@ -48,7 +48,8 @@ export default function Register() {
     axios.post('http://127.0.0.1:8000/user/register', {
         user_name: username,
         email:email,
-        password:password,
+        password:'AAA@#123',
+        // password:password,
       })
       .then((response) => {
         if (response.status===201){

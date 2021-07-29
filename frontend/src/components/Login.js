@@ -84,7 +84,8 @@ const Login=()=>{
         axios.post('http://127.0.0.1:8000/user/token',{
             // email:email,
             username:email,
-            password:password,
+            password:'AAA@#123',
+            // password:password,
             headers: { 
                 xsrfCookieName: 'XSRF-TOKEN',
                 xsrfHeaderName: 'X-XSRF-TOKEN',
