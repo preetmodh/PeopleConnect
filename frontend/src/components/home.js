@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import '../App.css';
 import '../index.css';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom'
 
 
 import clsx from 'clsx';
@@ -15,6 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import Badge from '@material-ui/core/Badge';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
@@ -33,6 +35,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
+
+import Post from './post';
 
 
 const drawerWidth = 240;
@@ -113,6 +117,19 @@ const handleDrawerOpen = () => {
 const handleDrawerClose = () => {
   setOpen(false);
 };
+const icons = [
+  HomeIcon,
+  PeopleIcon,
+  MessageIcon,
+  NotificationsIcon,
+];
+const icons2 = [
+  AccountCircleIcon,
+  SaveIcon,
+  SettingsIcon,
+  ExitToAppIcon,
+];
+
 
 return (
   <div className={classes.root}>
@@ -167,97 +184,48 @@ return (
       </div>
       <Divider />
     <List>
-      <ListItem>
-            <ListItemIcon><HomeIcon /></ListItemIcon>
-            <ListItemText primary="Home" />
+    {['Home','Peoples','Messages','Notifications',].map((iconnames, idx) => {
+    const Icon = icons[idx];
+    return (
+      <NavLink to={iconnames.toLocaleLowerCase()} style={{ textDecoration: 'none',color:'black' }}>
+      <ListItem key={iconnames}>
+            <ListItemIcon>
+            <IconButton color="inherit" style={{marginLeft:'-13px'}} >
+              <Badge badgeContent={idx} color="secondary">
+                <Icon />
+              </Badge>
+            </IconButton>
+            </ListItemIcon>
+            <ListItemText primary={iconnames} />
       </ListItem>
-      <ListItem>
-            <ListItemIcon><PeopleIcon /></ListItemIcon>
-            <ListItemText primary="Peoples" />
-      </ListItem>
-      <ListItem>
-            <ListItemIcon><MessageIcon /></ListItemIcon>
-            <ListItemText primary="Messages" />
-      </ListItem>
-      <ListItem>
-            <ListItemIcon><NotificationsIcon /></ListItemIcon>
-            <ListItemText primary="Notifications" />
-      </ListItem>
+      </NavLink>
+
+    )
+})}
     </List>
       <Divider />
       <List>
-      <ListItem>
-            <ListItemIcon><AccountCircleIcon/></ListItemIcon>
-            <ListItemText primary="profile" />
+      {['Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
+    const Icon = icons2[idx];
+    return (
+      <NavLink to={iconnames.toLocaleLowerCase()} style={{ textDecoration: 'none',color:'black' }}>
+      <ListItem key={iconnames}>
+            <ListItemIcon>
+            <IconButton color="inherit" style={{marginLeft:'-13px'}} >
+                <Icon />
+            </IconButton>
+            </ListItemIcon>
+            <ListItemText primary={iconnames} />
       </ListItem>
-      <ListItem>
-            <ListItemIcon><SaveIcon /></ListItemIcon>
-            <ListItemText primary="Saved" />
-      </ListItem>
-      <ListItem>
-            <ListItemIcon><SettingsIcon /></ListItemIcon>
-            <ListItemText primary="Settings" />
-      </ListItem>
-      <ListItem>
-            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-            <ListItemText primary="Logout" />
-      </ListItem>
+      </NavLink>
+    )
+})}
       </List>
     </Drawer>
     <main className={classes.content}>
       <div className={classes.toolbar} />
-      <Typography paragraph>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-        ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-        facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-        gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-        donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-        adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-        Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-        imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-        arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-        donec massa sapien faucibus et molestie ac.
-      </Typography>
-      <Typography paragraph>
-        Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-        facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-        tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-        consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-        vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-        hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-        tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-        nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-        accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-      </Typography>
+      <Post />
     </main>
   </div>
 );
-
-
-
-
-
-
-    // return (
-    //   <div className={classes.grow}>
-    //     <AppBar position="static">
-    //       <Toolbar>
-    //       <Box display='flex' flexGrow={1}>
-    //             <Avatar alt="Remy Sharp" src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" className={classes.large} />
-    //             <h2 className={classes.center}>Preet Modh</h2>
-    //       </Box>
-    //       <Box display='flex' flexGrow={1}>
-    //             <Input id="standard-basic" label="Search" className={classes.root2}  variant='outlined'/>
-    //       </Box>
-    //       <Box display='flex' flexGrow={0}>
-    //           <HomeIcon style={{ fontSize: 50,alignContent:'center', }} className={classes.root2} />
-    //           < PeopleIcon style={{ fontSize: 50 }} className={classes.root2}/>
-    //           < MessageIcon   className={classes.root2} />
-    //           < NotificationsIcon className={classes.root2}/>
-    //       </Box>
-              
-    //       </Toolbar>
-    //     </AppBar>
-    //   </div>
-    // );
-  }
+}
