@@ -29,6 +29,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Box from '@material-ui/core/Box';
+import Tooltip from '@material-ui/core/Tooltip';
 import HomeIcon from '@material-ui/icons/Home';
 import MessageIcon from '@material-ui/icons/Message';
 import NotificationsIcon from '@material-ui/icons/Notifications';
@@ -36,7 +37,12 @@ import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+
+
 import Post from './post';
+import Notification from './notification';
+import People from './people';
+import Messages from './messages';
 
 
 const drawerWidth = 240;
@@ -106,9 +112,14 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home() {
 const classes = useStyles();
-  
 const theme = useTheme();
+
+
+
+
+const [iconid,setid]=useState();
 const [open, setOpen] = React.useState(false);
+const [showPage,setShowPage]=useState(0);
 
 const handleDrawerOpen = () => {
   setOpen(true);
@@ -122,13 +133,20 @@ const icons = [
   PeopleIcon,
   MessageIcon,
   NotificationsIcon,
-];
-const icons2 = [
   AccountCircleIcon,
   SaveIcon,
   SettingsIcon,
   ExitToAppIcon,
 ];
+
+
+
+const changeColor=(idx)=>{
+  setid(idx)
+   setTimeout(function(){
+    setid(-1)
+   }, 250);
+}
 
 
 return (
@@ -184,47 +202,37 @@ return (
       </div>
       <Divider />
     <List>
-    {['Home','Peoples','Messages','Notifications',].map((iconnames, idx) => {
+    {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
     const Icon = icons[idx];
     return (
-      <NavLink to={iconnames.toLocaleLowerCase()} style={{ textDecoration: 'none',color:'black' }}>
-      <ListItem key={iconnames}>
+      <>
+      <div onClick={()=>{setShowPage(idx);changeColor(idx);}}  style={{ textDecoration: 'none',cursor:'pointer'}}>
+        <Tooltip title={<h3>{iconnames}</h3>}  placement="right">
+          <ListItem key={iconnames}>
             <ListItemIcon>
-            <IconButton color="inherit" style={{marginLeft:'-13px'}} >
-              <Badge badgeContent={idx} color="secondary">
-                <Icon />
-              </Badge>
-            </IconButton>
+              {idx<4? <Badge badgeContent={idx} color="secondary">
+                <Icon style={{color:iconid==idx?'black':'#6b6b6b'}} />
+              </Badge>: <Icon style={{color:iconid==idx?'black':'#6b6b6b'}} />}
+              <ListItemText primary={iconnames} style={{marginLeft:'35px' ,  }}/>
             </ListItemIcon>
-            <ListItemText primary={iconnames} />
-      </ListItem>
-      </NavLink>
-
+        </ListItem>
+        </Tooltip>
+      </div>
+    {idx==3?<Divider />:<></>}
+    </>
     )
 })}
     </List>
-      <Divider />
-      <List>
-      {['Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
-    const Icon = icons2[idx];
-    return (
-      <NavLink to={iconnames.toLocaleLowerCase()} style={{ textDecoration: 'none',color:'black' }}>
-      <ListItem key={iconnames}>
-            <ListItemIcon>
-            <IconButton color="inherit" style={{marginLeft:'-13px'}} >
-                <Icon />
-            </IconButton>
-            </ListItemIcon>
-            <ListItemText primary={iconnames} />
-      </ListItem>
-      </NavLink>
-    )
-})}
-      </List>
-    </Drawer>
+  </Drawer>
+
+  
     <main className={classes.content}>
       <div className={classes.toolbar} />
-      <Post />
+      {showPage==0&&<Post />}
+      {showPage==1&&<People/>}
+      {showPage==2&&<Messages />}
+      {showPage==3&&<Notification />}
+      
     </main>
   </div>
 );
