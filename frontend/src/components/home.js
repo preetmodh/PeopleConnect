@@ -1,8 +1,9 @@
-import React,{useState} from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React,{useState,useEffect } from 'react';
 import '../App.css';
 import '../index.css';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom'
+
 
 
 import clsx from 'clsx';
@@ -12,7 +13,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Typography from '@material-ui/core/Typography';
+
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -25,7 +26,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import SaveIcon from '@material-ui/icons/Save';
 import Avatar from '@material-ui/core/Avatar';
 import { Input } from '@material-ui/core';
-import TextField from '@material-ui/core/TextField';
+
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Box from '@material-ui/core/Box';
@@ -39,13 +40,10 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 
 
-import Post from './post';
-import Notification from './notification';
-import People from './people';
-import Messages from './messages';
 
 
-const drawerWidth = 240;
+
+const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -105,21 +103,24 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(2),
   },
 }));
   
+
+
 
 export default function Home() {
 const classes = useStyles();
 const theme = useTheme();
 
-
-
-
+// const x=localStorage.getItem('token');
+const x='dd77ab1f323a087776b0f4ba8ec8a19c27733ba9';
 const [iconid,setid]=useState();
-const [open, setOpen] = React.useState(false);
-const [showPage,setShowPage]=useState(0);
+const [open, setOpen] = useState(false);
+const [peopleCount, setpeopleCount] = useState(0);
+const [notiCount, setnotiCount] = useState(0);
+const [messageCount, setmessageCount] = useState(0);
 
 const handleDrawerOpen = () => {
   setOpen(true);
@@ -139,13 +140,38 @@ const icons = [
   ExitToAppIcon,
 ];
 
+useEffect(() => {
+  const interval = setInterval(() => {
+    getCountvalues();
+  }, 500);
+  return () => clearInterval(interval);
+}, [getCountvalues]);
 
 
-const changeColor=(idx)=>{
+function getCountvalues() {
+  axios.get(`http://127.0.0.1:8000/notifications/count`, {
+      headers: {
+        'Authorization': `token ${x}`,
+      }
+}).then((res) => {
+    console.log(res)
+    setnotiCount(res.data.count)
+}).catch((error) => {
+    console.log(error);
+})
+}
+
+
+
+
+
+const changeColor=(idx,s)=>{
+  const x='/' + s.toLowerCase();
   setid(idx)
    setTimeout(function(){
     setid(-1)
    }, 250);
+   window.location.href = x;
 }
 
 
@@ -173,7 +199,7 @@ return (
         
         <Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
                 <Avatar style={{margin:'15px' }} alt="Remy Sharp" src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" />
-                <h8 style={{ fontSize: 20,marginTop:'25px' }}>Preet Modh</h8>
+                <h8 style={{ fontSize: 20,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>Preet Modh</h8>
         </Box>
         <Box display='flex'>
               <h8 style={{ fontSize: 20,marginTop:'23px' ,marginRight:'3px'}}>Search</h8>
@@ -200,25 +226,25 @@ return (
           {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
         </IconButton>
       </div>
-      <Divider />
+      <Divider  style={{ marginTop:'7px'}}/>
     <List>
     {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
     const Icon = icons[idx];
     return (
       <>
-      <div onClick={()=>{setShowPage(idx);changeColor(idx);}}  style={{ textDecoration: 'none',cursor:'pointer'}}>
+      <div onClick={()=>{changeColor(idx,iconnames);}}  style={{ textDecoration: 'none',cursor:'pointer'}}>
         <Tooltip title={<h3>{iconnames}</h3>}  placement="right">
           <ListItem key={iconnames}>
             <ListItemIcon>
-              {idx<4? <Badge badgeContent={idx} color="secondary">
-                <Icon style={{color:iconid==idx?'black':'#6b6b6b'}} />
-              </Badge>: <Icon style={{color:iconid==idx?'black':'#6b6b6b'}} />}
+              {idx<4? <Badge badgeContent={notiCount} color="secondary">
+                <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />
+              </Badge>: <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />}
               <ListItemText primary={iconnames} style={{marginLeft:'35px' ,  }}/>
             </ListItemIcon>
         </ListItem>
         </Tooltip>
       </div>
-    {idx==3?<Divider />:<></>}
+    {idx===3?<Divider />:<></>}
     </>
     )
 })}
@@ -228,11 +254,6 @@ return (
   
     <main className={classes.content}>
       <div className={classes.toolbar} />
-      {showPage==0&&<Post />}
-      {showPage==1&&<People/>}
-      {showPage==2&&<Messages />}
-      {showPage==3&&<Notification />}
-      
     </main>
   </div>
 );
