@@ -199,7 +199,7 @@ return (
         
         <Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
                 <Avatar style={{margin:'15px' }} alt="Remy Sharp" src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" />
-                <h8 style={{ fontSize: 20,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>Preet Modh</h8>
+                <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>chativala pativala shammashankar raju</h8>
         </Box>
         <Box display='flex'>
               <h8 style={{ fontSize: 20,marginTop:'23px' ,marginRight:'3px'}}>Search</h8>

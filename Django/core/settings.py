@@ -1,7 +1,6 @@
 from pathlib import Path
 import os
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -31,6 +30,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'rest_framework',
     'rest_framework.authtoken',
+    'gdstorage',
 
     #madeup apps
     'comments',
@@ -149,3 +149,6 @@ REST_FRAMEWORK = {
     ],
     
 }
+
+
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'C:/Users/Preet/Documents/Projects/social/env/coral-sum-321710-a4637f09d154.json'

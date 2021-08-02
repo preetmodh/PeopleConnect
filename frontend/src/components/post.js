@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 
           <div className="Post-image-bg">
 
-            <img alt="Icon Living" src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" />
+            <img alt="Icon Living" src="https://drive.google.com/uc?id=1hynttOLFrOSYNLkpVLnUJ5DLFCFdvJSR" />
 
           </div>
 
