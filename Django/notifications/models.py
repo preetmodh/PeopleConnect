@@ -1,5 +1,8 @@
 from django.db import models
 from django.conf import settings
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+import json
 #from posts.models import Post
 
 
@@ -20,3 +23,20 @@ class Notification(models.Model):
 
 	def __str__(self):
 		return str(self.sender)+' to '+str(self.user)
+
+	def save(self,*args,**kwargs):
+		channel_layer = get_channel_layer()
+
+		count=Notification.objects.filter(is_seen=False,user=self.user).count() + 1 
+		data={'count':count}
+		s="notif_room_for_user_"+str(self.user.id)
+		async_to_sync(channel_layer.group_send)(
+			 s,{
+				'type' : 'notification_data',
+				'value' : json.dumps(data)
+			}
+
+		)
+
+		super(Notification, self).save(*args,**kwargs)
+
