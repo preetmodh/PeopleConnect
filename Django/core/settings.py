@@ -151,4 +151,4 @@ REST_FRAMEWORK = {
 }
 
 
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'C:/Users/Preet/Documents/Projects/social/env/coral-sum-321710-a4637f09d154.json'
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'E:/Visual Studio Files/WEB DEVELOPMENT/ProjectWithPreet/env/coral-sum-321710-a4637f09d154.json'

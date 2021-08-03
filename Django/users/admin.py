@@ -3,7 +3,7 @@ from .models import User,Follow
 # Register your models here.
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    exclude = ('password',)
+    # exclude = ('password',)
     list_display = ('id', 'user_name', 'email')
 
 @admin.register(Follow)
