@@ -1,16 +1,12 @@
+import React,{useEffect,useState} from 'react';
 import axios from "axios";
-import React, { Component,useEffect, useState } from "react";
-
-import {Navlink} from "react-router-dom";
-
-
-
-
-export default function People(){
-    const[suggestedFriends,setsuggestedFriends]=  useState();
+export default function Followers(){
     const x=localStorage.getItem('token')
+    
+    
+
     useEffect(() => {
-        axios.get(`http://127.0.0.1:8000/user/suggested_friends`,{
+        axios.get(`http://127.0.0.1:8000/user/followers_followings`,{
             headers: {
                 'Authorization': `token ${x}`,
               }}).then((res)=>{
@@ -19,10 +15,9 @@ export default function People(){
         },(error)=>{console.log(error.message,error.response)})
         
     }, [])
-    
     return(
         <>
-        
+            <h1>Followers</h1>
         </>
     )
 }

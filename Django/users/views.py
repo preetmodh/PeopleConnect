@@ -1,3 +1,4 @@
+from django.db import models
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.authentication import TokenAuthentication
@@ -56,3 +57,18 @@ class suggested_friends(generics.ListAPIView):
             data['suggested_friends'].append(CustomUserSerializer( i.following).data)
             
         return Response(data,status=202)
+
+class followers_followings(APIView):
+    authentication_classes = [TokenAuthentication, ]
+    permission_classes = [IsAuthenticated]
+    def get(self,request):
+        user=request.user
+        followers_obj=Follow.objects.filter(following=user)
+        following_obj=Follow.objects.filter(follower=user)
+        data={'followers':[] , 'following':[]}
+        for i in followers_obj:
+            data['followers'].append(CustomUserSerializer( i.follower).data)
+        for i in following_obj:
+            data['following'].append(CustomUserSerializer( i.following).data)
+        return Response(data=data,status=200)
+    

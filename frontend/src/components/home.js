@@ -38,7 +38,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-
+import {NavLink} from 'react-router-dom';
 
 
 
@@ -171,7 +171,7 @@ const changeColor=(idx,s)=>{
    setTimeout(function(){
     setid(-1)
    }, 250);
-   window.location.href = x;
+  //  window.location.href = x;
 }
 
 
@@ -231,7 +231,7 @@ return (
     {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
     const Icon = icons[idx];
     return (
-      <>
+      <NavLink to={`${iconnames.toLowerCase()}`} activeClassName="selected">
       <div onClick={()=>{changeColor(idx,iconnames);}}  style={{ textDecoration: 'none',cursor:'pointer'}}>
         <Tooltip title={<h3>{iconnames}</h3>}  placement="right">
           <ListItem key={iconnames}>
@@ -245,7 +245,7 @@ return (
         </Tooltip>
       </div>
     {idx===3?<Divider />:<></>}
-    </>
+    </NavLink>
     )
 })}
     </List>

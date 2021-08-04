@@ -7,6 +7,7 @@ import Notification from './components/notification';
 import Messages from './components/messages';
 import Post from './components/post';
 import People from './components/people';
+import Profile from './components/profile';
 const App2=()=>{
     return (
     <div>    
@@ -27,6 +28,7 @@ const App2=()=>{
                     <Route exact path='/notifications' component={Notification} />
                     <Route exact path='/messages' component={Messages} />
                     <Route exact path='/peoples' component={People} />
+                    <Route exact path='/profile' component={Profile} />
                     <Route exact path='/home' component={Post} />
                 </div>
             </Switch>
