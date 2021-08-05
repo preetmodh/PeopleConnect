@@ -1,6 +1,6 @@
 from django.urls import path, include
-from .views import NotificationCountAPIView
+from .views import NotificationAPIView
 
 urlpatterns = [
-    path('count',NotificationCountAPIView.as_view()),
+    path('',NotificationAPIView.as_view()),
 ]

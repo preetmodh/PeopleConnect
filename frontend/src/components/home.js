@@ -1,5 +1,7 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React,{useState,useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 import '../App.css';
 import '../index.css';
 import axios from 'axios';
@@ -114,11 +116,9 @@ export default function Home() {
 const classes = useStyles();
 const theme = useTheme();
 
-// const x=localStorage.getItem('token');
-const x='dd77ab1f323a087776b0f4ba8ec8a19c27733ba9';
+
 const [iconid,setid]=useState();
 const [open, setOpen] = useState(false);
-const [peopleCount, setpeopleCount] = useState(0);
 const [notiCount, setnotiCount] = useState(0);
 const [messageCount, setmessageCount] = useState(0);
 
@@ -140,38 +140,30 @@ const icons = [
   ExitToAppIcon,
 ];
 
-/* useEffect(() => {
-  const interval = setInterval(() => {
-    getCountvalues();
-  }, 500);
-  return () => clearInterval(interval);
-}, [getCountvalues]); */
+ useEffect(() => {
+          const x=localStorage.getItem('token');
+          const link = `ws://127.0.0.1:8000/ws/noticount/?authorization=${x}` ;
+          const chatSocket = new WebSocket(link);
+          chatSocket.onmessage = function(e) {
+          var data = JSON.parse(e.data);
+          setnotiCount(data.value.count)
+          };
+          chatSocket.onclose = function(e) {
+          console.error('Chat socket closed unexpectedly');
+        };
+}, []); 
 
-
-function getCountvalues() {
-  axios.get(`http://127.0.0.1:8000/notifications/count`, {
-      headers: {
-        'Authorization': `token ${x}`,
-      }
-}).then((res) => {
-    console.log(res)
-    setnotiCount(res.data.count)
-}).catch((error) => {
-    console.log(error);
-})
-}
 
 
 
 
 
 const changeColor=(idx,s)=>{
-  const x='/' + s.toLowerCase();
   setid(idx)
    setTimeout(function(){
     setid(-1)
    }, 250);
-   window.location.href = x;
+  
 }
 
 
@@ -231,21 +223,21 @@ return (
     {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
     const Icon = icons[idx];
     return (
-      <>
-      <div onClick={()=>{changeColor(idx,iconnames);}}  style={{ textDecoration: 'none',cursor:'pointer'}}>
+      <NavLink to={`${iconnames.toLowerCase()}`} activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
+      <div onClick={()=>{changeColor(idx)}} >
         <Tooltip title={<h3>{iconnames}</h3>}  placement="right">
           <ListItem key={iconnames}>
             <ListItemIcon>
-              {idx<4? <Badge badgeContent={notiCount} color="secondary">
+              {idx<4? <Badge badgeContent={idx===3?notiCount:0} color="secondary">
                 <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />
               </Badge>: <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />}
-              <ListItemText primary={iconnames} style={{marginLeft:'35px' ,  }}/>
+              <ListItemText primary={iconnames} style={{marginLeft:'35px' , color:iconid===idx?'black':'#6b6b6b' }}/>
             </ListItemIcon>
         </ListItem>
         </Tooltip>
       </div>
     {idx===3?<Divider />:<></>}
-    </>
+    </NavLink>
     )
 })}
     </List>

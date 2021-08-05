@@ -24,8 +24,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 class CustomFollowSerializer(serializers.ModelSerializer):
-    follower=serializers.CharField(source='follower.user_name')
-    following=serializers.CharField(source='following.user_name')
     class Meta:
         model = Follow
         fields = '__all__'

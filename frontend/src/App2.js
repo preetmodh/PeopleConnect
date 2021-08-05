@@ -1,5 +1,6 @@
 import React from 'react';
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
 import Login from './components/Login';
 import Register from './components/Register';
 import Home from './components/home';
@@ -24,7 +25,7 @@ const App2=()=>{
                     <Route exact path='/' component={Login} />
                     <Route exact path='/login' component={Login} />
                     <Route exact path='/register' component={Register} />
-                    <Route exact path='/notifications' component={Notification} />
+                    <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
                     <Route exact path='/messages' component={Messages} />
                     <Route exact path='/peoples' component={People} />
                     <Route exact path='/home' component={Post} />
