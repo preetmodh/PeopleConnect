@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from .serializers import CustomUserSerializer,CustomFollowSerializer
 from .models import User,Follow
 from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 
 import random
 
@@ -59,16 +60,41 @@ class suggested_friends(generics.ListAPIView):
         return Response(data,status=202)
 
 class followers_followings(APIView):
-    authentication_classes = [TokenAuthentication, ]
+    authentication_classes = [TokenAuthentication,]
     permission_classes = [IsAuthenticated]
     def get(self,request):
+        
+        # print(request.query_params)
+        typ=request.query_params['type']
         user=request.user
-        followers_obj=Follow.objects.filter(following=user)
-        following_obj=Follow.objects.filter(follower=user)
-        data={'followers':[] , 'following':[]}
-        for i in followers_obj:
-            data['followers'].append(CustomUserSerializer( i.follower).data)
-        for i in following_obj:
-            data['following'].append(CustomUserSerializer( i.following).data)
+        data={}
+        if typ=='followers':
+            followers_obj=Follow.objects.filter(following=user)
+            data['followers']=[]
+            for i in followers_obj:
+                data['followers'].append(CustomUserSerializer( i.follower).data)
+        else:
+            print('hellooo')
+            following_obj=Follow.objects.filter(follower=user)
+            data['following']=[]
+            for i in following_obj:
+                data['following'].append(CustomUserSerializer( i.following).data)
         return Response(data=data,status=200)
-    
+
+    def delete(self, request):
+        typ=request.data['type']
+        id=request.data['id']
+        user=request.user
+        data={}
+        
+        if typ=='followers':
+            # objExist=get_object_or_404(follower=id,following=user)
+            
+            obj=get_object_or_404(Follow,follower=id,following=user)
+            obj.delete()
+            return Response('Deleted',status=200)
+            
+
+
+        
+      

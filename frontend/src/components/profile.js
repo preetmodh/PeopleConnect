@@ -2,12 +2,11 @@ import axios from "axios";
 import React, { Component,useEffect, useState } from "react";
 import { makeStyles } from '@material-ui/core/styles';
 
-import {NavLink} from 'react-router-dom';
 
 //components
 import Followers from "./user/followers";
 import Following from "./user/following";
-
+const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles((theme) => ({
     follow_following_div:{
         display: 'flex',
@@ -21,7 +20,21 @@ export default function Profile(){
     const x=localStorage.getItem('token')
     //hooks 
     const[followState,setfollowState]=useState(0);
+    const changeFollowState=(val)=>{setfollowState(val)};
 
+
+    const [open, setOpen] = React.useState(false);
+    const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (value) => {
+        setOpen(false);
+        setSelectedValue(value);
+        setfollowState(0);
+    };
     // useEffect(() => {
     //     axios.get(`http://127.0.0.1:8000/user/followers_followings`,{
     //         headers: {
@@ -33,17 +46,18 @@ export default function Profile(){
         
     // }, [])
       const classes = useStyles();
-
+    
     return(
         <div style={{marginLeft:100}}>
 
             <h1 >Profile</h1>
             <div className={classes.follow_following_div}>
         
-                <button onClick={()=>setfollowState(1)}>Followers</button>
-                <button onClick={()=>setfollowState(2)}>Following</button>
-                { followState!=0&&(followState===1?<Followers/>:<Following/>)}
+                <button onClick={()=>{changeFollowState(1);setOpen(true)}}>Followers</button>
+                <button onClick={()=>changeFollowState(2)}>Following</button>
+                
             </div>
+            { followState!=0&&(followState===1?<Followers selectedValue={selectedValue} open={open} onClose={handleClose}/>:<Following/>)}
         </div>
     )
 }
