@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Followers(props){
     const x=localStorage.getItem('token')
     const classes = useStyles();
-
+    
     const { onClose, selectedValue, open } = props;
 
     const handleClose = () => {
@@ -49,6 +49,8 @@ export default function Followers(props){
       onClose(value);
     };
     const[followers,setfollowers]=useState()
+    const[followers_id,setfollowers_id]=useState({})
+
     const ColorButton = withStyles((theme) => ({
         root: {
           color: theme.palette.getContrastText(blue[500]),
@@ -72,6 +74,7 @@ export default function Followers(props){
         console.log('donzo');
         console.log(res);
         
+        setfollowers_id({...followers_id,[id]:0});
     },(error)=>{console.log(error.message,error.response)})
     }
     useEffect(() => {
@@ -89,10 +92,26 @@ export default function Followers(props){
             console.log('donzo');
             console.log(res);
             setfollowers(res.data.followers);
-        },(error)=>{console.log(error.message,error.response)})
-        
+            const dict={}
+            for (let i = 0; i < res.data.followers.length; i++) {
+              dict[res.data.followers[i].id]=1;
+            //   setfollowers_id(prevState => ({
+            //     ...prevState,
+            //     [res.data.followers[i].id]:1, 
+            //  }));  
+              
+            }
+            return dict;
+            
+        }
+        ,(error)=>{console.log(error.message,error.response)}).then((dict)=>{
+          setfollowers_id(dict);
+          
+
+        },(error)=>{console.log(error.message)});
+      
     }, [])
-    return(
+    return( 
         <>
         <Dialog onClose={handleClose}  open={open}>
       <DialogTitle >Followers</DialogTitle>
@@ -107,9 +126,13 @@ export default function Followers(props){
                     <ListItemText primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />
                 
                 
-                <ColorButton onClick={()=>removeFollower(follower.id)} variant="contained" color="primary" className={classes.followButton}>
-                    Remove
-                </ColorButton>
+                {followers_id[follower.id]===1? <ColorButton onClick={()=>removeFollower(follower.id)} variant="contained" color="primary" className={classes.followButton}>
+                      Remove
+                  </ColorButton>:
+                  <ColorButton disabled variant="contained" color="primary" className={classes.followButton}>
+                      Removed
+                  </ColorButton>
+                }
             </ListItem>
             ))}
         </List>

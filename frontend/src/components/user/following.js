@@ -30,10 +30,27 @@ const useStyles = makeStyles((theme) => ({
       },
     followingButton:{
         marginLeft:100,
-    }
+    },
+    
   }));
-  
-
+  const ColorButton = withStyles((theme) => ({
+    root: {
+      color: theme.palette.getContrastText(blue[500]),
+    
+      '&:hover': {
+        backgroundColor: red[700],
+      },
+    },
+  }))(Button);
+  const ColorButtonFollow = withStyles((theme) => ({
+    root: {
+      color: theme.palette.getContrastText(blue[700]),
+    
+      '&:hover': {
+        backgroundColor: blue[700],
+      },
+    },
+  }))(Button);
 
 export default function Following(props){
     const x=localStorage.getItem('token')
@@ -49,20 +66,42 @@ export default function Following(props){
       onClose(value);
     };
     const[following,setfollowing]=useState()
-    const ColorButton = withStyles((theme) => ({
-        root: {
-          color: theme.palette.getContrastText(blue[500]),
-        //   backgroundColor: red[500],
-          '&:hover': {
-            backgroundColor: red[700],
-          },
-        },
-      }))(Button);
+    const[following_id,setfollowing_id]=useState({})
+    
 
     const removefollowing=(id)=>{
-        
+        axios.delete(`http://127.0.0.1:8000/user/followers_followings`, {
+          headers: {
+            'Authorization': `token ${x}`,
+          },
+          data: {
+            type: 'following',
+            id:id,
+          }
+        }).then((res)=>{
+          console.log('donzo');
+          console.log(res);
+          
+          setfollowing_id({...following_id,[id]:0});
+      },(error)=>{console.log(error.message,error.response)})
     }
+
+
+    const Follow=(id)=>{
+      axios.post(`http://127.0.0.1:8000/user/followers_followings`,{following:id}, {
+        headers: {
+          'Authorization': `token ${x}`,
+        },
+       
+      }).then((res)=>{
+        console.log('donzo');
+        console.log(res);
+        
+        setfollowing_id({...following_id,[id]:1});
+    },(error)=>{console.log(error.message,error.response)})
+  }
     useEffect(() => {
+      const body={ name:1,};
         axios.get(`http://127.0.0.1:8000/user/followers_followings`,{
             headers: {
                 'Authorization': `token ${x}`,
@@ -71,14 +110,26 @@ export default function Following(props){
               params: {
                 type: 'following',
                 
-              }
+            }
             }).then((res)=>{
             console.log('donzo');
             console.log(res);
             setfollowing(res.data.following);
-            console.log(res.data.following); 
-        },(error)=>{console.log(error.message,error.response)})
-        
+            const dict={}
+            for (let i = 0; i < res.data.following.length; i++) {
+              dict[res.data.following[i].id]=1;
+            
+              
+            }
+            return dict;
+            
+        }
+        ,(error)=>{console.log(error.message,error.response)}).then((dict)=>{
+          setfollowing_id(dict);
+          
+
+        },(error)=>{console.log(error.message)});
+      
     }, [])
     return(
         <>
@@ -86,19 +137,25 @@ export default function Following(props){
       <DialogTitle >Following</DialogTitle>
       <List>
         {following&&following.map((following) => (
-            <ListItem>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <ImageIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={following.user_name} secondary={following.first_name+" "+following.last_name} />
-                
-                
-                <ColorButton onClick={()=>removefollowing(following.id)} variant="contained" color="primary" className={classes.followButton}>
-                    Remove
-                </ColorButton>
-            </ListItem>
+            <>
+              <ListItem key={following.id}>
+                      <ListItemAvatar>
+                      <Avatar>
+                          <ImageIcon />
+                      </Avatar>
+                      </ListItemAvatar>
+                      <ListItemText primary={following.user_name} secondary={following.first_name+" "+following.last_name} />
+                   
+                  
+                      {following_id[following.id]===1? <ColorButton onClick={()=>removefollowing(following.id)} variant="contained" color="primary" className={classes.followingButton}>
+                      Unfollow
+                  </ColorButton>:
+                  <ColorButtonFollow onClick={()=>Follow(following.id)} variant="contained" color="primary" className={classes.followingButton}>
+                      Follow
+                  </ColorButtonFollow>
+                }
+              </ListItem>
+            </>
             ))}
         </List>
     </Dialog>

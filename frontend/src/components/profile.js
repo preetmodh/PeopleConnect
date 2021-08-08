@@ -54,10 +54,10 @@ export default function Profile(){
             <div className={classes.follow_following_div}>
         
                 <button onClick={()=>{changeFollowState(1);setOpen(true)}}>Followers</button>
-                <button onClick={()=>changeFollowState(2)}>Following</button>
+                <button onClick={()=>{changeFollowState(2);setOpen(true)}}>Following</button>
                 
             </div>
-            { followState!=0&&(followState===1?<Followers selectedValue={selectedValue} open={open} onClose={handleClose}/>:<Following/>)}
+            { followState!=0&&(followState===1?<Followers selectedValue={selectedValue} open={open} onClose={handleClose}/>:<Following selectedValue={selectedValue} open={open} onClose={handleClose}/>)}
         </div>
     )
 }

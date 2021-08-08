@@ -93,8 +93,22 @@ class followers_followings(APIView):
             obj=get_object_or_404(Follow,follower=id,following=user)
             obj.delete()
             return Response('Deleted',status=200)
+        else:
+            obj=get_object_or_404(Follow,follower=user,following=id)
+            obj.delete()
+            return Response('Deleted',status=200)
             
-
+    def post(self,request):
+        id=request.data['following']
+        user=request.user
+        following_obj=User.objects.get(id=id)
+        b = Follow (follower=user, following=following_obj)
+        b.save()
+        return Response('Followed',status=200)
+    # def post(self, request, *args, **kwargs):
+    #     request.data['follower']=request.user
+        
+    #     return self.create(request, *args, **kwargs)
 
         
       
