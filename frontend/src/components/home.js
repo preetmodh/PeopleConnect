@@ -40,8 +40,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import {NavLink} from 'react-router-dom';
-
 
 
 
@@ -140,120 +138,113 @@ const icons = [
   ExitToAppIcon,
 ];
 
-// useEffect(() => {
-//   const interval = setInterval(() => {
-//     getCountvalues();
-//   }, 500);
-//   return () => clearInterval(interval);
-// }, [getCountvalues]);
+useEffect(() => {
+  const x=localStorage.getItem('token');
+  const link = `ws://127.0.0.1:8000/ws/noticount/?authorization=${x}` ;
+  const chatSocket = new WebSocket(link);
+  chatSocket.onmessage = function(e) {
+  var data = JSON.parse(e.data);
+  setnotiCount(data.value.count)
+  };
+  chatSocket.onclose = function(e) {
+  console.error('Chat socket closed unexpectedly');
+};
+}, []); 
 
-
-// function getCountvalues() {
-//   axios.get(`http://127.0.0.1:8000/notifications/count`, {
-//       headers: {
-//         'Authorization': `token ${x}`,
-//       }
-// }).then((res) => {
-//     console.log(res)
-//     setnotiCount(res.data.count)
-// }).catch((error) => {
-//     console.log(error);
-// })
-// }
 
 
 
 
 
 const changeColor=(idx,s)=>{
-  setid(idx)
-   setTimeout(function(){
-    setid(-1)
-   }, 250);
-  
+setid(idx)
+setTimeout(function(){
+setid(-1)
+}, 250);
+
 }
 
 
 return (
-  <div className={classes.root}>
-    <CssBaseline />
-    <AppBar
-      position="fixed"
-      className={clsx(classes.appBar, {
-        [classes.appBarShift]: open,
-      })}
-    >
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          className={clsx(classes.menuButton, {
-            [classes.hide]: open,
-          })}
-        >
-          <MenuIcon />
-        </IconButton>
-        
-        <Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
-                <Avatar style={{margin:'15px' }} alt="Remy Sharp" src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" />
-                <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>Preet Modh</h8>
-        </Box>
-        <Box display='flex'>
-              <h8 style={{ fontSize: 20,marginTop:'23px' ,marginRight:'3px'}}>Search</h8>
-              <Input style={{ fontSize:20,margin:'18px',marginRight:'500px',color:'white', }} label="Email Address"></Input>
-              <Button style={{ fontSize:15,margin:'15px',color:'white' }}>Logout</Button>
-        </Box>
-      </Toolbar>
-    </AppBar>
-    <Drawer
-      variant="permanent"
-      className={clsx(classes.drawer, {
-        [classes.drawerOpen]: open,
-        [classes.drawerClose]: !open,
-      })}
-      classes={{
-        paper: clsx({
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        }),
-      }}
-    >
-      <div className={classes.toolbar}>
-        <IconButton onClick={handleDrawerClose}>
-          {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-        </IconButton>
-      </div>
-      <Divider  style={{ marginTop:'7px'}}/>
-    <List>
-    {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
-    const Icon = icons[idx];
-    return (
-      <NavLink to={`${iconnames.toLowerCase()}`} activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
-      <div onClick={()=>{changeColor(idx)}} >
-        <Tooltip title={<h3>{iconnames}</h3>}  placement="right">
-          <ListItem key={iconnames}>
-            <ListItemIcon>
-              {idx<4? <Badge badgeContent={idx===3?notiCount:0} color="secondary">
-                <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />
-              </Badge>: <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />}
-              <ListItemText primary={iconnames} style={{marginLeft:'35px' , color:iconid===idx?'black':'#6b6b6b' }}/>
-            </ListItemIcon>
-        </ListItem>
-        </Tooltip>
-      </div>
-    {idx===3?<Divider />:<></>}
-    </NavLink>
-    )
+<div className={classes.root}>
+<CssBaseline />
+<AppBar
+position="fixed"
+className={clsx(classes.appBar, {
+[classes.appBarShift]: open,
 })}
-    </List>
-  </Drawer>
+>
+<Toolbar>
+<IconButton
+  color="inherit"
+  aria-label="open drawer"
+  onClick={handleDrawerOpen}
+  edge="start"
+  className={clsx(classes.menuButton, {
+    [classes.hide]: open,
+  })}
+>
+  <MenuIcon />
+</IconButton>
 
-  
-    <main className={classes.content}>
-      <div className={classes.toolbar} />
-    </main>
-  </div>
+<Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
+        <Avatar style={{margin:'15px' }} alt="Remy Sharp" src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" />
+        <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>Preet Modh</h8>
+</Box>
+<Box display='flex'>
+      <h8 style={{ fontSize: 20,marginTop:'23px' ,marginRight:'3px'}}>Search</h8>
+      <Input style={{ fontSize:20,margin:'18px',marginRight:'500px',color:'white', }} label="Email Address"></Input>
+      <Button style={{ fontSize:15,margin:'15px',color:'white' }}>Logout</Button>
+</Box>
+</Toolbar>
+</AppBar>
+<Drawer
+variant="permanent"
+className={clsx(classes.drawer, {
+[classes.drawerOpen]: open,
+[classes.drawerClose]: !open,
+})}
+classes={{
+paper: clsx({
+  [classes.drawerOpen]: open,
+  [classes.drawerClose]: !open,
+}),
+}}
+>
+<div className={classes.toolbar}>
+<IconButton onClick={handleDrawerClose}>
+  {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+</IconButton>
+</div>
+<Divider  style={{ marginTop:'7px'}}/>
+<List>
+{['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
+const Icon = icons[idx];
+return (
+<NavLink to={`${iconnames.toLowerCase()}`} activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
+<div onClick={()=>{changeColor(idx)}} >
+<Tooltip title={<h3>{iconnames}</h3>}  placement="right">
+  <ListItem key={iconnames}>
+    <ListItemIcon>
+      {idx<4? <Badge badgeContent={idx===3?notiCount:0} color="secondary">
+        <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />
+      </Badge>: <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />}
+      <ListItemText primary={iconnames} style={{marginLeft:'35px' , color:iconid===idx?'black':'#6b6b6b' }}/>
+    </ListItemIcon>
+</ListItem>
+</Tooltip>
+</div>
+{idx===3?<Divider />:<></>}
+</NavLink>
+)
+})}
+</List>
+</Drawer>
+
+
+<main className={classes.content}>
+<div className={classes.toolbar} />
+</main>
+</div>
 );
 }
