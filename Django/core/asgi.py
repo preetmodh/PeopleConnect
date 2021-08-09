@@ -1,8 +1,8 @@
 import os
-
 from channels.routing import ProtocolTypeRouter, URLRouter
 from django.core.asgi import get_asgi_application
 from notifications.consumers import *
+from chats.consumers import *
 from django.urls import path
 from channels.auth import AuthMiddlewareStack
 from .token_auth import TokenAuthMiddlewareStack
@@ -16,6 +16,7 @@ application = ProtocolTypeRouter({
     "websocket": TokenAuthMiddlewareStack(
         URLRouter([
             path('ws/noticount/',NotiConsumer.as_asgi()),
+            path('ws/chat/<str:chat_id>/',ChatConsumer.as_asgi()),
         ]))
     
 })

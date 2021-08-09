@@ -98,7 +98,7 @@ const Login=()=>{
                 if(response.data){
                     console.log(response.data);
                     localStorage.setItem('token',response.data.token);
-                    localStorage.setItem('email',response.data.email);
+                    localStorage.setItem('username',response.data.user_name);
                     alert('logged in');
                     window.location.replace('/home');
                     

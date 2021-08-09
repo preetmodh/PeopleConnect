@@ -4,8 +4,6 @@ from django.conf import settings
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 import json
-import sys
-from django.contrib.humanize.templatetags import humanize
 from datetime import datetime
 #from posts.models import Post
 
@@ -28,7 +26,7 @@ class Notification(models.Model):
 	def get_sendername(self):
 		return self.sender.user_name
 
-	def get_date(self):
+	def get_time_ago(self):
 		
 		time = datetime.now()
 		print(time ," -------- " ,self.created_at)

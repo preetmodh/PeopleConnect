@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'notifications',
     'posts',
     'users',
+    'chats',
+    
 
 
 ]
