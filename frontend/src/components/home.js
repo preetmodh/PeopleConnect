@@ -40,7 +40,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-
+import {NavLink} from 'react-router-dom';
 
 
 
@@ -140,19 +140,26 @@ const icons = [
   ExitToAppIcon,
 ];
 
- useEffect(() => {
-          const x=localStorage.getItem('token');
-          const link = `ws://127.0.0.1:8000/ws/noticount/?authorization=${x}` ;
-          const chatSocket = new WebSocket(link);
-          chatSocket.onmessage = function(e) {
-          var data = JSON.parse(e.data);
-          setnotiCount(data.value.count)
-          };
-          chatSocket.onclose = function(e) {
-          console.error('Chat socket closed unexpectedly');
-        };
-}, []); 
+// useEffect(() => {
+//   const interval = setInterval(() => {
+//     getCountvalues();
+//   }, 500);
+//   return () => clearInterval(interval);
+// }, [getCountvalues]);
 
+
+// function getCountvalues() {
+//   axios.get(`http://127.0.0.1:8000/notifications/count`, {
+//       headers: {
+//         'Authorization': `token ${x}`,
+//       }
+// }).then((res) => {
+//     console.log(res)
+//     setnotiCount(res.data.count)
+// }).catch((error) => {
+//     console.log(error);
+// })
+// }
 
 
 

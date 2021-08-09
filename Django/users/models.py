@@ -80,6 +80,9 @@ class User(AbstractBaseUser, PermissionsMixin):
 class Follow(models.Model):
     follower = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='follower')
     following = models.ForeignKey(User,on_delete=models.CASCADE, null=True, related_name='following')
+    tp=models.IntegerField(default=0)
+    class Meta:
+        unique_together = ['follower', 'following']
 
     def __str__(self):
         return str(str(self.follower) + ' follows ' + str(self.following))

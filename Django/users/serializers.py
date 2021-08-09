@@ -10,7 +10,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('email', 'user_name', 'password')
+        # fields = ('email', 'user_name', 'password')
+        fields = '__all__'
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
@@ -24,6 +25,8 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return instance
 
 class CustomFollowSerializer(serializers.ModelSerializer):
+    # follower=serializers.CharField(source='follower.user_name')
+    # following=serializers.CharField(source='following.user_name')
     class Meta:
         model = Follow
         fields = '__all__'

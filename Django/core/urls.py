@@ -9,5 +9,5 @@ urlpatterns = [
     path('chat/',include('chats.urls')),
     #path('comments/',include('comments.urls')),
     path('notifications/',include('notifications.urls')),
-    #path('posts/',include('posts.urls')),
+    path('posts/',include('posts.urls')),
 ]

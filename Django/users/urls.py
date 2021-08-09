@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import CreateUserAPIView,CreateFollowAPIView
+from .views import CreateUserAPIView,CreateFollowAPIView,suggested_friends,followers_followings
 from django.conf.urls.static import static
 from django.conf import settings
 from rest_framework.authtoken.views import obtain_auth_token
@@ -9,4 +9,6 @@ urlpatterns = [
     path('token',obtain_auth_token),
     path('register',CreateUserAPIView.as_view()),
     path('follow',CreateFollowAPIView.as_view()),
+    path('suggested_friends',suggested_friends.as_view()),
+    path('followers_followings',followers_followings.as_view()),
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
