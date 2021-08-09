@@ -52,7 +52,8 @@ class Post(models.Model):
 class Likes(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_like')
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='post_like')
-
+	class Meta:
+		unique_together=('user','post')
 	def user_liked_post(sender, instance, *args, **kwargs):
 		like = instance
 		post = like.post
@@ -69,6 +70,7 @@ class Likes(models.Model):
 		post.likes-=1
 		post.save()
 		notify = Notification.objects.filter(post=post, sender=sender, notification_type=1)
+		print(notify)
 		notify.delete()
 		
 
