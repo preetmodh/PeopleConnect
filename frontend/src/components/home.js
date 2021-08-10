@@ -227,9 +227,9 @@ return (
   <ListItem key={iconnames}>
     <ListItemIcon>
       {idx<4? <Badge badgeContent={idx===3?notiCount:0} color="secondary">
-        <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />
-      </Badge>: <Icon style={{color:iconid===idx?'black':'#6b6b6b'}} />}
-      <ListItemText primary={iconnames} style={{marginLeft:'35px' , color:iconid===idx?'black':'#6b6b6b' }}/>
+        <Icon style={{color:iconid===idx?'blue':'#6b6b6b'}} />
+      </Badge>: <Icon style={{color:iconid===idx?'blue':'#6b6b6b'}} />}
+      <ListItemText primary={iconnames} style={{marginLeft:'35px' , color:iconid===idx?'blue':'#6b6b6b' }}/>
     </ListItemIcon>
 </ListItem>
 </Tooltip>

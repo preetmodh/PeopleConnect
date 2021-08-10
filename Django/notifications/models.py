@@ -5,6 +5,7 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 import json
 from datetime import datetime
+from django.db.models.signals import post_save, post_delete
 #from posts.models import Post
 
 User=settings.AUTH_USER_MODEL
@@ -22,6 +23,7 @@ class Notification(models.Model):
 
 	class Meta:
             ordering = ('-created_at',)
+			
 
 	def get_sendername(self):
 		return self.sender.user_name
@@ -50,14 +52,12 @@ class Notification(models.Model):
 		return str(self.sender)+' to '+str(self.user)
 
 
-	def save(self,*args,**kwargs):
+	def notificationSave(sender, instance,*args,**kwargs):
 		channel_layer = get_channel_layer()
-		c=-1
-		if  self.id==None:
-			c=1
-		count=Notification.objects.filter(is_seen=False,user=self.user).count() + c
+		
+		count=Notification.objects.filter(is_seen=False,user=instance.user).count() 
 		data={'count':count}
-		room_name="notif_room_for_user_"+str(self.user.id)
+		room_name="notif_room_for_user_"+str(instance.user.id)
 		async_to_sync(channel_layer.group_send)(
 			 room_name,{
 				'type' : 'notification_data',
@@ -66,5 +66,19 @@ class Notification(models.Model):
 
 		)
 
-		super(Notification, self).save(*args,**kwargs)
+		
+	def notificationDelete(sender, instance, *args, **kwargs):
+		channel_layer = get_channel_layer()
+		count=Notification.objects.filter(is_seen=False,user=instance.user).count() 
+		data={'count':count}
+		room_name="notif_room_for_user_"+str(instance.user.id)
+		async_to_sync(channel_layer.group_send)(
+			 room_name,{
+				'type' : 'notification_data',
+				'value' : json.dumps(data)
+			}
 
+		)
+		
+post_save.connect(Notification.notificationSave, sender=Notification)		
+post_delete.connect(Notification.notificationDelete, sender=Notification)
