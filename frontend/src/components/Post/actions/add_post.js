@@ -59,7 +59,7 @@ export default function AddPost (props){
                
                 updateFormData({
                     ...postData,
-                    [event.target.name]: event.target.value.trim(),
+                    [event.target.name]: event.target.value,
                 });
                 
            }  
