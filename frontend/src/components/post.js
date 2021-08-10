@@ -10,10 +10,12 @@ import PostLayout from "./Post/post_layout";
 
 
 export default function Post()  {
-  const link=`http://127.0.0.1:8000/posts/profile_post`
+  const parameters={
+              type: 'all',
+            }
   return (
       <>
-        <PostLayout link={link}/>
+        <PostLayout params={parameters}/>
       </>
     )
 
