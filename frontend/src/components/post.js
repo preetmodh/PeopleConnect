@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./post.css";
+import "./assests/post.css";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';

@@ -2,7 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React,{useState,useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import '../App.css';
+import './assests/App.css';
 import '../index.css';
 import axios from 'axios';
 

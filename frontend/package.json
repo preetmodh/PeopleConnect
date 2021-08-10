@@ -13,6 +13,7 @@
     "bootstrap": "^5.0.2",
     "material-ui-search-bar": "^1.0.0",
     "moment": "^2.29.1",
+    "node-sass": "^6.0.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.0.0-beta.4",
     "react-dom": "^17.0.2",
@@ -20,6 +21,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "^4.0.3",
     "redux": "^4.1.0",
+    "stream-chat": "^3.13.1",
+    "stream-chat-react": "^6.4.11",
     "uuid": "^8.3.2",
     "web-vitals": "^1.1.2"
   },

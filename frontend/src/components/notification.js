@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from "react";
 import axios from 'axios';
-import '../App.css'
+import './assests/App.css';
 export default function Notification(){
 
     const x=localStorage.getItem('token');
