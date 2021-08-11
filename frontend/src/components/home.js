@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React,{useState,useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink,Link } from 'react-router-dom';
 import './assests/App.css';
 import '../index.css';
 import axios from 'axios';
@@ -113,7 +113,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Home() {
 const classes = useStyles();
 const theme = useTheme();
-
+const onNavigate = (history, locationDescriptor) => history.replace(locationDescriptor);
 
 const [iconid,setid]=useState();
 const [open, setOpen] = useState(false);
@@ -150,10 +150,6 @@ useEffect(() => {
   console.error('Chat socket closed unexpectedly');
 };
 }, []); 
-
-
-
-
 
 
 const changeColor=(idx,s)=>{
@@ -221,7 +217,7 @@ paper: clsx({
 {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
 const Icon = icons[idx];
 return (
-<NavLink to={`${iconnames.toLowerCase()}`} activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
+<Link to={`${iconnames.toLowerCase()}`} replace activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
 <div onClick={()=>{changeColor(idx)}} >
 <Tooltip title={<h3>{iconnames}</h3>}  placement="right">
   <ListItem key={iconnames}>
@@ -235,7 +231,7 @@ return (
 </Tooltip>
 </div>
 {idx===3?<Divider />:<></>}
-</NavLink>
+</Link>
 )
 })}
 </List>

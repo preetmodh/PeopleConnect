@@ -4,8 +4,11 @@ from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.response import Response
-from .models import Chat
-from .serializers import ChatSerializer
+from .models import Chat,RecentChat
+from .serializers import ChatSerializer,ChatRecentSerializer
+from django.db.models import Q, query
+
+
 # Create your views here.
 
 class ChatListCreateView(generics.ListCreateAPIView):
@@ -19,7 +22,6 @@ class ChatListCreateView(generics.ListCreateAPIView):
         queryset = Chat.objects.filter(room_name=room_name)
         serializer = ChatSerializer(queryset, many=True)
         current_user=self.request.user.id
-        print(chat_id,room_name)
         data={'messages':serializer.data,'current_user':current_user}
         return Response(data,status=200)
 
@@ -32,3 +34,12 @@ class ChatListCreateView(generics.ListCreateAPIView):
         return super().create(request, *args, **kwargs)
 
 
+class RecentChatListView(generics.ListAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    def get(self,request,*args,**kwargs):
+        current_user=self.request.user
+        queryset=RecentChat.objects.filter(Q(receiver=current_user) | Q(sender=current_user))
+        serializer = ChatRecentSerializer(queryset, many=True)
+        data={'recent':serializer.data,'current_user':current_user.id}
+        return Response(data,status=200)
