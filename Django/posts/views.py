@@ -1,5 +1,9 @@
+
+
+from comments.models import Comment
 from users.models import Follow
-from posts.serializers import PostSerializer
+from posts.serializers import PostSerializer,LikeSerializer
+from comments.serializers import CommentSerializer
 from .models import Likes, Post
 from django.shortcuts import render
 from django.db import models
@@ -87,4 +91,33 @@ class likeDislike(APIView):
         obj=get_object_or_404(Likes,post=post_id,user=user)
         obj.delete()
         return Response('DisLiked',status=200)
+        
+class SpecificPost(APIView):
+    authentication_classes=[TokenAuthentication]
+    permission_classes=[IsAuthenticated]
+    def get(self,request,*args, **kwargs):
+        
+        post_id=self.kwargs['pk']
+        post_obj=Post.objects.get(id=post_id)
+        like_objs=Likes.objects.filter(post=post_id)
+        comment_objs=Comment.objects.filter(post=post_id)
+        post_data=PostSerializer(post_obj).data
+        
+        likes=[]
+        comments=[]
+        isLiked=0
+        
+        for i in like_objs:
+            data=LikeSerializer(i).data
+            data['username']=i.user.user_name
+            likes.append(data)
+            if(i.user==request.user):
+                isLiked=1
+
+        for i in comment_objs:
+            data=CommentSerializer(i).data
+            data['username']=i.user.user_name
+            comments.append(data)
+        res_data={'post_data':post_data,'likes':likes,'comments':comments,'isLiked':isLiked}
+        return Response(res_data,status=200)
         

@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
 import { withStyles } from '@material-ui/core/styles';
-
+import { NavLink } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import axios from "axios";
 import AddPost from "./actions/add_post";
@@ -115,6 +115,7 @@ const useStyles = makeStyles((theme) => ({
     { Open && <AddPost  open={Open} onClose={handleClose}/>}
       { Posts&& Posts.map((post)=>{return(
         <>
+          
           <article className="Post" >
 
             <header>
@@ -136,17 +137,17 @@ const useStyles = makeStyles((theme) => ({
               </div>
 
             </header>
+            <NavLink to={`post/${post.id}`}>
+              <div className="Post-image">
 
-            <div className="Post-image">
+                <div className="Post-image-bg">
 
-              <div className="Post-image-bg">
+                  <img alt="Icon Living" src={post.Image} />
 
-                <img alt="Icon Living" src={post.Image} />
+                </div>
 
               </div>
-
-            </div>
-
+            </NavLink>
             <div className="Post-caption">
             
             <IconButton onClick={()=>likeDislike(post.id)} color={isLiked[post.id]==1? "secondary":""} className={classes.button} aria-label="Add an alarm">
@@ -168,10 +169,13 @@ const useStyles = makeStyles((theme) => ({
             />
 
           </article>
+          
         </>
+        
       )})
     
       }
+      
       </>
     )
 
