@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
     return (
       <>
+      
       <div className="Post">
         
         <button onClick={()=>{setOpen(true)}}>Add Post</button>
