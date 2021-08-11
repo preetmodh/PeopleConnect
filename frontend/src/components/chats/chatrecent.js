@@ -18,9 +18,10 @@ import Chat from './chat';
 const useStyles = makeStyles({
     root: {
       minWidth: 200,
-      maxHeight:600,
+      maxHeight:500,
       minHeight:500,
       maxWidth:300 ,
+     
     },
     root1:{
       flexGrow: 1,
@@ -58,20 +59,28 @@ export default function ChatsRecent() {
 
 
 return(
-    <div className={classes.root1}>
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={6}>
-        <Card className={classes.root} style={{
+    <div className={classes.root1} style={{
+      maxHeight:600,
+      marginTop:'5px',
+      marginBottom:'15px',
+      marginLeft:'500px',
+      marginRight:'500px'
+      }}>
+      
+      <Grid container spacing={3} >
+      <Grid item xs={12} sm={6} >
+        <div className={classes.root} style={{marginBottom:'15px',backgroundColor:'lightgrey'}}>
+      <h3 style={{margin:'5px'}}>RECENT</h3>
+      <Card className={classes.root} style={{
     overflow:'auto',
-    marginTop:'5px',
-    marginBottom:'15px',
-    marginLeft:'80px',}}>
+    marginBottom:'15px',}}>
+     
     <CardContent style={{
         marginTop:'5px',
         }}>
       {recent.length!==0&& recent.map((recent)=>{
      return(
-       <CardActionArea onClick={()=>{setShowchatid(recent.sender)}}>
+       <CardActionArea onClick={()=>{recent.sender===currentuser?setShowchatid(recent.receiver):setShowchatid(recent.sender)}}>
       <Paper style={{
         marginTop:'5px',
         backgroundColor:'#cae8fa',
@@ -81,7 +90,7 @@ return(
         fontSize:'18px',
         whiteSpace: 'pre-wrap',
         overflowWrap: 'break-word',
-        }}>{recent.sendername}
+        }}>{recent.sender===currentuser?recent.receivername:recent.sendername}
         </div>
         {recent.send_msg} :{recent.get_time_ago}
       </Paper>
@@ -90,9 +99,10 @@ return(
    })}
     </CardContent>
   </Card>
+  </div>
         </Grid>
         <Grid item xs={12} sm={6}>
-          {showchatid==0?<h1>INBOX</h1>:<Chat id={showchatid} />}
+          {showchatid===0?<h1>INBOX</h1>:<Chat id={showchatid} />}
         </Grid>
       </Grid>
     

@@ -15,10 +15,10 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = makeStyles({
   root: {
-    minWidth: 500,
-    maxHeight:600,
-    // minHeight:500,
-   // maxWidth:800 ,
+    minWidth: 450,
+    maxHeight:450,
+    minHeight:450,
+    maxWidth:500 ,
   },
 
 });
@@ -67,11 +67,15 @@ export default function Chat(params) {
         }
         }
 
-
+        
         chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
       };
-}, []); 
+
+      return () => {
+        chatSocket.close();
+    }
+}, [params.id]); 
   
 messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
 const sendMessage = () => {
@@ -102,15 +106,17 @@ const MessageChange=(event)=>{
 
 
 return (
-<>
-
-  <Card className={classes.root} style={{
+<div className={classes.root}  style={{position:'fixed',border:'ridge  ',marginLeft:'50px',maxHeight:610,maxWidth:900}}>
+  <h3 style={{margin:'5px'}}>USER</h3>
+  <div className={classes.root} style={{
     overflow:'auto',
-    marginTop:'5px',
-    marginBottom:'15px',
-    marginRight:'100px',}}>
+    marginBottom:'10px',
+    width:'10%',
+    }}>
+      
       
     <CardContent>
+    
       {messages.length!==0&& messages.map((msg)=>{
      return(
        <>
@@ -124,7 +130,7 @@ return (
         }}>
         <div style={{
         padding:'4px',
-        fontSize:'18px',
+        fontSize:'14px',
         whiteSpace: 'pre-wrap',
         overflowWrap: 'break-word',
         }}>{msg.message}
@@ -137,7 +143,11 @@ return (
 
 
     </CardContent>
-    <Container  maxWidth="xs" style={{position: 'relative',bottom:'10px'}}>
+    
+    <div ref={messagesEndRef} />
+    
+  </div >
+  <Container  maxWidth="xs" style={{position: 'relative',bottom:'25px'}}>
    <TextField
             variant="outlined"
             margin="normal"
@@ -160,10 +170,8 @@ return (
     GO
     </Button>
     </Container >
-    <div ref={messagesEndRef} />
-  </Card >
   
-  </>
+  </div>
 );
 
 
