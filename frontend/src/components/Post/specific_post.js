@@ -5,7 +5,7 @@ import FavoriteIcon from '@material-ui/icons/Favorite';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { Card } from "@material-ui/core";
+import { Card, CardHeader } from "@material-ui/core";
 import CardContent from '@material-ui/core/CardContent';
 import { Container } from '@material-ui/core';
 
@@ -42,6 +42,20 @@ const useStyles = makeStyles((theme) => ({
   control: {
     padding: theme.spacing(2),
   },
+  Comment: {
+    minWidth: 100,
+    maxHeight:510,
+    minHeight:510,
+    maxWidth:500 ,
+    
+  },
+  Comment2:{
+    minWidth: 450,
+    maxHeight:450,
+    minHeight:450,
+    maxWidth:500 ,
+  }
+  
 }));
 
 
@@ -117,90 +131,93 @@ export default function SpecificPost(){
 
 
           return(
-              <div style={{display:'flex'}}>
-              <Card display='flex' flexGrow={1} style={{maxHeight:500, maxWidth:400 ,marginLeft:400}}>
+            
+              <div  style={{display:'flex'}} >
+              {post&&<Card display='flex' className={classes.Comment} flexGrow={1} style={{marginLeft:80,minWidth: 450,overflow:'auto',
+    minHeight:510,
+    maxWidth:750 ,maxHeight:710,}}>
               
-              {post&& <div className="Post" >
+                
 
-<header>
+                <div className="Post-user">
 
-  <div className="Post-user">
+                  <div className="Post-user-profilepicture">
 
-    <div className="Post-user-profilepicture">
+                    <img src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" alt="Preet Modh" />
 
-      <img src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" alt="Preet Modh" />
+                  </div>
 
-    </div>
+                  <div className="Post-user-nickname">
 
-    <div className="Post-user-nickname">
+                    <span>Preet Modh</span>
 
-      <span>Preet Modh</span>
+                  </div>
 
-    </div>
+                </div>
 
-  </div>
 
-</header>
+              <CardContent>
+              <div className="Post-image">
 
-  <div className="Post-image">
+                  <div className="Post-image-bg">
 
-    <div className="Post-image-bg">
+                    <img alt="Icon Living" src={post.Image} />
 
-      <img alt="Icon Living" src={post.Image} />
+                  </div>
+                  
+                  <div className="Post-caption">
 
-    </div>
+                  <IconButton onClick={()=>likeDislike(post.id)} color={isLiked==1? "secondary":""} className={classes.button} aria-label="Add an alarm">
+                  <Icon><FavoriteIcon /></Icon>
+                  </IconButton>
+                  {likedCount}&nbsp;
 
-  </div>
+                  <strong>Preet Modh </strong> 
+                  <div>{post.caption}</div>
+                  </div>
+              </div>
+              </CardContent>
+              
+</Card>}
+<div className={classes.Comment2}  style={{ border:'ridge  ',  
+maxHeight:610,
+maxWidth:900,
+ 
+}}>
+<h3 style={{margin:'5px'}}>USER</h3>  
+<div className={classes.Comment2}  style={{
+  
+  overflow:'auto',
+  // width:'10%',
+}}>
 
-<div className="Post-caption">
-
-<IconButton onClick={()=>likeDislike(post.id)} color={isLiked==1? "secondary":""} className={classes.button} aria-label="Add an alarm">
-<Icon><FavoriteIcon /></Icon>
-</IconButton>
-{likedCount}&nbsp;
-
-<strong>Preet Modh </strong> 
-<div>{post.caption}</div>
-</div>
-<TextField
-  style={{marginBottom:'7px',marginLeft:'10px'}}
-  id="standard-textarea"
-  label="comment here"
-
-  multiline
-  variant="outlined"
-  size="small"
-/>
-
-</div>
-}
-</Card>
-<Box display='flex' flexGrow={0} style={{maxHeight:500, maxWidth:400 }}>
-<>
-
-  <Card className={classes.root} style={{
+  {/* <div className={classes.Comment} style={{
     overflow:'auto',
-    marginTop:'5px',
-    marginBottom:'15px',
-    marginRight:'100px',}}>
+    marginBottom:'10px',
+    width:'100%',
+    height:'100%'
+    }}> */}
       
-    <CardContent>
+      
+    <CardContent >
+    
       {Comments&& Comments.map((Comment)=>{
      return(
        <>
       <Paper style={{
         marginTop:'5px',
-  
+        
         position:'relative',
+        
         maxWidth:'51%',
         }}>
         <div style={{
         padding:'4px',
-        fontSize:'18px',
+        fontSize:'14px',
         whiteSpace: 'pre-wrap',
         overflowWrap: 'break-word',
-        }}>
-        {Comment.body}
+        width:'100%',
+        }}>{Comment.body}
         </div>
         
       </Paper>
@@ -210,7 +227,14 @@ export default function SpecificPost(){
 
 
     </CardContent>
-    <Container  maxWidth="xs" style={{position: 'relative',bottom:'10px'}}>
+    
+    <div ref={messagesEndRef} />
+    
+  
+  
+  </div>
+  <br/>
+  <Container  maxWidth="xs" style={{position: 'relative',bottom:'25px' }}>
    <TextField
             variant="outlined"
             margin="normal"
@@ -233,12 +257,7 @@ export default function SpecificPost(){
     GO
     </Button>
     </Container >
-    
-    <div ref={messagesEndRef} />
-  </Card >
-  
-  </>
-</Box>
+</div>
                
               </div>
           )
