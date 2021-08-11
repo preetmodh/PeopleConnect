@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useState,useRef } from "react";
 import "./post.css";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { Card } from "@material-ui/core";
+import CardContent from '@material-ui/core/CardContent';
+import { Container } from '@material-ui/core';
 
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core/styles';
@@ -47,6 +49,8 @@ const useStyles = makeStyles((theme) => ({
 export default function SpecificPost(){
     const {id}  = useParams();
     const classes = useStyles();
+    const messagesEndRef = useRef(null)
+
     const x=localStorage.getItem('token');
     const [post,setpost]=useState();
     const [Likes,setLikes]=useState();
@@ -107,19 +111,9 @@ export default function SpecificPost(){
             
   
           }, []);
-          // return(
-          //   <div style={{display:'flex'}}>
-          //   <Box display='flex' flexGrow={1} style={{maxHeight:300,maxWidth:300,marginLeft:70}}>
-          //   <h1>jiowejdioq o9i0p 9oqewpr</h1>
-          //   </Box>
-          //   <Box display='flex' flexGrow={1} style={{maxHeight:300,maxWidth:300,marginLeft:70}}>
-          //     <h3>jiowejdioq o9i0p 9oqewpr</h3>
-          //   </Box>
-          //   </div>
-          // )
+         
 
-
-
+          messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
 
 
           return(
@@ -181,62 +175,70 @@ export default function SpecificPost(){
 </div>
 }
 </Card>
-<Card display='flex' flexGrow={0} style={{maxHeight:500, maxWidth:400 }}>
-{post&& <article className="Post" >
+<Box display='flex' flexGrow={0} style={{maxHeight:500, maxWidth:400 }}>
+<>
 
-<header>
+  <Card className={classes.root} style={{
+    overflow:'auto',
+    marginTop:'5px',
+    marginBottom:'15px',
+    marginRight:'100px',}}>
+      
+    <CardContent>
+      {Comments&& Comments.map((Comment)=>{
+     return(
+       <>
+      <Paper style={{
+        marginTop:'5px',
+  
+        position:'relative',
+        maxWidth:'51%',
+        }}>
+        <div style={{
+        padding:'4px',
+        fontSize:'18px',
+        whiteSpace: 'pre-wrap',
+        overflowWrap: 'break-word',
+        }}>
+        {Comment.body}
+        </div>
+        
+      </Paper>
+      </>
+     )
+   })}
 
-  <div className="Post-user">
 
-    <div className="Post-user-profilepicture">
-
-      <img src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" alt="Preet Modh" />
-
-    </div>
-
-    <div className="Post-user-nickname">
-
-      <span>Preet Modh</span>
-
-    </div>
-
-  </div>
-
-</header>
-
-  <div className="Post-image">
-
-    <div className="Post-image-bg">
-
-      <img alt="Icon Living" src={post.Image} />
-
-    </div>
-
-  </div>
-
-<div className="Post-caption">
-
-<IconButton onClick={()=>likeDislike(post.id)} color={isLiked==1? "secondary":""} className={classes.button} aria-label="Add an alarm">
-<Icon><FavoriteIcon /></Icon>
-</IconButton>
-{likedCount}&nbsp;
-
-<strong>Preet Modh </strong> 
-<div>{post.caption}</div>
-</div>
-<TextField
-  style={{marginBottom:'7px',marginLeft:'10px'}}
-  id="standard-textarea"
-  label="comment here"
-
-  multiline
-  variant="outlined"
-  size="small"
-/>
-
-</article>
-}
-</Card>
+    </CardContent>
+    <Container  maxWidth="xs" style={{position: 'relative',bottom:'10px'}}>
+   <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="type here"
+            name="message"
+            autoComplete="email"
+            autoFocus
+            
+    />
+    <Button 
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            
+    >
+    GO
+    </Button>
+    </Container >
+    
+    <div ref={messagesEndRef} />
+  </Card >
+  
+  </>
+</Box>
                
               </div>
           )
