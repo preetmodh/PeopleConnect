@@ -6,6 +6,8 @@ import Register from './components/Register';
 import Home from './components/home';
 import Notification from './components/notification';
 import Messages from './components/messages';
+import Chat from './components/chats/chat';
+import ChatsRecent from './components/chats/chatrecent';
 import Post from './components/post';
 import People from './components/people';
 import Profile from './components/profile';
@@ -29,6 +31,8 @@ const App2=()=>{
                     <Route exact path='/register' component={Register} />
                     <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
                     <Route exact path='/messages' component={Messages} />
+                    <Route exact path='/chat/recent' component={ChatsRecent} />
+                    <Route exact path='/chat/inbox/:id' component={Chat} />
                     <Route exact path='/peoples' component={People} />
                     <Route exact path='/profile' component={Profile} />
                     <Route exact path='/home' component={Post} />

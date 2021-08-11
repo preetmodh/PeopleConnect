@@ -12,7 +12,6 @@ class ChatConsumer(WebsocketConsumer):
         chat_id=self.scope["url_route"]["kwargs"]["chat_id"]
         chat_id=sorted([str(self.user.id),str(chat_id)])
         self.room_name=chat_id[0]+"_"+chat_id[1]
-        self.room_name='1_2'
         self.user_room_name = "chat_room_for_users_"+self.room_name
         # Join room group
         async_to_sync(self.channel_layer.group_add)(
@@ -21,16 +20,6 @@ class ChatConsumer(WebsocketConsumer):
         )
         self.accept()
 
-        queryset = Chat.objects.filter(room_name=self.room_name)
-        serializer = ChatSerializer(queryset, many=True)
-        data={'messages':serializer.data}
-        async_to_sync(self.channel_layer.group_send)(
-			 self.user_room_name,{
-				'type' : 'chat_data',
-				'value' : json.dumps(data)
-			}
-
-		)
 
     def disconnect(self, close_code):
         # Leave room group

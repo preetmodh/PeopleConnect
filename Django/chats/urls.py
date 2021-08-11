@@ -1,6 +1,7 @@
 from django.urls import path, include
-from .views import ChatListCreateView
+from .views import ChatListCreateView,RecentChatListView
 
 urlpatterns = [
-    path('<str:chat_id>/',ChatListCreateView.as_view()),
+    path('inbox/<str:chat_id>/',ChatListCreateView.as_view()),
+    path('recent/',RecentChatListView.as_view()),
 ]

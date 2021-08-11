@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import '../App.css';
+import './assests/App.css';
 import '../index.css';
 import axios from 'axios';
 
@@ -98,8 +98,6 @@ const Login=()=>{
                 if(response.data){
                     console.log(response.data);
                     localStorage.setItem('token',response.data.token);
-                    localStorage.setItem('username',response.data.user_name);
-                    alert('logged in');
                     window.location.replace('/home');
                     
                 }
