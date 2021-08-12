@@ -41,9 +41,10 @@ class Post(models.Model):
 	caption = models.TextField(max_length=1500,blank=True, verbose_name='Caption')
 	posted = models.DateTimeField(auto_now_add=True)
 	tags = models.ManyToManyField(Tag, related_name='tags')
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.CASCADE,related_name='post_user')
 	likes = models.IntegerField(default=0)
-
+	class Meta:
+		ordering=['-posted']
 	def __str__(self):
 		return str(self.title)
 
@@ -58,8 +59,9 @@ class Likes(models.Model):
 		like = instance
 		post = like.post
 		sender = like.user
-		notify = Notification(post=post, sender=sender, user=post.user, notification_type=1)
-		notify.save()
+		if sender!=post.user:
+			notify = Notification(post=post, sender=sender, user=post.user, notification_type=1)
+			notify.save()
 		post.likes+=1
 		post.save()
 
@@ -69,9 +71,9 @@ class Likes(models.Model):
 		sender = like.user
 		post.likes-=1
 		post.save()
-		notify = Notification.objects.filter(post=post, sender=sender, notification_type=1)
-		print(notify)
-		notify.delete()
+		if sender!=post.user:
+			notify = Notification.objects.filter(post=post, sender=sender, notification_type=1)
+			notify.delete()
 		
 
 	def __str__(self):

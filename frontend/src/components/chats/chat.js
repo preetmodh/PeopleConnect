@@ -106,8 +106,8 @@ const MessageChange=(event)=>{
 
 
 return (
-<div className={classes.root}  style={{position:'fixed',border:'ridge  ',marginLeft:'50px',maxHeight:610,maxWidth:900}}>
-  <h3 style={{margin:'5px'}}>USER</h3>
+<div className={classes.root}  style={{position:'fixed',border:'ridge',maxHeight:610,maxWidth:900}}>
+  <h2 style={{margin:'5px'}}>{params.name}</h2>
   <div className={classes.root} style={{
     overflow:'auto',
     marginBottom:'10px',

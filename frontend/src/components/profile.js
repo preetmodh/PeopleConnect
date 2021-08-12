@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 //components
 import Followers from "./user/followers";
 import Following from "./user/following";
+import PostLayout from "./Post/post_layout";
 const emails = ['username@gmail.com', 'user02@gmail.com'];
 const useStyles = makeStyles((theme) => ({
     follow_following_div:{
@@ -37,7 +38,9 @@ export default function Profile(){
     };
     
       const classes = useStyles();
-    
+      const parameters={
+        type: 'profile',
+      }
     return(
         <div style={{marginLeft:100}}>
 
@@ -49,6 +52,9 @@ export default function Profile(){
                 
             </div>
             { followState!=0&&(followState===1?<Followers selectedValue={selectedValue} open={open} onClose={handleClose}/>:<Following selectedValue={selectedValue} open={open} onClose={handleClose}/>)}
+            <div className={classes.profilePosts}>
+                <PostLayout params={parameters}/>
+            </div>
         </div>
     )
 }

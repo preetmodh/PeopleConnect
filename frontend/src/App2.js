@@ -11,6 +11,7 @@ import ChatsRecent from './components/chats/chatrecent';
 import Post from './components/post';
 import People from './components/people';
 import Profile from './components/profile';
+import SpecificPost from './components/Post/specific_post';
 const App2=()=>{
     return (
     <div>    
@@ -35,6 +36,8 @@ const App2=()=>{
                     <Route exact path='/peoples' component={People} />
                     <Route exact path='/profile' component={Profile} />
                     <Route exact path='/home' component={Post} />
+                    <Route exact path='/post/:id' component={SpecificPost} />
+
                 </div>
             </Switch>
             
