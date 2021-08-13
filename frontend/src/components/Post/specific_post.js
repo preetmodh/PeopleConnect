@@ -211,6 +211,7 @@ maxWidth:900,
         
         maxWidth:'51%',
         }}>
+        <header>{Comment.username}</header>
         <div style={{
         padding:'4px',
         fontSize:'14px',
@@ -218,6 +219,8 @@ maxWidth:900,
         overflowWrap: 'break-word',
         width:'100%',
         }}>{Comment.body}
+        <br/><br/>
+        {Comment.date}
         </div>
         
       </Paper>
