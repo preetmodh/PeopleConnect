@@ -1,200 +1,137 @@
 import React,{useState,useEffect,useRef } from 'react';
 import { NavLink,useParams } from 'react-router-dom';
-// import '../assests/App.css';
 import axios from 'axios';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import Chip from '@material-ui/core/Chip';
+import Paper from '@material-ui/core/Paper';
+import { CardHeader } from '@material-ui/core';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import Grid from '@material-ui/core/Grid';
+import Chat from './chats/chat';
 
 const useStyles = makeStyles({
-  root: {
-    minWidth: 500,
-    maxHeight:600,
-   // maxWidth:800 ,
-  },
-  bullet: {
-    display: 'inline-block',
-    margin: '0 2px',
-    transform: 'scale(0.8)',
-  },
-  title: {
-    fontSize: 14,
-  },
-  pos: {
-    marginBottom: 12,
-  },
-});
-
-
-export default function Chat() {
-  const classes = useStyles();
-  const messagesEndRef = useRef(null)
-  const {id}  = useParams();
-  const [messages, setMessages] = useState([]);
-  const [currentuser, setCurrentuser] = useState();
-  const [otheruser, setOtheruser] = useState();
-  const [message,setMessage] = useState('');
+    root: {
+    minWidth: 450,
+    maxHeight:450,
+    minHeight:450,
+    maxWidth:500 ,
+    },
+    root1: {
+      minWidth: 150,
+      maxHeight:450,
+      minHeight:450,
+      maxWidth:250 ,
+      },
+    root2:{
+      flexGrow: 1,
+    }
+  });
 
 
 
+export default function ChatsRecent() {
+    const classes = useStyles();
+    const x=localStorage.getItem('token');
+    const recentEndRef = useRef(null)
+    const [recent, setRecent] = useState([]);
+    const [currentuser, setCurrentuser] = useState();
+    const [showchatid,setShowchatid] = useState(0);
+    const [sendername,setSendername] = useState();
 
 
-  const x=localStorage.getItem('token');
     useEffect(() => {
-      axios.get(`http://127.0.0.1:8000/chat/${id}/`,{
-            headers: { 
-                'Authorization': `token ${x}`,
-              }
+        axios.get(`http://127.0.0.1:8000/chat/recent/`,{
+              headers: { 
+                  'Authorization': `token ${x}`,
+                }
+        })
+        .then((res) => {
+          console.log(res.data.recent)
+          setRecent(res.data.recent)
+          setCurrentuser(res.data.current_user);
+        }, (error) => {console.log(error);})
 
 
 
-
-
-      })
-      .then((res) => {
-        if (res.data.current_user===res.data.messages[0].sender){
-            setOtheruser(res.data.messages[0].receiver)
-          }
-          else{
-            setOtheruser(res.data.messages[0].sender)
-          }
-        console.log(res.data)
-        setMessages(res.data.messages);
-        setCurrentuser(res.data.current_user);
-      }, (error) => {console.log(error);})
+        
+    },[])//end useEffect
 
 
 
-        const link = `ws://127.0.0.1:8000/ws/chat/2/?authorization=${x}` ;
-        const chatSocket = new WebSocket(link);
-        chatSocket.close()
-        console.log(chatSocket.readyState,"lllllllll")
-        chatSocket.onmessage = function(e) {
-        var data = JSON.parse(e.data);
-        console.log(data)
-        //setMessages(data.value.messages);
-        if(data.value.messages.length>0){
-        }
-        else
-        {
-          setMessages(prevState => ([
-            ...prevState,
-            data.value.messages, 
-          ]));
-        }
-        }
-        console.log(messages)
-
-
-        chatSocket.onclose = function(e) {
-        console.error('Chat socket closed unexpectedly');
-      };
-}, []); 
-  
-messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-const sendMessage = () => {
-  const body = {
-    sender: currentuser,
-    receiver: otheruser,
-    message:message,
-    
-};
-  axios.post(`http://127.0.0.1:8000/chat/${otheruser}/`, body,{
-    
-      headers: { 
-          'Authorization': `token ${x}`,
-        }
-})
-.then((response) => {
-  console.log(response,"for post");
-  setMessage('')
-  messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-}, (error) => {console.log(error);})
-}
-
-const MessageChange=(event)=>{
-  setMessage(event.target.value);
-};
-
-
-
-
-
-return (
-<>
-  <Typography className={classes.title} color="textSecondary" gutterBottom>
-      {currentuser}
-  </Typography>
-  <Card className={classes.root} style={{
-    overflow:'auto',
-    marginTop:'5px',
-    marginBottom:'15px',
-    marginLeft:'500px',
-    marginRight:'500px',}}>
-    <CardContent>
-      {messages.length!==0&& messages.map((msg)=>{
+return(
+    <div style={{
+      position: 'absolute',
+      top: '20%',
+      left: '30%',
+      marginTop: '-50px',
+      marginLeft: '-50px',
+      display:'flex'
+      }}>
+      
+      <div className={classes.root1} style={{marginBottom:'15px',border:'ridge',maxHeight:610}}>
+      <h3 style={{margin:'5px',textAlign:'center'}}>RECENT</h3>
+      <div className={classes.root1} style={{
+        overflow:'auto',
+        marginBottom:'10px',
+        width:'10%',
+    }}>
+     
+    <CardContent >
+      {recent.length!==0&& recent.map((recent)=>{
      return(
-       <>
-      <div style={{
+      <CardActionArea onClick={()=>{
+        recent.sender===currentuser?setShowchatid(recent.receiver):setShowchatid(recent.sender);
+        recent.sender===currentuser?setSendername(recent.receivername):setSendername(recent.sendername)
+        }}>
+      <Paper style={{
         marginTop:'5px',
-        backgroundColor:msg.sender===currentuser ? '#6cd1a4':'#9dfcbe',
-        float:msg.sender===currentuser ? 'right':'left',
+        backgroundColor:'#cae8fa',
         }}>
         <div style={{
-        padding:'4px',
-        whitespace: 'pre',
-        fontSize:'24px'
-        }}>{msg.message}
+        padding:'8px',
+        fontSize:'18px',
+        whiteSpace: 'pre-wrap',
+        overflowWrap: 'break-word',
+        }}>{recent.sender===currentuser?recent.receivername:recent.sendername}
         </div>
-        {msg.sendername}: {msg.get_time_ago}
-      </div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      </>
+        {recent.send_msg} :{recent.get_time_ago}
+      </Paper>
+      </CardActionArea>
      )
    })}
-
-
     </CardContent>
-    <Container ref={messagesEndRef} maxWidth="xs" style={{position: 'relative',bottom:'30px'}}>
+    <div ref={recentEndRef} />
+  </div>
+  <Container  maxWidth="xs" style={{position: 'relative',bottom:'25px'}}>
    <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="type here"
-            name="message"
-            autoComplete="email"
-            autoFocus
-            onChange={MessageChange} value={message}
+            id="recent"
+            label="Search here..."
+            name="recent"
+            
     />
-    <Button
+    <Button 
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            onClick={sendMessage}
     >
     GO
     </Button>
-    </Container>
-  </Card>
-  </>
-);
-
-
-   }
+    </Container >
+  </div>
     
+    </div>
+)
 
 
 
-
+}

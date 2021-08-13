@@ -17,13 +17,18 @@ import Chat from './chat';
 
 const useStyles = makeStyles({
     root: {
-      minWidth: 200,
-      maxHeight:500,
-      minHeight:500,
-      maxWidth:300 ,
-     
+    minWidth: 450,
+    maxHeight:450,
+    minHeight:450,
+    maxWidth:500 ,
     },
-    root1:{
+    root1: {
+      minWidth: 150,
+      maxHeight:450,
+      minHeight:450,
+      maxWidth:250 ,
+      },
+    root2:{
       flexGrow: 1,
     }
   });
@@ -37,6 +42,7 @@ export default function ChatsRecent() {
     const [recent, setRecent] = useState([]);
     const [currentuser, setCurrentuser] = useState();
     const [showchatid,setShowchatid] = useState(0);
+    const [sendername,setSendername] = useState();
 
 
     useEffect(() => {
@@ -59,28 +65,30 @@ export default function ChatsRecent() {
 
 
 return(
-    <div className={classes.root1} style={{
-      maxHeight:600,
-      marginTop:'5px',
-      marginBottom:'15px',
-      marginLeft:'500px',
-      marginRight:'500px'
+    <div style={{
+      position: 'absolute',
+      top: '20%',
+      left: '30%',
+      marginTop: '-50px',
+      marginLeft: '-50px',
+      display:'flex'
       }}>
       
-      <Grid container spacing={3} >
-      <Grid item xs={12} sm={6} >
-        <div className={classes.root} style={{marginBottom:'15px',backgroundColor:'lightgrey'}}>
-      <h3 style={{margin:'5px'}}>RECENT</h3>
-      <Card className={classes.root} style={{
-    overflow:'auto',
-    marginBottom:'15px',}}>
+      <div className={classes.root1} style={{marginBottom:'15px',border:'ridge',maxHeight:610}}>
+      <h3 style={{margin:'5px',textAlign:'center'}}>RECENT</h3>
+      <div className={classes.root1} style={{
+        overflow:'auto',
+        marginBottom:'10px',
+        width:'10%',
+    }}>
      
-    <CardContent style={{
-        marginTop:'5px',
-        }}>
+    <CardContent >
       {recent.length!==0&& recent.map((recent)=>{
      return(
-       <CardActionArea onClick={()=>{recent.sender===currentuser?setShowchatid(recent.receiver):setShowchatid(recent.sender)}}>
+      <CardActionArea onClick={()=>{
+        recent.sender===currentuser?setShowchatid(recent.receiver):setShowchatid(recent.sender);
+        recent.sender===currentuser?setSendername(recent.receivername):setSendername(recent.sendername)
+        }}>
       <Paper style={{
         marginTop:'5px',
         backgroundColor:'#cae8fa',
@@ -98,13 +106,36 @@ return(
      )
    })}
     </CardContent>
-  </Card>
+    <div ref={recentEndRef} />
   </div>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          {showchatid===0?<h1>INBOX</h1>:<Chat id={showchatid} />}
-        </Grid>
-      </Grid>
+  <Container  maxWidth="xs" style={{position: 'relative',bottom:'25px'}}>
+   <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="recent"
+            label="Search here..."
+            name="recent"
+            
+    />
+    <Button 
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+    >
+    GO
+    </Button>
+    </Container >
+  </div>
+
+
+
+
+  <div>
+          {showchatid===0?<h1 style={{marginLeft:'20px'}}>INBOX</h1>:<Chat id={showchatid} name={sendername} />}
+  </div>
     
     </div>
 )

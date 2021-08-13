@@ -27,7 +27,6 @@ const useStyles = makeStyles({
 export default function Chat(params) {
   console.log(params);
   const id= params.id;
-  console.log(id);
   const classes = useStyles();
   const messagesEndRef = useRef(null)
   const [messages, setMessages] = useState([]);
@@ -43,7 +42,6 @@ export default function Chat(params) {
               }
       })
       .then((res) => {
-        console.log(res.data)
         setMessages(res.data.messages);
         setCurrentuser(res.data.current_user);
       }, (error) => {console.log(error);})
@@ -54,7 +52,6 @@ export default function Chat(params) {
         const chatSocket = new WebSocket(link);
         chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
-        console.log(data)
         //setMessages(data.value.messages);
         if(data.value.messages.length>0){
         }
@@ -92,7 +89,6 @@ const sendMessage = () => {
         }
 })
 .then((response) => {
-  console.log(response,"for post");
   setMessage('')
   messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
 }, (error) => {console.log(error);})
@@ -106,8 +102,8 @@ const MessageChange=(event)=>{
 
 
 return (
-<div className={classes.root}  style={{position:'fixed',border:'ridge  ',marginLeft:'50px',maxHeight:610,maxWidth:900}}>
-  <h3 style={{margin:'5px'}}>USER</h3>
+<div className={classes.root}  style={{position:'fixed',border:'ridge',maxHeight:610,maxWidth:900}}>
+  <h2 style={{margin:'5px'}}>{params.name}</h2>
   <div className={classes.root} style={{
     overflow:'auto',
     marginBottom:'10px',
