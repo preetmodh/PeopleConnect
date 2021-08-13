@@ -110,7 +110,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Home() {
+export default function Home({children}) {
 const classes = useStyles();
 const theme = useTheme();
 const onNavigate = (history, locationDescriptor) => history.replace(locationDescriptor);
@@ -162,7 +162,9 @@ setid(-1)
 
 
 return (
+  
 <div className={classes.root}>
+
 <CssBaseline />
 <AppBar
 position="fixed"
@@ -240,6 +242,7 @@ return (
 
 <main className={classes.content}>
 <div className={classes.toolbar} />
+<div>{children}</div>
 </main>
 </div>
 );

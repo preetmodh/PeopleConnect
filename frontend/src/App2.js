@@ -12,10 +12,13 @@ import Post from './components/post';
 import People from './components/people';
 import Profile from './components/profile';
 import SpecificPost from './components/Post/specific_post';
+import { ShowHome } from './showHome';
+import { NotshowHome } from './notshowHome';
 const App2=()=>{
     return (
     <div>    
         <BrowserRouter>
+        
             <Switch>
                     <Route exact path='/' component={Login} />
                     <Route exact path='/login' component={Login} />
@@ -24,19 +27,16 @@ const App2=()=>{
             
             
                 <div>
-                        <Home />
-                
-                    <Route exact path='/' component={Login} />
-                    <Route exact path='/login' component={Login} />
-                    <Route exact path='/register' component={Register} />
-                    <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
-                    <Route exact path='/messages' component={Messages} />
-                    <Route exact path='/chat/recent' component={ChatsRecent} />
-                    <Route exact path='/chat/inbox/:id' component={Chat} />
-                    <Route exact path='/peoples' component={People} />
-                    <Route exact path='/profile' component={Profile} />
-                    <Route exact path='/home' component={Post} />
-                    <Route exact path='/post/:id' component={SpecificPost} />
+                    <Home >
+                        <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
+                        <Route exact path='/messages' component={Messages} />
+                        <Route exact path='/chat/recent' component={ChatsRecent} />
+                        <Route exact path='/chat/inbox/:id' component={Chat} />
+                        <Route exact path='/peoples' component={People} />
+                        <Route exact path='/profile' component={Profile} />
+                        <Route exact path='/home' component={Post} />
+                        <Route exact path='/post/:id' component={SpecificPost} />
+                    </Home>
 
                 </div>
             </Switch>
