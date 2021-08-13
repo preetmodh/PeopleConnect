@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from "axios";
 import AddPost from "./actions/add_post";
 import Icon from '@material-ui/core/Icon';
-import { NavLink, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -61,6 +61,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function SpecificPost(){
+  var hst=useHistory()
+console.log(hst)
     const {id}  = useParams();
     const classes = useStyles();
     const messagesEndRef = useRef(null)
