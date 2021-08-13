@@ -26,9 +26,6 @@ const App2=()=>{
                 <div>
                         <Home />
                 
-                    <Route exact path='/' component={Login} />
-                    <Route exact path='/login' component={Login} />
-                    <Route exact path='/register' component={Register} />
                     <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
                     <Route exact path='/peoples' render={() => <People   key={uuidv4()}/>}/>
                     <Route exact path='/profile' component={Profile} />

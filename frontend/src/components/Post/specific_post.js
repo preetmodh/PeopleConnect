@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from "axios";
 import AddPost from "./actions/add_post";
 import Icon from '@material-ui/core/Icon';
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -235,7 +235,7 @@ maxWidth:900,
   </div>
   <br/>
   <Container  maxWidth="xs" style={{position: 'relative',bottom:'25px' }}>
-   <TextField
+<TextField
             variant="outlined"
             margin="normal"
             required
@@ -247,7 +247,7 @@ maxWidth:900,
             autoFocus
             
     />
-    <Button 
+   <NavLink to='notifications'> <Button 
             type="submit"
             fullWidth
             variant="contained"
@@ -256,6 +256,7 @@ maxWidth:900,
     >
     GO
     </Button>
+    </NavLink>
     </Container >
 </div>
                
