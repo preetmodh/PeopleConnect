@@ -252,7 +252,7 @@ maxWidth:900,
             autoFocus
             
     />
-   <NavLink to='notifications'> <Button 
+<Button 
             type="submit"
             fullWidth
             variant="contained"
@@ -261,7 +261,7 @@ maxWidth:900,
     >
     GO
     </Button>
-    </NavLink>
+
     </Container >
 </div>
                
