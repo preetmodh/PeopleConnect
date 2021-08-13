@@ -11,6 +11,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from "axios";
 import AddPost from "./actions/add_post";
 import Icon from '@material-ui/core/Icon';
+import CardMedia from '@material-ui/core/CardMedia';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,10 +40,17 @@ const useStyles = makeStyles((theme) => ({
     const [Posts,setPosts]=useState();
     const [isLiked,setisLiked]=useState({});
     const [likedCount,setlikedCount]=useState({});
-
+    const[PageCount,setPageCount]=useState(1);
+    const[totalpageCnt,settotalpageCnt]=useState(PageCount+1);
     const x=localStorage.getItem('token');
+    const handleScroll = () => {
 
-
+      const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight
+  
+      if (bottom&&(PageCount<totalpageCnt)) {
+        setPageCount(PageCount+1);
+      }
+    };
     const likeDislike=(id)=>{
       if(isLiked[id]==1){
         axios.delete(`http://127.0.0.1:8000/posts/like_dislike`, {
@@ -53,7 +61,7 @@ const useStyles = makeStyles((theme) => ({
             post_id:id,
           }
         }).then((res)=>{
-          console.log('donzo');
+          
           console.log(res);
           
           setisLiked({...isLiked,[id]:0});
@@ -77,7 +85,12 @@ const useStyles = makeStyles((theme) => ({
       
       }
     }
-    useEffect(() => {
+    useEffect(() => { 
+        window.addEventListener('scroll', handleScroll, {
+        passive: true
+      });
+
+    
       
         axios.get(`http://127.0.0.1:8000/posts/profile_post`,{
             headers: {
@@ -85,18 +98,33 @@ const useStyles = makeStyles((theme) => ({
                 
               },
                 params:{
+                  page:PageCount,
                   type:params.type,
                 }
             }).then((res)=>{
-              setPosts(res.data.posts_data);
-              setisLiked(res.data.likeDict);
-              setlikedCount(res.data.likeCount);
+              
+              if(!Posts){
+                setPosts(
+                  res.data.posts_data, 
+                );
+              }
+              else{
+                
+                setPosts([...Posts, ...res.data.posts_data]);
+              }
+              settotalpageCnt(res.data.pageCnt);
+              setisLiked( Object.assign({}, isLiked,res.data.likeDict ))
+              // setisLiked(res.data.likeDict);
+              
+              setlikedCount(Object.assign({},likedCount ,res.data.likeCount));
             console.log(res);
             
         }
         ,(error)=>{console.log(error.message,error.response)})
-      
-    }, [])
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+    }, [PageCount])
     const [Open,setOpen]=useState(false);
     const handleClose = () => {
       setOpen(false);
