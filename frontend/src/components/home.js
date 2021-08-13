@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React,{useState,useEffect } from 'react';
-import { NavLink,Link } from 'react-router-dom';
+import { NavLink,Link ,useHistory} from 'react-router-dom';
 import './assests/App.css';
 import '../index.css';
 import axios from 'axios';
@@ -39,6 +39,8 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
+
+
 
 
 
@@ -158,6 +160,7 @@ setTimeout(function(){
 setid(-1)
 }, 250);
 
+
 }
 
 
@@ -219,7 +222,8 @@ paper: clsx({
 {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
 const Icon = icons[idx];
 return (
-<Link to={`${iconnames.toLowerCase()}`} replace activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
+<NavLink  to={`/${iconnames.toLowerCase()}`} replace="true" activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
+<div>
 <div onClick={()=>{changeColor(idx)}} >
 <Tooltip title={<h3>{iconnames}</h3>}  placement="right">
   <ListItem key={iconnames}>
@@ -233,7 +237,8 @@ return (
 </Tooltip>
 </div>
 {idx===3?<Divider />:<></>}
-</Link>
+</div>
+</NavLink >
 )
 })}
 </List>

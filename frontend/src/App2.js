@@ -1,4 +1,4 @@
-import React from 'react';
+import React , { Component } from 'react';
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import Login from './components/Login';
@@ -12,12 +12,15 @@ import Post from './components/post';
 import People from './components/people';
 import Profile from './components/profile';
 import SpecificPost from './components/Post/specific_post';
-import { ShowHome } from './showHome';
-import { NotshowHome } from './notshowHome';
-const App2=()=>{
+import PropTypes from 'prop-types';
+
+export class App2 extends Component{
+   
+   render(){
     return (
     <div>    
-        <BrowserRouter>
+
+        <BrowserRouter basename="/">
         
             <Switch>
                     <Route exact path='/' component={Login} />
@@ -29,10 +32,8 @@ const App2=()=>{
                 <div>
                     <Home >
                         <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
-                        <Route exact path='/messages' component={Messages} />
-                        <Route exact path='/chat/recent' component={ChatsRecent} />
-                        <Route exact path='/chat/inbox/:id' component={Chat} />
-                        <Route exact path='/peoples' component={People} />
+                        <Route exact path='/messages' component={ChatsRecent} />
+                        <Route exact path='/peoples' render={() => <People   key={uuidv4()}/>}/>
                         <Route exact path='/profile' component={Profile} />
                         <Route exact path='/home' component={Post} />
                         <Route exact path='/post/:id' component={SpecificPost} />
@@ -44,6 +45,7 @@ const App2=()=>{
         </BrowserRouter>
     </div>
     )
+   }
 };
 
 export default App2;
