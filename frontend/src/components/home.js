@@ -217,7 +217,7 @@ paper: clsx({
 {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
 const Icon = icons[idx];
 return (
-<NavLink to={`/${iconnames.toLowerCase()}`} replace activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
+<Link to={`/${iconnames.toLowerCase()}`} replace activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
 <div onClick={()=>{changeColor(idx)}} >
 <Tooltip title={<h3>{iconnames}</h3>}  placement="right">
   <ListItem key={iconnames}>
@@ -231,7 +231,7 @@ return (
 </Tooltip>
 </div>
 {idx===3?<Divider />:<></>}
-</NavLink>
+</Link>
 )
 })}
 </List>

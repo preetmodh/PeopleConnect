@@ -35,7 +35,6 @@ const App2=()=>{
 
                 </div>
             </Switch>
-            
         </BrowserRouter>
     </div>
     )
