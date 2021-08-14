@@ -42,7 +42,8 @@ class RecentChat(models.Model):
                 if self.created_at.year == time.year:
                     return str(time.month - self.created_at.month) + " months ago"
         return str(self.created_at)
-
+    
+    
 
 
 
