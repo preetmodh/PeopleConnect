@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth:500 ,
     },
     root1: {
-      minWidth: 150,
+      minWidth: 250,
       maxHeight:450,
       minHeight:450,
       maxWidth:250 ,
@@ -139,8 +139,8 @@ const Seen =(room_name) =>{
 
 return(
     <div style={{
-      marginLeft: '60px',
-      display:'flex'
+      marginLeft: '30%',
+      display:'flex',
       }}>
       
       <div className={classes.root1} style={{marginBottom:'15px',border:'ridge',maxHeight:610}}>

@@ -135,14 +135,9 @@ const useStyles = makeStyles((theme) => ({
     return (
       <>
       
-      <div className="Post">
-      
-        <button onClick={()=>{setOpen(true)}}>Add Post</button>
-        
-        
-    </div>
+     
     
-    { Open && <AddPost  open={Open} onClose={handleClose}/>}
+    
       { Posts&& Posts.map((post)=>{return(
         <>
           
@@ -185,7 +180,7 @@ const useStyles = makeStyles((theme) => ({
       </IconButton>
             {likedCount[post.id]}&nbsp;
             
-            <strong>Preet Modh </strong> 
+            
             <div>Caption:{post.caption}</div>
             </div>
 

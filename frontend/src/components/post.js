@@ -14,6 +14,7 @@ export default function Post()  {
             }
   return (
       <>
+      
         <PostLayout params={parameters}/>
       </>
     )

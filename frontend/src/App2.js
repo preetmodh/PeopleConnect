@@ -31,12 +31,14 @@ export class App2 extends Component{
             
                 <div>
                     <Home >
+                    <div style={{margin:'auto'}}>
                         <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
                         <Route exact path='/messages' component={ChatsRecent} />
                         <Route exact path='/peoples' render={() => <People   key={uuidv4()}/>}/>
                         <Route exact path='/profile' component={Profile} />
                         <Route exact path='/home' component={Post} />
                         <Route exact path='/post/:id' component={SpecificPost} />
+                        </div>
                     </Home>
 
                 </div>
