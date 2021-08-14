@@ -61,12 +61,11 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function SpecificPost(){
-  var hst=useHistory()
-console.log(hst)
+
     const {id}  = useParams();
     const classes = useStyles();
     const messagesEndRef = useRef(null)
-
+    const [newcomment, setNewcomment] = useState('');
     const x=localStorage.getItem('token');
     const [post,setpost]=useState();
     const [Likes,setLikes]=useState();
@@ -130,6 +129,24 @@ console.log(hst)
          
 
           messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+          
+const sendcomment =() =>{
+  console.log("calllllllllllll")
+  const body={
+    body:newcomment,
+    post:id,
+  }
+  axios.post(`http://127.0.0.1:8000/comments/new`,body, {
+        headers: {
+          'Authorization': `token ${x}`,
+        },
+       
+      }).then((res)=>{
+        console.log(res);
+        setComments([...Comments,...res.data])
+    },(error)=>{console.log(error.message,error.response)})
+
+}
 
 
           return(
@@ -137,7 +154,7 @@ console.log(hst)
               <div  style={{display:'flex'}} >
               {post&&<Card display='flex' className={classes.Comment} flexGrow={1} style={{marginLeft:80,minWidth: 450,overflow:'auto',
     minHeight:510,
-    maxWidth:750 ,maxHeight:710,}}>
+    maxWidth:750 ,maxHeight:610,}}>
               
                 
 
@@ -145,13 +162,13 @@ console.log(hst)
 
                   <div className="Post-user-profilepicture">
 
-                    <img src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" alt="Preet Modh" />
+                    <img src={post.userphoto} alt="Preet Modh" />
 
                   </div>
 
                   <div className="Post-user-nickname">
 
-                    <span>Preet Modh</span>
+                    <span>{post.username}</span>
 
                   </div>
 
@@ -186,7 +203,7 @@ maxHeight:610,
 maxWidth:900,
  
 }}>
-<h3 style={{margin:'5px'}}>USER</h3>  
+<h3 style={{margin:'5px'}}>Comments</h3>  
 <div className={classes.Comment2}  style={{
   
   overflow:'auto',
@@ -222,7 +239,7 @@ maxWidth:900,
         width:'100%',
         }}>{Comment.body}
         <br/><br/>
-        {Comment.date}
+        {Comment.time_ago}
         </div>
         
       </Paper>
@@ -249,7 +266,8 @@ maxWidth:900,
             label="type here"
             name="message"
             autoComplete="email"
-            autoFocus
+            value={newcomment}
+            onChange={(event)=>{setNewcomment(event.target.value)}}
             
     />
 <Button 
@@ -257,6 +275,7 @@ maxWidth:900,
             fullWidth
             variant="contained"
             color="primary"
+            onClick={(e)=>{sendcomment()}}
             
     >
     GO

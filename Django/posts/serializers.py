@@ -7,7 +7,7 @@ class PostSerializer(serializers.ModelSerializer):
     # following=serializers.CharField(source='following.user_name')
     class Meta:
         model = Post
-        fields = '__all__'
+        fields = ('id','title','Image','caption','posted','tags','username','likes','userphoto')
 class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Likes

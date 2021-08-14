@@ -5,7 +5,7 @@ from notifications.models import Notification
 from posts.models import Post
 from django.db.models.signals import post_save, post_delete
 from django.conf import settings
-
+from datetime import datetime
 
 User=settings.AUTH_USER_MODEL
 
@@ -18,6 +18,28 @@ class Comment(models.Model):
 	
 	def __str__(self):
 		return self.body[:20]
+
+	def username(self):
+		return self.user.user_name
+
+	def time_ago(self):
+		
+		time = datetime.now()
+		if self.date == None:
+			return None
+		if  self.date.minute == time.minute and self.date.hour == time.hour and self.date.day == time.day:
+			return "Now"
+		elif  self.date.hour == time.hour and self.date.day == time.day:
+			return str(time.minute - self.date.minute) + " minutes ago"
+		elif self.date.day == time.day:
+			return str(time.hour - self.date.hour) + " hours ago"
+		else:
+			if self.date.month == time.month:
+				return str(time.day - self.date.day) + " days ago"
+			else:
+				if self.date.year == time.year:
+					return str(time.month - self.date.month) + " months ago"
+		return str(self.date)
 
 	def user_comment_post(sender, instance, *args, **kwargs):
 		comment = instance

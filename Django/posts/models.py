@@ -47,6 +47,11 @@ class Post(models.Model):
 		ordering=['-posted']
 	def __str__(self):
 		return str(self.title)
+	def username(self):
+		return self.user.user_name
+	def userphoto(self):
+		return self.user.picture.url
+	
 
 
 

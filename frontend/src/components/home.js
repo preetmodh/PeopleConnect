@@ -194,7 +194,7 @@ className={clsx(classes.appBar, {
 </Box>
 <Box display='flex'>
       <h8 style={{ fontSize: 20,marginTop:'23px' ,marginRight:'3px'}}>Search</h8>
-      <Input style={{ fontSize:20,margin:'18px',marginRight:'500px',color:'white', }} label="Email Address"></Input>
+      <Input style={{ fontSize:20,margin:'18px',marginRight:'500px',color:'white',}}></Input>
       <Button style={{ fontSize:15,margin:'15px',color:'white' }}>Logout</Button>
 </Box>
 </Toolbar>

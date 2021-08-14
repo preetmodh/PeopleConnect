@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
     button: {
       margin: theme.spacing.unit,
+      padding:'2px'
     },
     input: {
       display: 'none',
@@ -153,13 +154,13 @@ const useStyles = makeStyles((theme) => ({
 
                 <div className="Post-user-profilepicture">
 
-                  <img src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" alt="Preet Modh" />
+                  <img src={post.userphoto} alt="Preet Modh" />
 
                 </div>
 
                 <div className="Post-user-nickname">
 
-                  <span>Preet Modh</span>
+                  <span>{post.username}</span>
 
                 </div>
 
@@ -185,17 +186,8 @@ const useStyles = makeStyles((theme) => ({
             {likedCount[post.id]}&nbsp;
             
             <strong>Preet Modh </strong> 
-            <div>{post.caption}</div>
+            <div>Caption:{post.caption}</div>
             </div>
-            <TextField
-              style={{marginBottom:'7px',marginLeft:'10px'}}
-              id="standard-textarea"
-              label="comment here"
-
-              multiline
-              variant="outlined"
-              size="small"
-            />
 
           </article>
           

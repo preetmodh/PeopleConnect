@@ -5,6 +5,6 @@ from django.conf import settings
 from .views import CommentView
 
 urlpatterns = [
-   path('',CommentView.as_view()),
+   path('new',CommentView.as_view()),
    
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
