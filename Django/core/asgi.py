@@ -17,6 +17,7 @@ application = ProtocolTypeRouter({
         URLRouter([
             path('ws/noticount/',NotiConsumer.as_asgi()),
             path('ws/chat/<str:chat_id>/',ChatConsumer.as_asgi()),
+            path('ws/recent/',ChatRecentConsumer.as_asgi()),
         ]))
     
 })

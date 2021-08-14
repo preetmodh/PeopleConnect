@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 
 
 export default function Chat(params) {
-  console.log(params);
+  
   const id= params.id;
   const classes = useStyles();
   const messagesEndRef = useRef(null)

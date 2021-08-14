@@ -31,7 +31,6 @@ class Notification(models.Model):
 	def get_time_ago(self):
 		
 		time = datetime.now()
-		print(time ," -------- " ,self.created_at)
 		if self.created_at == None:
 			return None
 		if  self.created_at.minute == time.minute and self.created_at.hour == time.hour and self.created_at.day == time.day:

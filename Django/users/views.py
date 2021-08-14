@@ -1,6 +1,6 @@
 from django.db import models
 from django.shortcuts import render
-from rest_framework import generics
+from rest_framework import generics,filters
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.views import APIView
@@ -110,5 +110,11 @@ class followers_followings(APIView):
         
     #     return self.create(request, *args, **kwargs)
 
-        
+class FindUser(generics.ListAPIView):
+    queryset = User.objects.all()
+    serializer_class = CustomUserSerializer
+    filter_backends = [filters.SearchFilter]
+    # '^' Starts-with search.
+    # '=' Exact matches.
+    search_fields = ['^user_name']
       

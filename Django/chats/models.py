@@ -42,9 +42,27 @@ class RecentChat(models.Model):
                 if self.created_at.year == time.year:
                     return str(time.month - self.created_at.month) + " months ago"
         return str(self.created_at)
-    
-    
 
+    def send_recent(sender, instance, *args, **kwargs):
+        from .serializers import ChatRecentSerializer
+        channel_layer = get_channel_layer()
+        recent_data = ChatRecentSerializer(instance).data
+        data={'recent_message':recent_data}
+        room_name="chat_room_for_users_"+str(instance.receiver.id)
+        async_to_sync(channel_layer.group_send)(
+			 room_name,{       
+				'type' : 'recent_data',
+				'value' : json.dumps(data)
+			}
+		)
+
+        room_name="chat_room_for_users_"+str(instance.sender.id)
+        async_to_sync(channel_layer.group_send)(
+			 room_name,{       
+				'type' : 'recent_data',
+				'value' : json.dumps(data)
+			}
+		)
 
 
 
@@ -108,14 +126,17 @@ class Chat(models.Model):
             recent_chat=RecentChat(receiver=instance.receiver,
                                     sender=instance.sender,
                                     room_name=instance.room_name,
-                                    message=instance.message,)
+                                    message=instance.message,
+                                    is_seen=instance.is_seen)
             recent_chat.save()
         except:
             recent_chat=RecentChat(receiver=instance.receiver,
                                     sender=instance.sender,
                                     room_name=instance.room_name,
-                                    message=instance.message,)
+                                    message=instance.message,
+                                    is_seen=instance.is_seen)
             recent_chat.save()
 
 
 post_save.connect(Chat.send_new_message, sender=Chat)	
+post_save.connect(RecentChat.send_recent, sender=RecentChat)
