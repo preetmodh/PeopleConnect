@@ -41,5 +41,12 @@ class RecentChatListView(generics.ListAPIView):
         current_user=self.request.user
         queryset=RecentChat.objects.filter(Q(receiver=current_user) | Q(sender=current_user))
         serializer = ChatRecentSerializer(queryset, many=True)
-        data={'recent':serializer.data,'current_user':current_user.id}
+        
+        seenDict={}
+        
+        for i in serializer.data:
+            
+            if(i['is_seen']==False):
+                seenDict[i['room_name']]=0
+        data={'recent':serializer.data,'current_user':current_user.id,'seen':seenDict}
         return Response(data,status=200)
