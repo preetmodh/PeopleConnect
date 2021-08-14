@@ -93,9 +93,9 @@ export default function AddPost (props){
     }
     return( 
         <>
-        <Dialog onClose={handleClose}  open={open}>
+        <Dialog onClose={handleClose}  open={open} style={{minWidth:'400px',minHeight:'40%'}}>
             <DialogTitle >Add Post</DialogTitle>
-            <h1>title,Image  caption tags user</h1>
+            
 
             <TextField
                     autoFocus margin="dense" id="title" label="title" type="text" name="title"

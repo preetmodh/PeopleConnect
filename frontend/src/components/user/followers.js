@@ -39,10 +39,10 @@ export default function Followers(props){
     const x=localStorage.getItem('token')
     const classes = useStyles();
     
-    const { onClose, selectedValue, open } = props;
+    const { onClose, open } = props;
 
     const handleClose = () => {
-      onClose(selectedValue);
+      onClose();
     };
   
     const handleListItemClick = (value) => {

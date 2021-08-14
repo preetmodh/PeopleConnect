@@ -7,7 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Followers from "./user/followers";
 import Following from "./user/following";
 import PostLayout from "./Post/post_layout";
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+import AddPost from "./Post/actions/add_post";
+
 const useStyles = makeStyles((theme) => ({
     follow_following_div:{
         display: 'flex',
@@ -25,16 +26,21 @@ export default function Profile(){
 
 
     const [open, setOpen] = React.useState(false);
-    const [selectedValue, setSelectedValue] = React.useState(emails[1]);
+    
 
     const handleClickOpen = () => {
         setOpen(true);
     };
 
-    const handleClose = (value) => {
+    const handleClose = () => {
         setOpen(false);
-        setSelectedValue(value);
+        
         setfollowState(0);
+    };
+    const [OpenAddPost,setOpenAddPost]=useState(false);
+    const handleCloseAddPost = () => {
+        setOpenAddPost(false);
+      
     };
     
       const classes = useStyles();
@@ -51,7 +57,16 @@ export default function Profile(){
                 <button onClick={()=>{changeFollowState(2);setOpen(true)}}>Following</button>
                 
             </div>
-            { followState!=0&&(followState===1?<Followers selectedValue={selectedValue} open={open} onClose={handleClose}/>:<Following selectedValue={selectedValue} open={open} onClose={handleClose}/>)}
+            { followState!=0&&(followState===1?<Followers  open={open} onClose={handleClose}/>:<Following  open={open} onClose={handleClose}/>)}
+
+            <div className="Post">
+      
+              <button onClick={()=>{setOpenAddPost(true)}}>Add Post</button>
+            
+            
+            </div>
+            { OpenAddPost && <AddPost  open={OpenAddPost} onClose={handleCloseAddPost}/>}
+           
             <div className={classes.profilePosts}>
                 <PostLayout params={parameters}/>
             </div>

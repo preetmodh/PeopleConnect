@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from '@material-ui/core/Button';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import Grow from '@material-ui/core/Grow';
@@ -7,6 +7,8 @@ import Popper from '@material-ui/core/Popper';
 import MenuItem from '@material-ui/core/MenuItem';
 import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
+import { Input } from '@material-ui/core';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,6 +29,7 @@ export default function Search() {
   };
 
   const handleClose = (event) => {
+      
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
@@ -50,16 +53,41 @@ export default function Search() {
 
     prevOpen.current = open;
   }, [open]);
-
+  const x=localStorage.getItem('token');
+  const [data,setData]=useState();
+  const [searchValue,setsearchValue]=useState();
+  
+  function search(value){
+    setsearchValue(value)
+    if (value.length>0){
+      axios.get(`http://127.0.0.1:8000/user/finduser/?search=${value}`,{
+            headers: { 
+                'Authorization': `token ${x}`,
+              }
+              })
+              .then((res) => {
+                console.log(res.data);
+                setData(res.data)
+              }, (error) => {console.log(error);})
+    
+    }
+    else{
+        setsearchValue('')
+        setData('')
+    }
+    }
   return (
     <div className={classes.root}>
       <div>
-        <input
-          ref={anchorRef}
+      <Input
+       ref={anchorRef}
           aria-controls={open ? 'menu-list-grow' : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
-        />
+          value={searchValue}
+            onChange={(e) => {search(e.target.value)}}
+           style={{ fontSize:20,margin:'18px',marginRight:'500px',minWidth:'30%' ,color:'white',}}></Input>
+        
  
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
           {({ TransitionProps, placement }) => (
@@ -70,9 +98,14 @@ export default function Search() {
               <Paper>
                 <ClickAwayListener onClickAway={handleClose}>
                   <MenuList  id="menu-list-grow" onKeyDown={handleListKeyDown}>
-                    <MenuItem onClick={handleClose}>Profile</MenuItem>
-                    <MenuItem onClick={handleClose}>My account</MenuItem>
-                    <MenuItem onClick={handleClose}>Logout</MenuItem>
+                  {data&& data.map((user)=>{
+                      return(
+                          <>
+                            <MenuItem value={user.user_name} onClick={(e) => {setsearchValue(user.user_name);handleClose(e)}}>{user.user_name}</MenuItem>
+                          </>
+                      )
+                  })}
+                    
                   </MenuList>
                 </ClickAwayListener>
               </Paper>
