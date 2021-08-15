@@ -36,7 +36,9 @@ const useStyles = makeStyles((theme) => ({
 
 
   export default function PostLayout(props)  {
+    
     const params=props.params
+    const url=props.params.url
     const classes = useStyles();
     const [Posts,setPosts]=useState();
     const [isLiked,setisLiked]=useState({});
@@ -93,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 
     
       
-        axios.get(`http://127.0.0.1:8000/posts/profile_post`,{
+        axios.get(url,{
             headers: {
                 'Authorization': `token ${x}`,
                 
@@ -149,13 +151,14 @@ const useStyles = makeStyles((theme) => ({
 
                 <div className="Post-user-profilepicture">
 
-                  <img src={post.userphoto} alt="Preet Modh" />
+                  <img src={post.userphoto} />
 
                 </div>
 
                 <div className="Post-user-nickname">
-
+                <NavLink to={`/profile/${post.username}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
                   <span>{post.username}</span>
+                </NavLink>
 
                 </div>
 

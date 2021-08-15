@@ -1,5 +1,6 @@
 
 
+from users.models import User
 from django.db.models.query import QuerySet
 from comments.models import Comment
 from users.models import Follow
@@ -31,12 +32,11 @@ class posts_particularUser(APIView):
 
     def get(self,request,*args, **kwargs):
         typ=request.query_params['type']
-        
-        
         user=request.user
         posts_data=[]
         likeDict={}
         if(typ=='profile'):
+            user=User.objects.get(user_name=kwargs['username'])
             posts_obj=Post.objects.filter(user=user)
             paginator = Paginator(posts_obj, 2)
             page_number = request.GET.get('page')
@@ -45,7 +45,7 @@ class posts_particularUser(APIView):
             for i in posts_obj:
                 posts_data.append(PostSerializer(i).data)
                 try:
-                    like=Likes.objects.get(user=user,post=i.id)
+                    like=Likes.objects.get(user=request.user,post=i.id)
                     likeDict[i.id]=1
                 except:
                     continue
@@ -76,8 +76,13 @@ class posts_particularUser(APIView):
         likeCountDict={}
         for i in posts_data:
             likeCountDict[i['id']]=i['likes']
-            
-        return Response(data={'posts_data':posts_data,'likeDict':likeDict,'likeCount':likeCountDict,'pageCnt':paginator.num_pages},status=200)
+        
+        return Response(data={'posts_data':posts_data,
+            'likeDict':likeDict,
+            'likeCount':likeCountDict,
+            'pageCnt':paginator.num_pages,
+            'isCurrenUser':request.user==user},
+            status=200)
     def post(self,request,format=None):
         print(request.data)
         user=request.user

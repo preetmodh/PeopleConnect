@@ -62,28 +62,32 @@ class suggested_friends(generics.ListAPIView):
 class followers_followings(APIView):
     authentication_classes = [TokenAuthentication,]
     permission_classes = [IsAuthenticated]
-    def get(self,request):
+    def get(self,request,*args, **kwargs):
         
         # print(request.query_params)
         typ=request.query_params['type']
-        user=request.user
+        user=kwargs['username']
+        user=User.objects.get(user_name=user)
         data={}
+        data['iscuruser']=(user==request.user)
         if typ=='followers':
             followers_obj=Follow.objects.filter(following=user)
             data['followers']=[]
             for i in followers_obj:
                 data['followers'].append(CustomUserSerializer( i.follower).data)
         else:
-            print('hellooo')
+            
             following_obj=Follow.objects.filter(follower=user)
             data['following']=[]
             for i in following_obj:
                 data['following'].append(CustomUserSerializer( i.following).data)
         return Response(data=data,status=200)
 
-    def delete(self, request):
+    def delete(self, request,*args, **kwargs):
         typ=request.data['type']
         id=request.data['id']
+        if(kwargs['username']!=request.user.user_name):
+            return Response('Not Authorized',status=403)
         user=request.user
         data={}
         
@@ -98,7 +102,7 @@ class followers_followings(APIView):
             obj.delete()
             return Response('Deleted',status=200)
             
-    def post(self,request):
+    def post(self,request,*args, **kwargs):
         id=request.data['following']
         user=request.user
         following_obj=User.objects.get(id=id)

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { Component,useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -18,6 +19,11 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function Profile(){
+    
+    
+    
+    const {username}  = useParams();
+    
     
     const x=localStorage.getItem('token')
     //hooks 
@@ -46,6 +52,7 @@ export default function Profile(){
       const classes = useStyles();
       const parameters={
         type: 'profile',
+        url:`http://127.0.0.1:8000/posts/profile_post/${username}`
       }
     return(
         <div style={{marginLeft:100}}>
@@ -57,15 +64,10 @@ export default function Profile(){
                 <button onClick={()=>{changeFollowState(2);setOpen(true)}}>Following</button>
                 
             </div>
-            { followState!=0&&(followState===1?<Followers  open={open} onClose={handleClose}/>:<Following  open={open} onClose={handleClose}/>)}
+            { followState!=0&&(followState===1?<Followers username={username} open={open} onClose={handleClose}/>:<Following username={username} open={open} onClose={handleClose}/>)}
 
-            <div className="Post">
-      
-              <button onClick={()=>{setOpenAddPost(true)}}>Add Post</button>
+           
             
-            
-            </div>
-            { OpenAddPost && <AddPost  open={OpenAddPost} onClose={handleCloseAddPost}/>}
            
             <div className={classes.profilePosts}>
                 <PostLayout params={parameters}/>

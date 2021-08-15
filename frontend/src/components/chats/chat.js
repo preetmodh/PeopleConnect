@@ -103,7 +103,10 @@ const MessageChange=(event)=>{
 
 return (
 <div className={classes.root}  style={{position:'fixed',border:'ridge',maxHeight:610,maxWidth:900}}>
-  <h2 style={{margin:'5px'}}>{params.name}</h2>
+  <NavLink to={`/profile/${params.name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+      <h2 style={{margin:'5px'}}>{params.name}</h2>
+  </NavLink>
+  
   <div className={classes.root} style={{
     overflow:'auto',
     marginBottom:'10px',

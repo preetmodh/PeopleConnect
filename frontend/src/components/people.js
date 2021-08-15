@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { Component,useEffect, useState } from "react";
 
-import {Navlink} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 
 
@@ -27,7 +27,12 @@ export default function People(){
             <div >
                 <ul style={{fontSize:30}}>
                     {suggestedFriends&& suggestedFriends.map((Friend)=>{
-                        return <li>{Friend.user_name}</li>  
+                        return(
+                             <NavLink to={`/profile/${Friend.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+                                <li>{Friend.user_name}</li>  
+                            </NavLink>
+
+                        )
                     })}
                 </ul>
             </div>

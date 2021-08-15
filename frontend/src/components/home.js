@@ -122,7 +122,8 @@ const [iconid,setid]=useState();
 const [open, setOpen] = useState(false);
 const [notiCount, setnotiCount] = useState(0);
 const [messageCount, setmessageCount] = useState(0);
-
+const [username,setusername]=useState();
+const [profile,setprofile]=useState();
 const handleDrawerOpen = () => {
   setOpen(true);
 };
@@ -147,10 +148,13 @@ useEffect(() => {
   const chatSocket = new WebSocket(link);
   chatSocket.onmessage = function(e) {
   var data = JSON.parse(e.data);
+  setusername(data.value.user);
+  setprofile(data.value.profile_pic);
   setnotiCount(data.value.count)
   };
   chatSocket.onclose = function(e) {
   console.error('Chat socket closed unexpectedly');
+
 };
 }, []); 
 
@@ -190,8 +194,8 @@ className={clsx(classes.appBar, {
 </IconButton>
 
 <Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
-        <Avatar style={{margin:'15px' }} alt="Remy Sharp" src="https://i.pinimg.com/originals/2f/e0/6c/2fe06c3acec7d5a78c1706ad7a96a821.jpg" />
-        <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>Preet Modh</h8>
+        <Avatar style={{margin:'15px' }}  src={profile} />
+        <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>{username}</h8>
 </Box>
 <Box display='flex'>
       <h8 style={{ fontSize: 20,marginTop:'23px' ,marginRight:'3px'}}>Search</h8>
@@ -224,8 +228,14 @@ paper: clsx({
 <List>
 {['Home','Peoples','Messages','Notifications','Profile','Saved','Settings','Logout',].map((iconnames, idx) => {
 const Icon = icons[idx];
+var url = `/${iconnames.toLowerCase()}`
+
+if (username&&iconnames=='Profile'){
+  url=url+'/'+username
+
+}
 return (
-<NavLink  to={`/${iconnames.toLowerCase()}`} replace="true" activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
+<NavLink  to={url} replace="true" activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
 <div>
 <div onClick={()=>{changeColor(idx)}} >
 <Tooltip title={<h3>{iconnames}</h3>}  placement="right">

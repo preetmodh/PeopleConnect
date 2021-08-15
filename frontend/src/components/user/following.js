@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Following(props){
     const x=localStorage.getItem('token')
     const classes = useStyles();
-
+    
     const { onClose,  open } = props;
 
     const handleClose = () => {
@@ -67,10 +67,11 @@ export default function Following(props){
     };
     const[following,setfollowing]=useState()
     const[following_id,setfollowing_id]=useState({})
-    
+    const [iscurrentuser,setiscurrentuser]=useState(false);
+    const username=props.username
 
     const removefollowing=(id)=>{
-        axios.delete(`http://127.0.0.1:8000/user/followers_followings`, {
+        axios.delete(`http://127.0.0.1:8000/user/followers_followings/${username}`, {
           headers: {
             'Authorization': `token ${x}`,
           },
@@ -83,12 +84,13 @@ export default function Following(props){
           console.log(res);
           
           setfollowing_id({...following_id,[id]:0});
+          
       },(error)=>{console.log(error.message,error.response)})
     }
 
 
     const Follow=(id)=>{
-      axios.post(`http://127.0.0.1:8000/user/followers_followings`,{following:id}, {
+      axios.post(`http://127.0.0.1:8000/user/followers_followings/${username}`,{following:id}, {
         headers: {
           'Authorization': `token ${x}`,
         },
@@ -102,7 +104,7 @@ export default function Following(props){
   }
     useEffect(() => {
       const body={ name:1,};
-        axios.get(`http://127.0.0.1:8000/user/followers_followings`,{
+        axios.get(`http://127.0.0.1:8000/user/followers_followings/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,
                 
@@ -115,6 +117,7 @@ export default function Following(props){
             console.log('donzo');
             console.log(res);
             setfollowing(res.data.following);
+            setiscurrentuser(res.data.iscuruser);
             const dict={}
             for (let i = 0; i < res.data.following.length; i++) {
               dict[res.data.following[i].id]=1;
@@ -147,12 +150,12 @@ export default function Following(props){
                       <ListItemText primary={following.user_name} secondary={following.first_name+" "+following.last_name} />
                    
                   
-                      {following_id[following.id]===1? <ColorButton onClick={()=>removefollowing(following.id)} variant="contained" color="primary" className={classes.followingButton}>
+                      {iscurrentuser==true ? following_id[following.id]===1? <ColorButton onClick={()=>removefollowing(following.id)} variant="contained" color="primary" className={classes.followingButton}>
                       Unfollow
                   </ColorButton>:
                   <ColorButtonFollow onClick={()=>Follow(following.id)} variant="contained" color="primary" className={classes.followingButton}>
                       Follow
-                  </ColorButtonFollow>
+                  </ColorButtonFollow>:<></>
                 }
               </ListItem>
             </>

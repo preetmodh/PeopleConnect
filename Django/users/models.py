@@ -64,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     profile_info = models.TextField(max_length=150, null=True, blank=True)
     created = models.DateField(auto_now_add=True)
     favorites = models.ManyToManyField(Post,related_name='profile',blank=True)
-    picture = models.ImageField(upload_to='maps', blank=True, null=True, verbose_name='Picture',storage=gd_storage)
+    picture = models.ImageField(default='default_user.jpg',upload_to='maps', blank=True, null=True, verbose_name='Picture',storage=gd_storage)
 
     objects = CustomAccountManager()
 
