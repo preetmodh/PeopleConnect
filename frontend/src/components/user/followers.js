@@ -16,7 +16,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue, red } from '@material-ui/core/colors';
-
+import { NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -124,7 +124,10 @@ export default function Followers(props){
                         
                     </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />
+                    <NavLink to={`/profile/${follower.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+                      <ListItemText primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />
+                    </NavLink>
+                    
                 
                 
                 {iscurrentuser==true? followers_id[follower.id]===1? <ColorButton onClick={()=>removeFollower(follower.id)} variant="contained" color="primary" className={classes.followButton}>

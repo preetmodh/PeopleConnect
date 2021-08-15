@@ -167,7 +167,10 @@ setid(-1)
 
 
 }
-
+const logout=()=>{
+  localStorage.removeItem('token');
+  window.location.replace('/login');
+}
 
 return (
   
@@ -202,7 +205,7 @@ className={clsx(classes.appBar, {
       <Search/>
       
       
-      <Button style={{ fontSize:15,margin:'15px',color:'white' }}>Logout</Button>
+      <Button onClick={logout} style={{ fontSize:15,margin:'15px',color:'white' }}>Logout</Button>
 </Box>
 </Toolbar>
 </AppBar>

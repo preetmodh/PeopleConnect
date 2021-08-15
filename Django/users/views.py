@@ -70,12 +70,20 @@ class followers_followings(APIView):
         user=User.objects.get(user_name=user)
         data={}
         data['iscuruser']=(user==request.user)
+        if(typ=='is_following_curuser'):
+            obj=Follow.objects.filter(follower=request.user,following=user)
+            data['is_following_curuser']=False
+            if(obj.count()==1):
+                data['is_following_curuser']=True
+            data['other_user_id']=user.id
+            return Response(data=data,status=200)
+
         if typ=='followers':
             followers_obj=Follow.objects.filter(following=user)
             data['followers']=[]
             for i in followers_obj:
                 data['followers'].append(CustomUserSerializer( i.follower).data)
-        else:
+        else :
             
             following_obj=Follow.objects.filter(follower=user)
             data['following']=[]
@@ -86,14 +94,16 @@ class followers_followings(APIView):
     def delete(self, request,*args, **kwargs):
         typ=request.data['type']
         id=request.data['id']
+        user=request.user
+        if typ=='unfollow_other_user':
+            obj=get_object_or_404(Follow,follower=user,following=id)
+            obj.delete()
+            return Response('Deleted',status=200)
+            
         if(kwargs['username']!=request.user.user_name):
             return Response('Not Authorized',status=403)
-        user=request.user
-        data={}
         
         if typ=='followers':
-            # objExist=get_object_or_404(follower=id,following=user)
-            
             obj=get_object_or_404(Follow,follower=id,following=user)
             obj.delete()
             return Response('Deleted',status=200)

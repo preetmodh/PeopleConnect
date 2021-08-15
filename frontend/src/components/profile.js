@@ -9,6 +9,8 @@ import Followers from "./user/followers";
 import Following from "./user/following";
 import PostLayout from "./Post/post_layout";
 import AddPost from "./Post/actions/add_post";
+import User_followUnfollow from "./user/Action/user_followUnfollow";
+import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     follow_following_div:{
@@ -59,9 +61,10 @@ export default function Profile(){
 
             <h1 >Profile</h1>
             <div className={classes.follow_following_div}>
-        
-                <button onClick={()=>{changeFollowState(1);setOpen(true)}}>Followers</button>
-                <button onClick={()=>{changeFollowState(2);setOpen(true)}}>Following</button>
+                <User_followUnfollow username={username}/>
+            
+                <Button variant='outlined' onClick={()=>{changeFollowState(1);setOpen(true)}}>Followers</Button>
+                <Button variant='outlined' onClick={()=>{changeFollowState(2);setOpen(true)}}>Following</Button>
                 
             </div>
             { followState!=0&&(followState===1?<Followers username={username} open={open} onClose={handleClose}/>:<Following username={username} open={open} onClose={handleClose}/>)}
