@@ -15,10 +15,8 @@ import Dialog from '@material-ui/core/Dialog';
 import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
-import { NavLink} from 'react-router-dom';
 import { blue, red } from '@material-ui/core/colors';
-
-
+const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -54,44 +52,35 @@ const useStyles = makeStyles((theme) => ({
     },
   }))(Button);
 
-export default function Following(props){
+export default function User_followUnfollow(props){
     const x=localStorage.getItem('token')
     const classes = useStyles();
     
-    const { onClose,  open } = props;
-
-    const handleClose = () => {
-      onClose();
-    };
-  
-    const handleListItemClick = (value) => {
-      onClose(value);
-    };
-    const[following,setfollowing]=useState()
-    const[following_id,setfollowing_id]=useState({})
-    const [iscurrentuser,setiscurrentuser]=useState(false);
+    const [iscurrentuser,setiscurrentuser]=useState(true);
+    const [isFollowing,setisFollowing]=useState(false);
     const username=props.username
-
-    const removefollowing=(id)=>{
+    const[id,setid]=useState();
+    const removefollowing=()=>{
         axios.delete(`http://127.0.0.1:8000/user/followers_followings/${username}`, {
           headers: {
             'Authorization': `token ${x}`,
           },
           data: {
-            type: 'following',
+            type: 'unfollow_other_user',
             id:id,
           }
         }).then((res)=>{
           console.log('donzo');
           console.log(res);
+          setisFollowing(false);
           
-          setfollowing_id({...following_id,[id]:0});
+          
           
       },(error)=>{console.log(error.message,error.response)})
     }
 
 
-    const Follow=(id)=>{
+    const Follow=()=>{
       axios.post(`http://127.0.0.1:8000/user/followers_followings/${username}`,{following:id}, {
         headers: {
           'Authorization': `token ${x}`,
@@ -100,77 +89,42 @@ export default function Following(props){
       }).then((res)=>{
         console.log('donzo');
         console.log(res);
+        setisFollowing(true);
         
-        setfollowing_id({...following_id,[id]:1});
     },(error)=>{console.log(error.message,error.response)})
   }
     useEffect(() => {
-      const body={ name:1,};
+      
         axios.get(`http://127.0.0.1:8000/user/followers_followings/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,
                 
               },
               params: {
-                type: 'following',
+                type: 'is_following_curuser',
                 
             }
             }).then((res)=>{
-            console.log('donzo');
-            console.log(res);
-            setfollowing(res.data.following);
-            setiscurrentuser(res.data.iscuruser);
-            const dict={}
-            for (let i = 0; i < res.data.following.length; i++) {
-              dict[res.data.following[i].id]=1;
             
-              
-            }
-            return dict;
+            console.log(res);
+            
+            setiscurrentuser(res.data.iscuruser);
+            setisFollowing(res.data.is_following_curuser);
+            setid(res.data.other_user_id);
             
         }
-        ,(error)=>{console.log(error.message,error.response)}).then((dict)=>{
-          setfollowing_id(dict);
-          
-
-        },(error)=>{console.log(error.message)});
+        ,(error)=>{console.log(error.message,error.response)})
       
     }, [])
     return(
         <>
-        <Dialog onClose={handleClose}  open={open}>
-      <DialogTitle >Following</DialogTitle>
-      <List>
-        {following&&following.map((following) => (
-            <>
-              <ListItem key={following.id}>
-                      <ListItemAvatar>
-                      <Avatar>
-                          <ImageIcon />
-                      </Avatar>
-                      </ListItemAvatar>
-                      
-                      <NavLink to={`/profile/${following.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
-                      <ListItemText primary={following.user_name} secondary={following.first_name+" "+following.last_name} />
-                    </NavLink>
-                      
-                   
-                  
-                      {iscurrentuser==true ? following_id[following.id]===1? <ColorButton onClick={()=>removefollowing(following.id)} variant="contained" color="primary" className={classes.followingButton}>
+         {iscurrentuser==false ? (isFollowing===true? <ColorButton onClick={()=>removefollowing()} variant="contained" color="primary" className={classes.followingButton}>
                       Unfollow
                   </ColorButton>:
-                  <ColorButtonFollow onClick={()=>Follow(following.id)} variant="contained" color="primary" className={classes.followingButton}>
+                  <ColorButtonFollow onClick={()=>Follow()} variant="contained" color="primary" className={classes.followingButton}>
                       Follow
-                  </ColorButtonFollow>:<></>
+                  </ColorButtonFollow>):<></>
                 }
-              </ListItem>
-            </>
-            ))}
-        </List>
-    </Dialog>
-
-
-    
-        </>
+           </>
     )
 }

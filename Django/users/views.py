@@ -62,34 +62,48 @@ class suggested_friends(generics.ListAPIView):
 class followers_followings(APIView):
     authentication_classes = [TokenAuthentication,]
     permission_classes = [IsAuthenticated]
-    def get(self,request):
+    def get(self,request,*args, **kwargs):
         
         # print(request.query_params)
         typ=request.query_params['type']
-        user=request.user
+        user=kwargs['username']
+        user=User.objects.get(user_name=user)
         data={}
+        data['iscuruser']=(user==request.user)
+        if(typ=='is_following_curuser'):
+            obj=Follow.objects.filter(follower=request.user,following=user)
+            data['is_following_curuser']=False
+            if(obj.count()==1):
+                data['is_following_curuser']=True
+            data['other_user_id']=user.id
+            return Response(data=data,status=200)
+
         if typ=='followers':
             followers_obj=Follow.objects.filter(following=user)
             data['followers']=[]
             for i in followers_obj:
                 data['followers'].append(CustomUserSerializer( i.follower).data)
-        else:
-            print('hellooo')
+        else :
+            
             following_obj=Follow.objects.filter(follower=user)
             data['following']=[]
             for i in following_obj:
                 data['following'].append(CustomUserSerializer( i.following).data)
         return Response(data=data,status=200)
 
-    def delete(self, request):
+    def delete(self, request,*args, **kwargs):
         typ=request.data['type']
         id=request.data['id']
         user=request.user
-        data={}
+        if typ=='unfollow_other_user':
+            obj=get_object_or_404(Follow,follower=user,following=id)
+            obj.delete()
+            return Response('Deleted',status=200)
+            
+        if(kwargs['username']!=request.user.user_name):
+            return Response('Not Authorized',status=403)
         
         if typ=='followers':
-            # objExist=get_object_or_404(follower=id,following=user)
-            
             obj=get_object_or_404(Follow,follower=id,following=user)
             obj.delete()
             return Response('Deleted',status=200)
@@ -98,7 +112,7 @@ class followers_followings(APIView):
             obj.delete()
             return Response('Deleted',status=200)
             
-    def post(self,request):
+    def post(self,request,*args, **kwargs):
         id=request.data['following']
         user=request.user
         following_obj=User.objects.get(id=id)

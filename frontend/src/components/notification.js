@@ -1,6 +1,7 @@
 import React, { useState,useEffect } from "react";
 import axios from 'axios';
 import './assests/App.css';
+import { NavLink } from "react-router-dom";
 export default function Notification(){
 
     const x=localStorage.getItem('token');
@@ -31,7 +32,7 @@ export default function Notification(){
     const [list, setList] = useState([]);
 
     
-    // const x='0526653f8ddcdb59b0c70684136a3d6bc8c79e2c';
+    
 
    
 
@@ -40,23 +41,28 @@ export default function Notification(){
       for (var i=0;i<list.length;i++){
         var title=''
         if (list[i]['notification_type']==1){
-            title=list[i]['get_sendername'] + ' Liked your post.'
+            title= ' Liked your post.'
         }
         else if (list[i]['notification_type']==2){
-            title=list[i]['get_sendername'] + ' Commented on your post.'
+            title= ' Commented on your post.'
         }
         else{
-            title=list[i]['get_sendername'] + ' Followed you.'
+            title= ' Followed you.'
         }
 
             array.push(
-                <div  class="posts" style={{backgroundColor:list[i]['is_seen'] ? '#6cd1a4':'#9dfcbe'}} >
-                <div class="element" >
-                        <span >{title}</span>
-                        <br />
-                        <span >{list[i]['get_date']}</span>
-                </div>
-                </div>
+                <NavLink to={`/profile/${list[i]['get_sendername']}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+                    <div  class="posts" style={{backgroundColor:list[i]['is_seen'] ? '#6cd1a4':'#9dfcbe'}} >
+                    <div class="element" >
+                    
+                        <span >{list[i]['get_sendername']}  {title}</span>
+
+                            <span >{list[i]['get_sendername']}  {title}</span>
+                            <br />
+                            <span >{list[i]['get_date']}</span>
+                    </div>
+                    </div>
+                </NavLink>
             )
 
       }

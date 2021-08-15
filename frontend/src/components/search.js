@@ -9,6 +9,7 @@ import MenuList from '@material-ui/core/MenuList';
 import { makeStyles } from '@material-ui/core/styles';
 import { Input } from '@material-ui/core';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -100,9 +101,10 @@ export default function Search() {
                   <MenuList  id="menu-list-grow" onKeyDown={handleListKeyDown}>
                   {data&& data.map((user)=>{
                       return(
-                          <>
+                          <NavLink to={`/profile/${user.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+
                             <MenuItem value={user.user_name} onClick={(e) => {setsearchValue(user.user_name);handleClose(e)}}>{user.user_name}</MenuItem>
-                          </>
+                          </NavLink>
                       )
                   })}
                     

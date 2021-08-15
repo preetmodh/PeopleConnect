@@ -35,7 +35,7 @@ export class App2 extends Component{
                         <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
                         <Route exact path='/messages' component={ChatsRecent} />
                         <Route exact path='/peoples' render={() => <People   key={uuidv4()}/>}/>
-                        <Route exact path='/profile' component={Profile} />
+                        <Route exact path='/profile/:username' render={() => <Profile   key={uuidv4()}/>}   />
                         <Route exact path='/home' component={Post} />
                         <Route exact path='/post/:id' component={SpecificPost} />
                         </div>

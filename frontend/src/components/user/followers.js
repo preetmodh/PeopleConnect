@@ -16,7 +16,7 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue, red } from '@material-ui/core/colors';
-const emails = ['username@gmail.com', 'user02@gmail.com'];
+import { NavLink} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Followers(props){
     const x=localStorage.getItem('token')
     const classes = useStyles();
-    
+    const username=props.username;
     const { onClose, open } = props;
 
     const handleClose = () => {
@@ -50,7 +50,7 @@ export default function Followers(props){
     };
     const[followers,setfollowers]=useState()
     const[followers_id,setfollowers_id]=useState({})
-
+    const [iscurrentuser,setiscurrentuser]=useState(false);
     const ColorButton = withStyles((theme) => ({
         root: {
           color: theme.palette.getContrastText(blue[500]),
@@ -62,7 +62,7 @@ export default function Followers(props){
       }))(Button);
 
     const removeFollower=(id)=>{
-      axios.delete(`http://127.0.0.1:8000/user/followers_followings`, {
+      axios.delete(`http://127.0.0.1:8000/user/followers_followings/${username}`, {
         headers: {
           'Authorization': `token ${x}`,
         },
@@ -78,8 +78,8 @@ export default function Followers(props){
     },(error)=>{console.log(error.message,error.response)})
     }
     useEffect(() => {
-      const body={ name:1,};
-        axios.get(`http://127.0.0.1:8000/user/followers_followings`,{
+      
+        axios.get(`http://127.0.0.1:8000/user/followers_followings/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,
                 
@@ -92,6 +92,7 @@ export default function Followers(props){
             console.log('donzo');
             console.log(res);
             setfollowers(res.data.followers);
+            setiscurrentuser(res.data.iscuruser);
             const dict={}
             for (let i = 0; i < res.data.followers.length; i++) {
               dict[res.data.followers[i].id]=1;
@@ -119,20 +120,27 @@ export default function Followers(props){
         {followers&&followers.map((follower) => (
             <ListItem>
                     <ListItemAvatar>
-                    <Avatar>
-                        <ImageIcon />
+                    <Avatar src={follower.picture}>
+                        
                     </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />
+                    <NavLink to={`/profile/${follower.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+                      <ListItemText primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />
+                    </NavLink>
+                    
                 
                 
-                {followers_id[follower.id]===1? <ColorButton onClick={()=>removeFollower(follower.id)} variant="contained" color="primary" className={classes.followButton}>
+                {iscurrentuser==true? followers_id[follower.id]===1? <ColorButton onClick={()=>removeFollower(follower.id)} variant="contained" color="primary" className={classes.followButton}>
                       Remove
                   </ColorButton>:
                   <ColorButton disabled variant="contained" color="primary" className={classes.followButton}>
                       Removed
                   </ColorButton>
+                  :
+                  <></>
                 }
+
+                
             </ListItem>
             ))}
         </List>

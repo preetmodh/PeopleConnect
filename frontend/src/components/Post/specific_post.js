@@ -17,7 +17,7 @@ import TextField from '@material-ui/core/TextField';
 import axios from "axios";
 import AddPost from "./actions/add_post";
 import Icon from '@material-ui/core/Icon';
-import { useHistory, useParams } from "react-router-dom";
+import { NavLink, useHistory, useParams } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -162,13 +162,15 @@ const sendcomment =() =>{
 
                   <div className="Post-user-profilepicture">
 
-                    <img src={post.userphoto} alt="Preet Modh" />
+                    <img src={post.userphoto} />
 
                   </div>
-
+                  
                   <div className="Post-user-nickname">
 
-                    <span>{post.username}</span>
+                  <NavLink to={`/profile/${post.username}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+                  <span>{post.username}</span>
+                </NavLink>
 
                   </div>
 
@@ -191,7 +193,6 @@ const sendcomment =() =>{
                   </IconButton>
                   {likedCount}&nbsp;
 
-                  <strong>Preet Modh </strong> 
                   <div>{post.caption}</div>
                   </div>
               </div>
@@ -230,7 +231,10 @@ maxWidth:900,
         
         maxWidth:'51%',
         }}>
-        <header>{Comment.username}</header>
+        <NavLink to={`/profile/${Comment.username}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+          <strong>{Comment.username}</strong>
+        </NavLink>
+        
         <div style={{
         padding:'4px',
         fontSize:'14px',
