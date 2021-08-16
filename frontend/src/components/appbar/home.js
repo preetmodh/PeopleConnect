@@ -2,8 +2,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React,{useState,useEffect } from 'react';
 import { NavLink,Link ,useHistory} from 'react-router-dom';
-import './assests/App.css';
-import '../index.css';
 import axios from 'axios';
 
 
@@ -197,7 +195,7 @@ className={clsx(classes.appBar, {
 </IconButton>
 
 <Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
-        <Avatar style={{margin:'15px' }}  src={profile} />
+        <Avatar style={{margin:'15px' }}  src={profile} className={classes.large} />
         <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>{username}</h8>
 </Box>
 <Box display='flex'>

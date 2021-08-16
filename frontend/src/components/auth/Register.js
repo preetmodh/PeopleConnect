@@ -10,7 +10,11 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
+<<<<<<< HEAD
 
+=======
+import { ReactComponent as Svg } from '../assests/svg/PeopleConnect2.svg';
+>>>>>>> dd49ae9ab51db3c47598ea51a373a979fccb53c1
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -19,6 +23,25 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
   },
+<<<<<<< HEAD
+=======
+  svg:{
+    position:'relative',
+    minHeight:300,
+    minWidth:300,
+    maxWidth: '30%',
+     maxHeight: '30%',
+     marginTop:80,
+     marginLeft:80
+  },
+  container:{
+    position:'relative',
+    maxWidth: '30%',
+     maxHeight: '30%',
+     marginTop:40,
+     marginLeft:80
+  },
+>>>>>>> dd49ae9ab51db3c47598ea51a373a979fccb53c1
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
@@ -48,8 +71,13 @@ export default function Register() {
     axios.post('http://127.0.0.1:8000/user/register', {
         user_name: username,
         email:email,
+<<<<<<< HEAD
         password:'AAA@#123',
         // password:password,
+=======
+        // password:'AAA@#123',
+        password:password,
+>>>>>>> dd49ae9ab51db3c47598ea51a373a979fccb53c1
       })
       .then((response) => {
         if (response.status===201){
@@ -78,7 +106,13 @@ export default function Register() {
 
 }
   return (
+<<<<<<< HEAD
     <Container component="main" maxWidth="xs">
+=======
+    <div  style={{display:'flex'}} >
+     <Svg className={classes.svg} />
+    <Container component="main" maxWidth="xs" className={classes.container} >
+>>>>>>> dd49ae9ab51db3c47598ea51a373a979fccb53c1
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -147,5 +181,9 @@ export default function Register() {
         </form>
       </div>
     </Container>
+<<<<<<< HEAD
+=======
+    </div>
+>>>>>>> dd49ae9ab51db3c47598ea51a373a979fccb53c1
   );
 }

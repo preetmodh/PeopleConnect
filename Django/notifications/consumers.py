@@ -19,7 +19,7 @@ class NotiConsumer(WebsocketConsumer):
 
         count=Notification.objects.filter(is_seen=False,user=self.user).count()
         
-        data={'count':count,'user':self.user.user_name,'profile_pic':self.user.picture.url}
+        data={'count':count,'user':self.user.user_name,'profile_pic':self.user.picture}
         async_to_sync(self.channel_layer.group_send)(
 			 self.user_room_name,{
 				'type' : 'notification_data',

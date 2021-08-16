@@ -6,11 +6,19 @@
 
     background-color: #fff;
 
+<<<<<<< HEAD
     /* margin-bottom: 60px; */
 
     margin-left : 20%;
 
     margin-right: 20%;
+=======
+     margin-bottom: 20px;
+
+    margin-left : 25%;
+
+    margin-right: 25%;
+>>>>>>> dd49ae9ab51db3c47598ea51a373a979fccb53c1
 
   }
 
@@ -69,7 +77,11 @@
 
   .Post-caption {
 
+<<<<<<< HEAD
     padding: 16px 16px;
+=======
+    padding: 5px 5px;
+>>>>>>> dd49ae9ab51db3c47598ea51a373a979fccb53c1
 
   }
 

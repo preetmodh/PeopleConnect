@@ -1,18 +1,15 @@
 import React , { Component } from 'react';
 import {BrowserRouter,Route,Switch} from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
-import Login from './components/Login';
-import Register from './components/Register';
-import Home from './components/home';
+import Login from './components/auth/Login';
+import Register from './components/auth/Register';
+import Home from './components/appbar/home';
 import Notification from './components/notification';
-import Messages from './components/messages';
-import Chat from './components/chats/chat';
 import ChatsRecent from './components/chats/chatrecent';
-import Post from './components/post';
+import Post from './components/Post/post';
 import People from './components/people';
-import Profile from './components/profile';
+import Profile from './components/user/profile';
 import SpecificPost from './components/Post/specific_post';
-import PropTypes from 'prop-types';
 
 export class App2 extends Component{
    

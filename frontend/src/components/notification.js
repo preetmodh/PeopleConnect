@@ -54,12 +54,9 @@ export default function Notification(){
                 <NavLink to={`/profile/${list[i]['get_sendername']}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
                     <div  class="posts" style={{backgroundColor:list[i]['is_seen'] ? '#6cd1a4':'#9dfcbe'}} >
                     <div class="element" >
-                    
                         <span >{list[i]['get_sendername']}  {title}</span>
-
-                            <span >{list[i]['get_sendername']}  {title}</span>
-                            <br />
-                            <span >{list[i]['get_date']}</span>
+                        <br />
+                        <span >{list[i]['get_date']}</span>
                     </div>
                     </div>
                 </NavLink>
