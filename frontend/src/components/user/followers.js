@@ -114,7 +114,7 @@ export default function Followers(props){
     }, [])
     return( 
         <>
-        <Dialog onClose={handleClose}  open={open}>
+        <Dialog onClose={handleClose}  open={open} style={{overflow:'auto',maxHeight:'90%'}}>
       <DialogTitle >Followers</DialogTitle>
       <List>
         {followers&&followers.map((follower) => (
@@ -125,7 +125,7 @@ export default function Followers(props){
                     </Avatar>
                     </ListItemAvatar>
                     <NavLink to={`/profile/${follower.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
-                      <ListItemText primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />
+                      <ListItemText style={{minWidth:300}} primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />
                     </NavLink>
                     
                 

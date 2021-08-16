@@ -10,7 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
-
+import { ReactComponent as Svg } from '../assests/svg/PeopleConnect2.svg';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -18,6 +18,22 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  svg:{
+    position:'relative',
+    minHeight:300,
+    minWidth:300,
+    maxWidth: '30%',
+     maxHeight: '30%',
+     marginTop:80,
+     marginLeft:80
+  },
+  container:{
+    position:'relative',
+    maxWidth: '30%',
+     maxHeight: '30%',
+     marginTop:40,
+     marginLeft:80
   },
   avatar: {
     margin: theme.spacing(1),
@@ -78,7 +94,9 @@ export default function Register() {
 
 }
   return (
-    <Container component="main" maxWidth="xs">
+    <div  style={{display:'flex'}} >
+     <Svg className={classes.svg} />
+    <Container component="main" maxWidth="xs" className={classes.container} >
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -147,5 +165,6 @@ export default function Register() {
         </form>
       </div>
     </Container>
+    </div>
   );
 }

@@ -5,11 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 //components
-import Followers from "./user/followers";
-import Following from "./user/following";
-import PostLayout from "./Post/post_layout";
-import AddPost from "./Post/actions/add_post";
-import User_followUnfollow from "./user/Action/user_followUnfollow";
+import Followers from "./followers";
+import Following from "./following";
+import PostLayout from "../Post/post_layout";
+import AddPost from "../Post/actions/add_post";
+import User_followUnfollow from "./Action/user_followUnfollow";
 import { Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,6 +60,7 @@ export default function Profile(){
         <div style={{marginLeft:100}}>
 
             <h1 >Profile</h1>
+            <h2>{username}</h2>
             <div className={classes.follow_following_div}>
                 <User_followUnfollow username={username}/>
             

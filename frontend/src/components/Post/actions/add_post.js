@@ -1,5 +1,4 @@
 import React, { Component, useEffect, useState } from "react";
-import "../post.css";
 import axios from "axios";
 import { createTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -75,7 +74,7 @@ export default function AddPost (props){
 		
 		formData.append('Image', PostImage);
         console.log(formData.getAll('Image'));
-        axios.post(`http://127.0.0.1:8000/posts/profile_post`,
+        axios.post(`http://127.0.0.1:8000/posts/profile_post/aa`,
             formData
         , {
             headers: {
@@ -111,7 +110,7 @@ export default function AddPost (props){
                 <input required accept="image/*"  name="Image" type="file" onChange={changeDetail}/>
             </div>
             <div>
-                <img src={PreviewImage}/>
+                <img src={PreviewImage} style={{maxHeight:500,maxWidth:500}}/>
             </div>
             <div>
                 <Button onClick={post}>Post</Button>

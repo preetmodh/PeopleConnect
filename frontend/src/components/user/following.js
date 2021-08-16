@@ -138,7 +138,7 @@ export default function Following(props){
     }, [])
     return(
         <>
-        <Dialog onClose={handleClose}  open={open}>
+        <Dialog onClose={handleClose}  open={open} style={{overflow:'auto',maxHeight:'90%'}}>
       <DialogTitle >Following</DialogTitle>
       <List>
         {following&&following.map((following) => (
@@ -151,7 +151,7 @@ export default function Following(props){
                       </ListItemAvatar>
                       
                       <NavLink to={`/profile/${following.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
-                      <ListItemText primary={following.user_name} secondary={following.first_name+" "+following.last_name} />
+                      <ListItemText style={{minWidth:300}} primary={following.user_name} secondary={following.first_name+" "+following.last_name} />
                     </NavLink>
                       
                    

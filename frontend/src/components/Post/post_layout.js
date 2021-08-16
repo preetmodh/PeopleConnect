@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from "react";
-import "./post.css";
+import "../assests/post.css";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Button from '@material-ui/core/Button';
@@ -12,6 +12,7 @@ import axios from "axios";
 import AddPost from "./actions/add_post";
 import Icon from '@material-ui/core/Icon';
 import CardMedia from '@material-ui/core/CardMedia';
+import { Avatar } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -149,11 +150,11 @@ const useStyles = makeStyles((theme) => ({
 
               <div className="Post-user">
 
-                <div className="Post-user-profilepicture">
 
-                  <img src={post.userphoto} />
+                <Avatar  src={post.userphoto} className={classes.large} />
+          
 
-                </div>
+   
 
                 <div className="Post-user-nickname">
                 <NavLink to={`/profile/${post.username}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>

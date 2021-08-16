@@ -90,7 +90,7 @@ export default function Search() {
            style={{ fontSize:20,margin:'18px',marginRight:'500px',minWidth:'30%' ,color:'white',}}></Input>
         
  
-        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
+        <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal  style={{overflow:'auto',maxHeight:300}}>
           {({ TransitionProps, placement }) => (
             <Grow
               {...TransitionProps}

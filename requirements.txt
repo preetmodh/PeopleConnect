@@ -3,15 +3,6 @@ asgiref==3.3.4
 async-timeout==3.0.1
 attrs==21.2.0
 autobahn==21.3.1
-Automat==20.2.0
-cachetools==4.2.2
-certifi==2021.5.30
-cffi==1.14.6
-channels==3.0.4
-channels-redis==3.3.0
-charset-normalizer==2.0.4
-constantly==15.1.0
-cryptography==3.4.7
 daphne==3.0.2
 Django==3.2.4
 django-appconf==1.0.4
@@ -53,3 +44,6 @@ typing-extensions==3.10.0.0
 uritemplate==3.0.1
 urllib3==1.26.6
 zope.interface==5.4.0
+
+
+

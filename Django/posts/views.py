@@ -83,8 +83,7 @@ class posts_particularUser(APIView):
             'pageCnt':paginator.num_pages,
             'isCurrenUser':request.user==user},
             status=200)
-    def post(self,request,format=None):
-        print(request.data)
+    def post(self,request,format=None,*args,**kwargs):
         user=request.user
         data=request.data
         
@@ -92,7 +91,6 @@ class posts_particularUser(APIView):
         Image=data['Image']
         caption=data['caption']
         tags=data['tags']
-        print(data)
         
         
         instance = Post.objects.create(user=user,title=title,Image=Image,caption=caption)
@@ -103,14 +101,14 @@ class posts_particularUser(APIView):
 class likeDislike(APIView):
     authentication_classes=[TokenAuthentication]
     permission_classes=[IsAuthenticated]
-    def post(self,request):
+    def post(self,request,*args, **kwargs):
         post_id=request.data['post_id']
         user=request.user
         post_obj=Post.objects.get(id=post_id)
         b = Likes (post=post_obj, user=user)
         b.save()
         return Response('Liked',status=200)
-    def delete(self, request):
+    def delete(self,request,*args, **kwargs):
         post_id=request.data['post_id']
         user=request.user
         obj=get_object_or_404(Likes,post=post_id,user=user)
