@@ -139,7 +139,7 @@ const sendcomment =() =>{
        
       }).then((res)=>{
         console.log(res);
-        setComments([...Comments,...res.data])
+        setComments([...Comments,...[res.data]])
     },(error)=>{console.log(error.message,error.response)})
 
 }

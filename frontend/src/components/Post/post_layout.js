@@ -166,7 +166,7 @@ const useStyles = makeStyles((theme) => ({
               </div>
 
             </header>
-            <NavLink to={`post/${post.id}`}>
+            <NavLink to={`/post/${post.id}`}>
               <div className="Post-image">
 
                 <div className="Post-image-bg">
