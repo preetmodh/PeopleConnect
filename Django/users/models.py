@@ -9,7 +9,7 @@ import os
 from gdstorage.storage import GoogleDriveStorage
 
 # Define Google Drive Storage
-gd_storage = GoogleDriveStorage()
+#gd_storage = GoogleDriveStorage()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 
