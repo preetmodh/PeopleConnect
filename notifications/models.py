@@ -8,9 +8,10 @@ from datetime import datetime
 from django.db.models.signals import post_save, post_delete
 #from posts.models import Post
 
-User=settings.AUTH_USER_MODEL
+
 # Create your models here.
 class Notification(models.Model):
+	from users.models import User
 	NOTIFICATION_TYPES = ((1,'Like'),(2,'Comment'), (3,'Follow'))
 
 	post = models.ForeignKey('posts.Post', on_delete=models.CASCADE, related_name="noti_post", blank=True, null=True)

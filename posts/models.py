@@ -9,7 +9,7 @@ from notifications.models import Notification
 # Define Google Drive Storage
 #gd_storage = GoogleDriveStorage()
 
-User=settings.AUTH_USER_MODEL
+
 
 
 
@@ -35,6 +35,7 @@ class Tag(models.Model):
 
 # Create your models here.
 class Post(models.Model):
+	from users.models import User
 	title = models.TextField(max_length=150,blank=True, verbose_name='title')
 	id = models.AutoField(primary_key=True, editable=False)
 	Image =  models.ImageField(upload_to=user_directory_path, blank=True, null=True, verbose_name='Image')

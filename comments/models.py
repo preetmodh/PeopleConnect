@@ -7,10 +7,10 @@ from django.db.models.signals import post_save, post_delete
 from django.conf import settings
 from datetime import datetime
 
-User=settings.AUTH_USER_MODEL
 
 
 class Comment(models.Model):
+	from users.models import User
 	post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	body = models.TextField()
