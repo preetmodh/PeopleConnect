@@ -157,7 +157,7 @@ REST_FRAMEWORK = {
 }
 
 
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'coral-sum-321710-a4637f09d154.json'
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'Django\core\coral-sum-321710-a4637f09d154.json'
 
 
 WSGI_APPLICATION = 'core.wsgi.application'
