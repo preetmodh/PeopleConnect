@@ -1,5 +1,5 @@
 from channels.auth import AuthMiddlewareStack
-from channels.routing import ProtocolTypeRouter, URLRouter
+from .wsgi import *
 from channels.routing import ProtocolTypeRouter, URLRouter
 from django.urls import path
 from .token_auth import TokenAuthMiddlewareStack

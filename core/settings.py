@@ -158,7 +158,7 @@ REST_FRAMEWORK = {
 
 
 WSGI_APPLICATION = 'core.wsgi.application'
-ASGI_APPLICATION = "core.asgi.application"
+ASGI_APPLICATION = "core.routing.application"
 CHANNEL_LAYERS = {
     "default": {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
