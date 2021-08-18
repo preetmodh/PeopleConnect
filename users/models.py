@@ -6,8 +6,10 @@ from posts.models import Post
 from notifications.models import Notification
 from django.conf import settings
 import os
+from gdstorage.storage import GoogleDriveStorage
 
-
+# Define Google Drive Storage
+gd_storage = GoogleDriveStorage()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 
 
@@ -62,7 +64,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     profile_info = models.TextField(max_length=150, null=True, blank=True)
     created = models.DateField(auto_now_add=True)
     favorites = models.ManyToManyField(Post,related_name='profile',blank=True)
-    _picture = models.ImageField(upload_to=user_directory_path, verbose_name='Picture',null=True,blank=True)
+    _picture = models.ImageField(upload_to='maps', verbose_name='Picture',storage=gd_storage,null=True,blank=True)
 
     objects = CustomAccountManager()
 
@@ -110,4 +112,3 @@ class Follow(models.Model):
 
 post_save.connect(Follow.user_follow, sender=Follow)
 post_delete.connect(Follow.user_unfollow, sender=Follow)
-

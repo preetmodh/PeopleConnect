@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-&qwqu)ezx88g*tj#)sr(w#z^usi+@6mwtbb@7o$!qg90dwdvtg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['.herokuapp.com']
+ALLOWED_HOSTS = ['.herokuapp.com','127.0.0.1']
 
 
 # Application definition
@@ -164,3 +164,7 @@ CHANNEL_LAYERS = {
         "BACKEND": "channels.layers.InMemoryChannelLayer"
     }
 }
+
+
+
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = 'core\coral-sum-321710-a4637f09d154.json'
