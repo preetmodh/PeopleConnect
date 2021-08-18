@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+import json
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -168,4 +169,4 @@ CHANNEL_LAYERS = {
 
 
 
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.environ.get('GOOGLE_APPLICATION_CREDENTIALS')
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = json.loads(os.environ.get('GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS'))
