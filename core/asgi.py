@@ -5,9 +5,11 @@ from notifications.consumers import *
 from chats.consumers import *
 from django.urls import path
 from .token_auth import TokenAuthMiddlewareStack
+from channels.asgi import get_channel_layer
+
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
-
+channel_layer = get_channel_layer()
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
     # Just HTTP for now. (We can add other protocols later.)
