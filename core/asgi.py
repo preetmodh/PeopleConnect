@@ -4,10 +4,9 @@ from django.core.asgi import get_asgi_application
 from notifications.consumers import *
 from chats.consumers import *
 from django.urls import path
-from channels.auth import AuthMiddlewareStack
 from .token_auth import TokenAuthMiddlewareStack
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
 
 application = ProtocolTypeRouter({
     "http": get_asgi_application(),
