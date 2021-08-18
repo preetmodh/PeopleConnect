@@ -169,4 +169,4 @@ CHANNEL_LAYERS = {
 
 Temp=json.loads(os.environ.get('GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE_CONTENTS'))
 
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.abspath('core\coral-sum-321710-a4637f09d154.json')
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.abspath('core/coral-sum-321710-a4637f09d154.json')
