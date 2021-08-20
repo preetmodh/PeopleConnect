@@ -35,11 +35,11 @@ class posts_particularUser(APIView):
         user=request.user
         posts_data=[]
         likeDict={}
+        page_number = request.GET.get('page')
         if(typ=='profile'):
             user=User.objects.get(user_name=kwargs['username'])
             posts_obj=Post.objects.filter(user=user)
             paginator = Paginator(posts_obj, 2)
-            page_number = request.GET.get('page')
             posts_obj = paginator.get_page(page_number)
 
             for i in posts_obj:
@@ -71,7 +71,9 @@ class posts_particularUser(APIView):
                     likeDict[i.id]=1
                 except:
                     continue
-
+        pageCnt=posts_obj.paginator.num_pages
+        if pageCnt<page_number:
+            return Response('No more posts',status=404)
             
         likeCountDict={}
         for i in posts_data:
@@ -80,7 +82,7 @@ class posts_particularUser(APIView):
         return Response(data={'posts_data':posts_data,
             'likeDict':likeDict,
             'likeCount':likeCountDict,
-            'pageCnt':paginator.num_pages,
+            'pageCnt':pageCnt,
             'isCurrenUser':request.user==user},
             status=200)
     def post(self,request,format=None,*args,**kwargs):
