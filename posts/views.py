@@ -60,8 +60,6 @@ class posts_particularUser(APIView):
             posts_obj=Post.objects.filter(user__in=people_obj)
             
             paginator = Paginator(posts_obj, 2)
-
-            page_number = request.GET.get('page')
             posts_obj = paginator.get_page(page_number)
             likeDict={}
             for i in posts_obj:
@@ -72,7 +70,7 @@ class posts_particularUser(APIView):
                 except:
                     continue
         pageCnt=posts_obj.paginator.num_pages
-        if pageCnt<page_number:
+        if pageCnt<int(page_number):
             return Response('No more posts',status=404)
             
         likeCountDict={}
