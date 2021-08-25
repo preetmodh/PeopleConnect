@@ -171,4 +171,8 @@ CHANNEL_LAYERS = {
     }
 }
 
-GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.abspath('core/coral-sum-321710-a4637f09d154.json')
+MY_ENV_VAR = os.getenv('GOOGLE_API_KEY')
+f = open("key.json", "w")
+f.write(MY_ENV_VAR)
+f.close()
+GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.abspath('core/key.json')
