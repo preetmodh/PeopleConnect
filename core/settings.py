@@ -172,7 +172,7 @@ CHANNEL_LAYERS = {
 }
 
 MY_ENV_VAR = os.getenv('GOOGLE_API_KEY')
-with open("key.json", "a") as myfile:
-    myfile.write(MY_ENV_VAR)
-    
+with open('key.json', 'w') as filetowrite:
+    filetowrite.write(MY_ENV_VAR)
+
 GOOGLE_DRIVE_STORAGE_JSON_KEY_FILE = os.path.abspath('core/key.json')
