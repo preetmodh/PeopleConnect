@@ -3,7 +3,7 @@ from channels.generic.websocket import WebsocketConsumer
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
 from .models import Notification
-
+from chat.models import RecentChat
 
 class NotiConsumer(WebsocketConsumer):
     def connect(self):
@@ -18,8 +18,8 @@ class NotiConsumer(WebsocketConsumer):
         self.accept()
 
         count=Notification.objects.filter(is_seen=False,user=self.user).count()
-        
-        data={'count':count,'user':self.user.user_name,'profile_pic':self.user.picture}
+        message_count=RecentChat.objects.filter(receiver=self.user,is_seen=False).count()
+        data={'message_count':message_count,'count':count,'user':self.user.user_name,'profile_pic':self.user.picture}
         async_to_sync(self.channel_layer.group_send)(
 			 self.user_room_name,{
 				'type' : 'notification_data',
