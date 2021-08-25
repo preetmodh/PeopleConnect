@@ -7,7 +7,9 @@ from rest_framework.response import Response
 from .models import Chat,RecentChat
 from .serializers import ChatSerializer,ChatRecentSerializer
 from django.db.models import Q, query
-
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+import json
 
 # Create your views here.
 
@@ -57,9 +59,21 @@ class RecentChatListView(generics.ListAPIView):
         current_user=self.request.user
         seendict=self.request.data.get('isSeen')
         RecentChat.objects.filter(room_name=self.request.data.get('room_name'),receiver=current_user).update(is_seen=True)
-        print(seendict)
         for i in seendict:
             if seendict[i]==1:
                 RecentChat.objects.filter(room_name=i,receiver=current_user).update(is_seen=True)
+
+                
+        channel_layer = get_channel_layer()
+        message_count=RecentChat.objects.filter(receiver=current_user,is_seen=False).count() 
+        data={'message_count':message_count}
+        room_name="notif_room_for_user_"+str(current_user.id)
+        async_to_sync(channel_layer.group_send)(
+			 room_name,{
+				'type' : 'notification_data',
+				'value' : json.dumps(data)
+			}
+
+		)
 
         return Response(status=200)
