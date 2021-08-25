@@ -3,7 +3,7 @@ from channels.generic.websocket import WebsocketConsumer
 from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
 from .models import Notification
-from chat.models import RecentChat
+from chats.models import RecentChat
 
 class NotiConsumer(WebsocketConsumer):
     def connect(self):
