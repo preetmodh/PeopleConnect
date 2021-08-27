@@ -1,5 +1,0 @@
-for logs-----heroku -logs --app peopletoconnectdjango -t
-for django commands----heroku run python manage.py createsuperuser --app peopletoconnectdjango
-login----heroku login
-
-
