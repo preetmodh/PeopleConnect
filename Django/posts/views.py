@@ -59,7 +59,7 @@ class posts_particularUser(APIView):
             
             posts_obj=Post.objects.filter(user__in=people_obj)
             
-            paginator = Paginator(posts_obj, 2)
+            paginator = Paginator(posts_obj, 4)
             posts_obj = paginator.get_page(page_number)
             likeDict={}
             for i in posts_obj:
