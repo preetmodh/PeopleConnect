@@ -39,7 +39,7 @@ class posts_particularUser(APIView):
         if(typ=='profile'):
             user=User.objects.get(user_name=kwargs['username'])
             posts_obj=Post.objects.filter(user=user)
-            paginator = Paginator(posts_obj, 2)
+            paginator = Paginator(posts_obj, 4)
             posts_obj = paginator.get_page(page_number)
 
             for i in posts_obj:
