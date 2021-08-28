@@ -11,7 +11,6 @@ from django.shortcuts import render
 from django.db import models
 from django.shortcuts import render
 from rest_framework import generics,pagination
-from .pagination import postPagination
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.views import APIView
