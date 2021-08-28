@@ -11,6 +11,7 @@ import Post from './components/Post/post';
 import People from './components/people';
 import Profile from './components/user/profile';
 import SpecificPost from './components/Post/specific_post';
+import Todo from './components/ToDo/Todo';
 
 export class App2 extends Component{
    
@@ -37,6 +38,7 @@ export class App2 extends Component{
                         <Route exact path='/profile/:username' render={() => <Profile   key={uuidv4()}/>}   />
                         <Route exact path='/home' component={Post} />
                         <Route exact path='/post/:id' component={SpecificPost} />
+                        <Route exact path='/todo' component={Todo} />
                         </div>
                     </Home>
 

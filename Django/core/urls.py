@@ -10,4 +10,5 @@ urlpatterns = [
     path('comments/',include('comments.urls')),
     path('notifications/',include('notifications.urls')),
     path('posts/',include('posts.urls')),
+    path('todo/',include('todo.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

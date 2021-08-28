@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'posts',
     'users',
     'chats',
-    
+    'todo',
 
 
 ]
