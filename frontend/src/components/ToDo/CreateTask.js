@@ -4,8 +4,11 @@ import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
+
 
 const CreateTask=()=>{
+    let history = useHistory();
     const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
     
    const getCurrentDate=(separator='-')=>{
@@ -35,7 +38,7 @@ const CreateTask=()=>{
                 'Authorization': `token ${x}`,
               }
         }).then((res)=>{
-            window.location.reload();
+            history.push('/todo');
         },(error)=>{
             alert('Invalid Data');
             console.log(error.message);console.log(error.response);

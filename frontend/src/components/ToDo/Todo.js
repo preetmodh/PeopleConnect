@@ -9,6 +9,7 @@ import PendingTask from './PendingTask';
 import CreateTask from './CreateTask';
 import ShowTask from './ShowTask';
 import './App.css';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     backgroundColor: '#F0F8FF',
@@ -30,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ContainedButtons() {
+  
   const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
   const classes = useStyles();
   const [showPage,setShowPage]=useState(0);
@@ -57,6 +59,14 @@ export default function ContainedButtons() {
       })
   },[]);
 
+  const complete = (id) => {
+    settaskList(taskList.map((task)=>{
+      if(task.id==id)task.complete=true;
+      return task;
+    }))
+    setShowPage(0);
+};
+  
 
   return (
     <div className="todoH1">
@@ -78,10 +88,10 @@ export default function ContainedButtons() {
       Completed Task
       </Button>
       <br/>
-      {showPage==0&&<ShowTask props={taskList}/>}
+      {showPage==0&&<ShowTask props={taskList}   />}
       {showPage==1&&<CreateTask/>}
       {showPage==2&&<PendingTask props={taskList}/>}
-      {showPage==3&&<CompletedTask props={taskList}/>}
+      {showPage==3&&<CompletedTask props={taskList} parentCompleteFunction={complete} />}
     </div>
     </div>
   );

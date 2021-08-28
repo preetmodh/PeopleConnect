@@ -38,7 +38,7 @@ export class App2 extends Component{
                         <Route exact path='/profile/:username' render={() => <Profile   key={uuidv4()}/>}   />
                         <Route exact path='/home' component={Post} />
                         <Route exact path='/post/:id' component={SpecificPost} />
-                        <Route exact path='/todo' component={Todo} />
+                        <Route exact path='/todo' render={() => <Todo   key={uuidv4()}/> }/>
                         </div>
                     </Home>
 

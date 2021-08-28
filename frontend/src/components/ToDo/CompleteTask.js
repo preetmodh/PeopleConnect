@@ -11,8 +11,9 @@ import { createTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui
 
 import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
 import {  purple } from '@material-ui/core/colors'
-
+import { useHistory } from "react-router-dom";
 const CompleteTask=(props)=>{
+  let history = useHistory();
   const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
   
     const ColorButton = withStyles((theme) => ({
@@ -26,6 +27,7 @@ const CompleteTask=(props)=>{
       }))(Button);
 
     const task=props.props;
+
     
     
     const tok=localStorage.getItem('token');
@@ -48,9 +50,7 @@ const CompleteTask=(props)=>{
         }
 
           }).then(()=>{
-            window.location.reload();
-            console.log('hell');
-            // task.complete=true;
+            history.push('/todo');
           },
           (error)=>{console.log(error.response);
             console.log(error.request);

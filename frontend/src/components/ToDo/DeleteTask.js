@@ -9,7 +9,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { createTheme, withStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { red } from '@material-ui/core/colors';
-
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
         
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const DeleteTask=(props)=>{
   const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
-  
+  let history = useHistory();
     const task=props.props;
     //delete button actions:
     const tok=localStorage.getItem('token');
@@ -47,7 +47,10 @@ const DeleteTask=(props)=>{
            
         }
 
-          }).then(()=>{window.location.reload();},(error)=>{console.log(error.message);
+          }).then(()=>{
+            history.push('/todo');
+          }
+          ,(error)=>{console.log(error.message);
             console.log(error.response);
             console.log(error.request);
             alert('Delete Unsuccessfull');})
