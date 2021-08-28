@@ -137,11 +137,7 @@ class SpecificPost(APIView):
             if(i.user==request.user):
                 isLiked=1
         comments=CommentSerializer(comment_objs,many=True).data
-        # for i in comment_objs:
-        #     data=CommentSerializer(i).data
-        #     data['username']=i.user.user_name
-        #     comments.append(data)
-            
+ 
         res_data={'post_data':post_data,'likes':likes,'comments':comments,'isLiked':isLiked}
         return Response(res_data,status=200)
         
