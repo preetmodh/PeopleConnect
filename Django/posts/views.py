@@ -8,14 +8,11 @@ from posts.serializers import PostSerializer,LikeSerializer
 from comments.serializers import CommentSerializer
 from .models import Likes, Post
 from django.shortcuts import render
-from django.db import models
-from django.shortcuts import render
 from rest_framework import generics,pagination
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
