@@ -96,6 +96,7 @@ export default function ChatsRecent() {
 
           if(showchatid.current==data.sender|| data.sender==user){
             setisSeen((prevPersonInfo) => ({...prevPersonInfo, [data.room_name]: 1})) 
+            Seen(data.room_name);
           }
           else{
             setisSeen((prevPersonInfo) => ({...prevPersonInfo, [data.room_name]: 0}))
