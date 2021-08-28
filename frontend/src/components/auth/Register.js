@@ -52,8 +52,9 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Register() {
-  const classes = useStyles();
 
+  const classes = useStyles();
+  const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
   const [username, setUname] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPass] = useState('');
@@ -61,7 +62,7 @@ export default function Register() {
   
   function signUp() {
 
-    axios.post('https://peopletoconnectdjango.herokuapp.com/user/register', {
+    axios.post(BASE_URL_HTTP+'/user/register', {
         user_name: username,
         email:email,
         // password:'AAA@#123',

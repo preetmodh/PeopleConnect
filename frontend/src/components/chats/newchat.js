@@ -41,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function Newchat(props){
+  const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
     const x=localStorage.getItem('token')
     const classes = useStyles();
     const [searchuser,setSearchuser] = useState('');
@@ -53,7 +54,7 @@ export default function Newchat(props){
 function finduser(value){
         setSearchuser(value)
         if (value.length>0){
-          axios.get(`https://peopletoconnectdjango.herokuapp.com/user/finduser/?search=${value}`,{
+          axios.get(`${BASE_URL_HTTP}/user/finduser/?search=${value}`,{
                 headers: { 
                     'Authorization': `token ${x}`,
                   }

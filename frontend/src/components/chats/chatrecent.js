@@ -43,6 +43,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function ChatsRecent() {
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
+    const BASE_URL_WS=process.env.REACT_APP_BASE_URL_WS;
     const classes = useStyles();
     const x=localStorage.getItem('token');
     const recentEndRef = useRef(null)
@@ -72,7 +74,7 @@ export default function ChatsRecent() {
   };
 
     useEffect(() => { 
-      axios.get(`https://peopletoconnectdjango.herokuapp.com/chat/recent/`,{
+      axios.get(`${BASE_URL_HTTP}/chat/recent/`,{
         headers: { 
             'Authorization': `token ${x}`,
           }
@@ -84,7 +86,7 @@ export default function ChatsRecent() {
             setisSeen(res.data.seen);
           }, (error) => {console.log(error);})
 
-      const link = `wss://peopletoconnectdjango.herokuapp.com/ws/recent/?authorization=${x}` ;
+      const link = `${BASE_URL_WS}/ws/recent/?authorization=${x}` ;
           const chatSocket = new WebSocket(link);
           chatSocket.onmessage = function(e) {
           var data = JSON.parse(e.data);
@@ -121,7 +123,7 @@ export default function ChatsRecent() {
     },[])//end useEffect
 
 const Seen =(room_name) =>{
-        axios.post(`https://peopletoconnectdjango.herokuapp.com/chat/recent/`,
+        axios.post(`${BASE_URL_HTTP}/chat/recent/`,
         {isSeen,room_name}
     , {
         headers: {

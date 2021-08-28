@@ -59,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SpecificPost(){
 
     const {id}  = useParams();
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
     const classes = useStyles();
     const messagesEndRef = useRef(null)
     const [newcomment, setNewcomment] = useState('');
@@ -70,7 +71,7 @@ export default function SpecificPost(){
     const[likedCount,setlikedCount]=useState();
     const likeDislike=()=>{
       if(isLiked==1){
-        axios.delete(`https://peopletoconnectdjango.herokuapp.com/posts/like_dislike`, {
+        axios.delete(`${BASE_URL_HTTP}/posts/like_dislike`, {
           headers: {
             'Authorization': `token ${x}`,
           },
@@ -87,7 +88,7 @@ export default function SpecificPost(){
       
       }
       else{
-        axios.post(`https://peopletoconnectdjango.herokuapp.com/posts/like_dislike`,{post_id:id}, {
+        axios.post(`${BASE_URL_HTTP}/posts/like_dislike`,{post_id:id}, {
           headers: {
             'Authorization': `token ${x}`,
           },
@@ -103,7 +104,7 @@ export default function SpecificPost(){
       }
     }
     useEffect(() => {
-          axios.get(`https://peopletoconnectdjango.herokuapp.com/posts/${id}`,{
+          axios.get(`${BASE_URL_HTTP}/posts/${id}`,{
               headers: {
                   'Authorization': `token ${x}`,
                   
@@ -132,7 +133,7 @@ const sendcomment =() =>{
     body:newcomment,
     post:id,
   }
-  axios.post(`https://peopletoconnectdjango.herokuapp.com/comments/new`,body, {
+  axios.post(`${BASE_URL_HTTP}/comments/new`,body, {
         headers: {
           'Authorization': `token ${x}`,
         },

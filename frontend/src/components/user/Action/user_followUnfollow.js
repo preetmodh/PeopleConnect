@@ -16,7 +16,6 @@ import PersonIcon from '@material-ui/icons/Person';
 import AddIcon from '@material-ui/icons/Add';
 import Typography from '@material-ui/core/Typography';
 import { blue, red } from '@material-ui/core/colors';
-const emails = ['username@gmail.com', 'user02@gmail.com'];
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -55,13 +54,14 @@ const useStyles = makeStyles((theme) => ({
 export default function User_followUnfollow(props){
     const x=localStorage.getItem('token')
     const classes = useStyles();
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
     
     const [iscurrentuser,setiscurrentuser]=useState(true);
     const [isFollowing,setisFollowing]=useState(false);
     const username=props.username
     const[id,setid]=useState();
     const removefollowing=()=>{
-        axios.delete(`https://peopletoconnectdjango.herokuapp.com/user/followers_followings/${username}`, {
+        axios.delete(`${BASE_URL_HTTP}/user/followers_followings/${username}`, {
           headers: {
             'Authorization': `token ${x}`,
           },
@@ -81,7 +81,7 @@ export default function User_followUnfollow(props){
 
 
     const Follow=()=>{
-      axios.post(`https://peopletoconnectdjango.herokuapp.com/user/followers_followings/${username}`,{following:id}, {
+      axios.post(`${BASE_URL_HTTP}/user/followers_followings/${username}`,{following:id}, {
         headers: {
           'Authorization': `token ${x}`,
         },
@@ -95,7 +95,7 @@ export default function User_followUnfollow(props){
   }
     useEffect(() => {
       
-        axios.get(`https://peopletoconnectdjango.herokuapp.com/user/followers_followings/${username}`,{
+        axios.get(`${BASE_URL_HTTP}/user/followers_followings/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,
                 

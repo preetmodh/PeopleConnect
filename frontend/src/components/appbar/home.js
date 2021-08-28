@@ -114,8 +114,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Home({children}) {
 const classes = useStyles();
 const theme = useTheme();
-const onNavigate = (history, locationDescriptor) => history.replace(locationDescriptor);
-
+const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
+const BASE_URL_WS=process.env.REACT_APP_BASE_URL_WS;
 const [iconid,setid]=useState();
 const [open, setOpen] = useState(false);
 const [notiCount, setnotiCount] = useState(0);
@@ -141,7 +141,7 @@ const icons = [
 
 useEffect(() => {
   const x=localStorage.getItem('token');
-  const link = `wss://peopletoconnectdjango.herokuapp.com/ws/noticount/?authorization=${x}` ;
+  const link = `${BASE_URL_WS}/ws/noticount/?authorization=${x}` ;
   const chatSocket = new WebSocket(link);
   chatSocket.onmessage = function(e) {
   var data = JSON.parse(e.data);

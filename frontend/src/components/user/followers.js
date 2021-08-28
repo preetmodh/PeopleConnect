@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function Followers(props){
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
     const x=localStorage.getItem('token')
     const classes = useStyles();
     const username=props.username;
@@ -62,7 +63,7 @@ export default function Followers(props){
       }))(Button);
 
     const removeFollower=(id)=>{
-      axios.delete(`https://peopletoconnectdjango.herokuapp.com/user/followers_followings/${username}`, {
+      axios.delete(`${BASE_URL_HTTP}/user/followers_followings/${username}`, {
         headers: {
           'Authorization': `token ${x}`,
         },
@@ -79,7 +80,7 @@ export default function Followers(props){
     }
     useEffect(() => {
       
-        axios.get(`https://peopletoconnectdjango.herokuapp.com/user/followers_followings/${username}`,{
+        axios.get(`${BASE_URL_HTTP}/user/followers_followings/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,
                 

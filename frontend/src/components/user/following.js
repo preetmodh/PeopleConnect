@@ -57,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Following(props){
     const x=localStorage.getItem('token')
     const classes = useStyles();
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
     
     const { onClose,  open } = props;
 
@@ -73,7 +74,7 @@ export default function Following(props){
     const username=props.username
 
     const removefollowing=(id)=>{
-        axios.delete(`https://peopletoconnectdjango.herokuapp.com/user/followers_followings/${username}`, {
+        axios.delete(`${BASE_URL_HTTP}/user/followers_followings/${username}`, {
           headers: {
             'Authorization': `token ${x}`,
           },
@@ -92,7 +93,7 @@ export default function Following(props){
 
 
     const Follow=(id)=>{
-      axios.post(`https://peopletoconnectdjango.herokuapp.com/user/followers_followings/${username}`,{following:id}, {
+      axios.post(`${BASE_URL_HTTP}/user/followers_followings/${username}`,{following:id}, {
         headers: {
           'Authorization': `token ${x}`,
         },
@@ -106,7 +107,7 @@ export default function Following(props){
   }
     useEffect(() => {
       const body={ name:1,};
-        axios.get(`https://peopletoconnectdjango.herokuapp.com/user/followers_followings/${username}`,{
+        axios.get(`${BASE_URL_HTTP}/user/followers_followings/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,
                 
