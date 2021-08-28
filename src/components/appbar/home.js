@@ -36,7 +36,7 @@ import PeopleIcon from '@material-ui/icons/People';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Search from './search';
-
+import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 
 
@@ -134,6 +134,7 @@ const icons = [
   MessageIcon,
   NotificationsIcon,
   AccountCircleIcon,
+  AssignmentTurnedInIcon,
   ExitToAppIcon,
 ];
 
@@ -225,7 +226,7 @@ paper: clsx({
 </div>
 <Divider  style={{ marginTop:'7px'}}/>
 <List>
-{['Home','Peoples','Messages','Notifications','Profile','Logout',].map((iconnames, idx) => {
+{['Home','Peoples','Messages','Notifications','Profile','ToDo','Logout',].map((iconnames, idx) => {
 const Icon = icons[idx];
 var url = `/${iconnames.toLowerCase()}`
 
