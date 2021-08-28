@@ -27,6 +27,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function AddPost (props){
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
+
     const x=localStorage.getItem('token')
     const classes = useStyles();
     
@@ -77,7 +79,7 @@ export default function AddPost (props){
 		
 		formData.append('Image', PostImage);
         console.log(formData.getAll('Image'));
-        axios.post(`https://peopletoconnectdjango.herokuapp.com/posts/profile_post/aa`,
+        axios.post(`${BASE_URL_HTTP}/posts/profile_post/aa`,
             formData
         , {
             headers: {

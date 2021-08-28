@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 
   export default function PostLayout(props)  {
-    
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
     const params=props.params
     const url=props.params.url
     const classes = useStyles();
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
     };
     const likeDislike=(id)=>{
       if(isLiked[id]==1){
-        axios.delete(`https://peopletoconnectdjango.herokuapp.com/posts/like_dislike`, {
+        axios.delete(`${BASE_URL_HTTP}/posts/like_dislike`, {
           headers: {
             'Authorization': `token ${x}`,
           },
@@ -75,7 +75,7 @@ const useStyles = makeStyles((theme) => ({
       
       }
       else{
-        axios.post(`https://peopletoconnectdjango.herokuapp.com/posts/like_dislike`,{post_id:id}, {
+        axios.post(`${BASE_URL_HTTP}/posts/like_dislike`,{post_id:id}, {
           headers: {
             'Authorization': `token ${x}`,
           },

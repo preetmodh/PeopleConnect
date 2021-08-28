@@ -5,10 +5,11 @@ import { NavLink } from "react-router-dom";
 export default function Notification(){
 
     const x=localStorage.getItem('token');
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
 
     useEffect(() => {
         setTimeout(() => {
-            axios.get(`https://peopletoconnectdjango.herokuapp.com/notifications/`, {
+            axios.get(`${BASE_URL_HTTP}/notifications/`, {
                 headers: {
                     'Authorization': `token ${x}`,
                 }

@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Search() {
+  const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
@@ -61,7 +62,7 @@ export default function Search() {
   function search(value){
     setsearchValue(value)
     if (value.length>0){
-      axios.get(`https://peopletoconnectdjango.herokuapp.com/user/finduser/?search=${value}`,{
+      axios.get(`${BASE_URL_HTTP}/user/finduser/?search=${value}`,{
             headers: { 
                 'Authorization': `token ${x}`,
               }

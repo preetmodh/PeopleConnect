@@ -5,9 +5,10 @@ import AddPost from "./actions/add_post";
 
 
 export default function Post()  {
+  const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
   const parameters={
               type: 'all',
-              url:`https://peopletoconnectdjango.herokuapp.com/posts/profile_post/ `
+              url:`${BASE_URL_HTTP}/posts/profile_post/ `
             }
   const [OpenAddPost,setOpenAddPost]=useState(false);
   const handleCloseAddPost = () => {

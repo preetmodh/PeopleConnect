@@ -27,6 +27,8 @@ const useStyles = makeStyles({
 export default function Chat(params) {
   
   const id= params.id;
+  const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
+  const BASE_URL_WS=process.env.REACT_APP_BASE_URL_WS;
   const classes = useStyles();
   const messagesEndRef = useRef(null)
   const [messages, setMessages] = useState([]);
@@ -36,7 +38,7 @@ export default function Chat(params) {
 
   
     useEffect(() => {
-      axios.get(`https://peopletoconnectdjango.herokuapp.com/chat/inbox/${id}/`,{
+      axios.get(`${BASE_URL_HTTP}/chat/inbox/${id}/`,{
             headers: { 
                 'Authorization': `token ${x}`,
               }
@@ -48,7 +50,7 @@ export default function Chat(params) {
 
 
 
-        const link = `wss://peopletoconnectdjango.herokuapp.com/ws/chat/${id}/?authorization=${x}` ;
+        const link = `${BASE_URL_WS}/ws/chat/${id}/?authorization=${x}` ;
         const chatSocket = new WebSocket(link);
         chatSocket.onmessage = function(e) {
         var data = JSON.parse(e.data);
@@ -82,7 +84,7 @@ const sendMessage = () => {
     message:message,
     
 };
-  axios.post(`https://peopletoconnectdjango.herokuapp.com/chat/inbox/${id}/`, body,{
+  axios.post(`${BASE_URL_HTTP}/chat/inbox/${id}/`, body,{
     
       headers: { 
           'Authorization': `token ${x}`,

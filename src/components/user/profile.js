@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Profile(){
     
-    
+    const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
     
     const {username}  = useParams();
     
@@ -54,7 +54,7 @@ export default function Profile(){
       const classes = useStyles();
       const parameters={
         type: 'profile',
-        url:`https://peopletoconnectdjango.herokuapp.com/posts/profile_post/${username}`
+        url:`${BASE_URL_HTTP}/posts/profile_post/${username}`
       }
     return(
         <div style={{marginLeft:100}}>
