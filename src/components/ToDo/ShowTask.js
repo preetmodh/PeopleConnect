@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
       flexBasis: '33.33%',
       flexShrink: 0,
       font:'bold',
-      fontFamily:'cursive',
+      fontFamily:'sans-serif',
     },
     secondaryHeading: {
       fontSize: 20,
