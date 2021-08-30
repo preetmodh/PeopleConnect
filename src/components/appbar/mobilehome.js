@@ -23,8 +23,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SaveIcon from '@material-ui/icons/Save';
 import Avatar from '@material-ui/core/Avatar';
-import { Input } from '@material-ui/core';
-
+import { Input, Table } from '@material-ui/core';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import Button from '@material-ui/core/Button';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Box from '@material-ui/core/Box';
@@ -55,10 +56,11 @@ const useStyles = makeStyles((theme) => ({
       duration: theme.transitions.duration.leavingScreen,
     }),
   },
+
   appBar2: {
-    top: 'auto',
-    bottom: 0,
-},
+        top: 'auto',
+        bottom: -1,
+  },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
@@ -113,7 +115,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Home({children}) {
+export default function MobileHome({children}) {
 const classes = useStyles();
 const theme = useTheme();
 const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
@@ -132,15 +134,6 @@ const handleDrawerOpen = () => {
 const handleDrawerClose = () => {
   setOpen(false);
 };
-const icons = [
-  HomeIcon,
-  PeopleIcon,
-  MessageIcon,
-  NotificationsIcon,
-  AccountCircleIcon,
-  AssignmentTurnedInIcon,
-  ExitToAppIcon,
-];
 
 useEffect(() => {
   const x=localStorage.getItem('token');
@@ -177,6 +170,9 @@ return (
   
 <div className={classes.root}>
 
+
+
+
 <CssBaseline />
 <AppBar
 position="fixed"
@@ -185,93 +181,51 @@ className={clsx(classes.appBar, {
 })}
 >
 <Toolbar>
-<IconButton
-  color="inherit"
-  aria-label="open drawer"
-  onClick={handleDrawerOpen}
-  edge="start"
-  className={clsx(classes.menuButton, {
-    [classes.hide]: open,
-  })}
->
-  <MenuIcon />
-</IconButton>
-
 <Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
         <Avatar style={{margin:'15px' }}  src={profile} className={classes.large} />
         <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>{username}</h8>
 </Box>
-<Box display='flex'>
-      <h8 style={{ fontSize: 20,marginTop:'23px' ,marginRight:'3px'}}>Search</h8>
-      <Search/>
-      
-      
+<Box display='flex'> 
       <Button onClick={logout} style={{ fontSize:15,margin:'15px',color:'white' }}>Logout</Button>
 </Box>
 </Toolbar>
 </AppBar>
-<Drawer
-variant="permanent"
-className={clsx(classes.drawer, {
-[classes.drawerOpen]: open,
-[classes.drawerClose]: !open,
-})}
-classes={{
-paper: clsx({
-  [classes.drawerOpen]: open,
-  [classes.drawerClose]: !open,
-}),
-}}
->
-<div className={classes.toolbar}>
-<IconButton onClick={handleDrawerClose}>
-  {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-</IconButton>
-</div>
-<Divider  style={{ marginTop:'7px'}}/>
-<List>
-{['Home','Peoples','Messages','Notifications','Profile','ToDo','Logout',].map((iconnames, idx) => {
-const Icon = icons[idx];
-var url = `/${iconnames.toLowerCase()}`
-
-if (username&&iconnames=='Profile'){
-  url=url+'/'+username
-}
-var badgevalue=0;
-if (idx==2){
-  badgevalue=messageCount
-}
-else if(idx==3){
-  badgevalue=notiCount
-}
-return (
-<NavLink  to={url} replace="true" activeClassName="active-link" style={{ textDecoration: 'none',cursor:'pointer'}} activeClassName="selected">
-<div>
-<div onClick={()=>{changeColor(idx)}} >
-<Tooltip title={<h3>{iconnames}</h3>}  placement="right">
-  <ListItem key={iconnames}>
-    <ListItemIcon>
-      {idx<4? <Badge badgeContent={badgevalue} color="secondary">
-        <Icon style={{color:iconid===idx?'blue':'#6b6b6b'}} />
-      </Badge>: <Icon style={{color:iconid===idx?'blue':'#6b6b6b'}} />}
-      <ListItemText primary={iconnames} style={{marginLeft:'35px' , color:iconid===idx?'blue':'#6b6b6b' }}/>
-    </ListItemIcon>
-</ListItem>
-</Tooltip>
-</div>
-{idx===3?<Divider />:<></>}
-</div>
-</NavLink >
-)
-})}
-</List>
-</Drawer>
-
-
 <main className={classes.content}>
 <div className={classes.toolbar} />
 <div>{children}</div>
 </main>
+
+
+
+
+
+
+<AppBar position="fixed" color="primary" className={classes.appBar2} >
+    <div style={{
+        display:'grid',
+        alignContent:'space-evenly',
+        gridTemplateColumns:'auto auto auto auto auto auto',
+        marginLeft:'15%',
+        marginRight:'5%',
+        }}>
+        <NavLink  to={'/home'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
+            <HomeIcon style={{margin:'5px',color:'white' }}  className={classes.large} />
+        </NavLink>
+        <NavLink  to={'/messages'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
+            <MessageIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+        </NavLink>
+        <NavLink  to={`/profile/${username}`}   style={{ textDecoration: 'none',cursor:'pointer'}} >
+            <AccountCircleIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+        </NavLink>
+        <NavLink  to={'/notifications'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
+            <NotificationsIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+        </NavLink>
+        <NavLink  to={'/todo'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
+            <ExitToAppIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+        </NavLink>
+        </div>
+      </AppBar>
 </div>
+
 );
 }

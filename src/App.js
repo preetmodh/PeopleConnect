@@ -12,7 +12,7 @@ import People from './components/people';
 import Profile from './components/user/profile';
 import SpecificPost from './components/Post/specific_post';
 import Todo from './components/ToDo/Todo';
-
+import MobileHome from './components/appbar/mobilehome';
 export class App2 extends Component{
    
    render(){
@@ -30,6 +30,7 @@ export class App2 extends Component{
              
             
                 <div>
+                {window.innerWidth > 1000 ?
                     <Home >
                     <div style={{margin:'auto'}}>
                         <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
@@ -40,7 +41,18 @@ export class App2 extends Component{
                         <Route exact path='/post/:id' component={SpecificPost} />
                         <Route exact path='/todo' render={() => <Todo   key={uuidv4()}/> }/>
                         </div>
-                    </Home>
+                    </Home>:
+                    
+                    <MobileHome>
+                        <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
+                        <Route exact path='/messages' component={ChatsRecent} />
+                        <Route exact path='/peoples' render={() => <People   key={uuidv4()}/>}/>
+                        <Route exact path='/profile/:username' render={() => <Profile   key={uuidv4()}/>}   />
+                        <Route exact path='/home' component={Post} />
+                        <Route exact path='/post/:id' component={SpecificPost} />
+                        <Route exact path='/todo' render={() => <Todo   key={uuidv4()}/> }/>
+                    </MobileHome>
+                }
 
                 </div>
             </Switch>

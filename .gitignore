@@ -22,7 +22,5 @@
 # yarn-debug.log*
 # yarn-error.log*
 /key.json
-/Django
-/env
 /frontend
-/.env
+/Django
