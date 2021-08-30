@@ -202,7 +202,8 @@ return(
 
   <div>
           {window.innerWidth < 700 && showchatid.current!=0?showrecent.current=false:true}
-          {showchatid.current===0?<></>:<Chat id={showchatid.current} name={sendername} />}
+          {window.innerWidth < 700 && showrecent.current==true &&  showchatid.current===0?<></>:<Chat id={showchatid.current} name={sendername} />}
+          {/* {window.innerWidth >= 700 &&  showchatid.current===0?<></>:<Chat id={showchatid.current} name={sendername} />} */}
   </div>
     
     </div>
