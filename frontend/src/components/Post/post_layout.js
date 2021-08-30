@@ -12,7 +12,7 @@ import axios from "axios";
 import AddPost from "./actions/add_post";
 import Icon from '@material-ui/core/Icon';
 import CardMedia from '@material-ui/core/CardMedia';
-import { Avatar } from "@material-ui/core";
+import { Avatar, Card, CardActions, CardContent, CardHeader, Paper, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme) => ({
@@ -136,12 +136,12 @@ const useStyles = makeStyles((theme) => ({
       
     };
 
+
+
     return (
       <>
       
-     
-    
-    
+
       { Posts&& Posts.map((post)=>{return(
         <>
           
@@ -197,7 +197,8 @@ const useStyles = makeStyles((theme) => ({
     
       }
       {PageCount<totalpageCnt?<CircularProgress style={{marginLeft:'50%'}}/>:<></>}
-      
+      <br></br>
+
       </>
     )
 

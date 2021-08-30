@@ -17,8 +17,8 @@ export default function Post()  {
   };
   return (
       <>
-        <div className="Post" style={{border:'none'}}>
-          <Button variant="outlined" onClick={()=>{setOpenAddPost(true)}}>Add Post</Button>
+        <div  style={{border:'none'}}>
+          <Button variant="outlined" style={{marginBottom:'20px'}} onClick={()=>{setOpenAddPost(true)}}>Add Post</Button>
         </div>        { OpenAddPost && <AddPost  open={OpenAddPost} onClose={handleCloseAddPost}/>}
 
 

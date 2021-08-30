@@ -1,18 +1,24 @@
-.Post {
 
-    border-radius: 3px;
 
-    border: 1px solid #e6e6e6;
-
-    background-color: #fff;
-
-     margin-bottom: 20px;
-
-    margin-left : 25%;
-
-    margin-right: 25%;
-
+  @media (min-width:700px){
+    .Post {
+      border-radius: 3px;
+      border: 1px solid #e6e6e6;
+      background-color: #fff;
+      margin-left : 20%;
+      margin-right: 20%;
+      margin-bottom: 20px;
+  
+    }
   }
+  @media (max-width:700px){
+    .Post {
+      border-radius: 3px;
+      background-color: #f0f0f0;
+      margin-bottom: 20px;
+    }
+  }
+
 
   .Post-user {
 
