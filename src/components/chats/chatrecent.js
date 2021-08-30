@@ -127,7 +127,9 @@ const Seen =(room_name) =>{
   }
 
 
-
+const change = (bool) =>{
+      showrecent.current = bool;
+}
 
 
 return(
@@ -201,7 +203,7 @@ return(
 
 
   <div>
-          {window.innerWidth < 700 && showchatid.current!=0?showrecent.current=false:true}
+          {window.innerWidth < 700 && showchatid.current!=0?change(false):change(true)}
           {window.innerWidth < 700 && showrecent.current==true &&  showchatid.current===0?<></>:<Chat id={showchatid.current} name={sendername} />}
           {/* {window.innerWidth >= 700 &&  showchatid.current===0?<></>:<Chat id={showchatid.current} name={sendername} />} */}
   </div>
