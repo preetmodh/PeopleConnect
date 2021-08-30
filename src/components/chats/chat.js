@@ -154,7 +154,6 @@ return (
             margin="normal"
             required
             fullWidth
-            inputProps={{ maxLength: 350 }}
             id="email"
             label="type here"
             name="message"

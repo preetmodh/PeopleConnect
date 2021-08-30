@@ -258,7 +258,6 @@ maxWidth:'40vw',
             variant="outlined"
             margin="normal"
             required
-            inputProps={{ maxLength: 350 }}
             fullWidth
             id="email"
             label="type here"

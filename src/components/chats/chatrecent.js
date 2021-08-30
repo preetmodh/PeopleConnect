@@ -133,7 +133,7 @@ const Seen =(room_name) =>{
 return(
     <div className='root'>
       
-      <div style={{border:'ridge',display:showrecent.current?'block':'none'}}>
+      <div className='root1' style={{border:'ridge',display:showrecent.current?'block':'none'}}>
       <div style={{margin:'5px',fontFamily:'sans-serif'}}>
       CHATS
       <AddBoxIcon 
@@ -172,6 +172,7 @@ return(
             marginTop:'5px',
             backgroundColor:'#cae8fa',
             width:'100%',
+            overflowWrap: 'break-word',
             }}>
             <div style={{
             padding:'8px',
@@ -201,7 +202,7 @@ return(
 
   <div>
           {window.innerWidth < 700 && showchatid.current!=0?showrecent.current=false:<></>}
-          {showchatid.current===0?<h1 style={{marginLeft:'20px'}}>INBOX</h1>:<Chat id={showchatid.current} name={sendername} />}
+          {showchatid.current===0?<></>:<Chat id={showchatid.current} name={sendername} />}
   </div>
     
     </div>
