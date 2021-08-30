@@ -9,10 +9,7 @@
       display:flex;
     }
     .root1{
-     overflow: auto;
-     margin-bottom: 10px;
-     height: 85vh;
-     width:100%;
+     max-width: 40vw;
     }
     .rootc{
       min-width: 40vw;
@@ -26,7 +23,7 @@
       display:flex;
     }
     .root1{
-      color: rgb(42, 54, 165);
+      max-width: 90vw;
     }
     .rootc{
       min-width: 95vw;
