@@ -162,11 +162,11 @@ return(
        
       <CardActionArea onClick={()=>{
         rec.sender===currentuser?showchatid.current= (rec.receiver):showchatid.current=(rec.sender);
+        window.innerWidth < 700 && showchatid.current!=0?change(false):change(true);
         rec.sender===currentuser?setSendername(rec.receivername):setSendername(rec.sendername)
         setisSeen((prevPersonInfo) => ({...prevPersonInfo, [rec.room_name]: 1}))
 
       Object.keys(isSeen).length === 0?isseenref.current={}:isseenref.current=isSeen 
-      console.log(isseenref.current,"refffffffffffffffffffff")
       Seen(rec.room_name)
         }}>
         
