@@ -11,6 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import { CardHeader } from '@material-ui/core';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Grid from '@material-ui/core/Grid';
 import clsx from 'clsx';
@@ -21,18 +22,6 @@ import Chat from './chat';
 
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-    minWidth: 450,
-    maxHeight:450,
-    minHeight:450,
-    maxWidth:500 ,
-    },
-    root1: {
-      minWidth: 250,
-      maxHeight:'85vh',
-      minHeight:'50vh',
-      maxWidth:'25vw' ,
-      },
     root2:{
       flexGrow: 1,
     },
@@ -56,6 +45,7 @@ export default function ChatsRecent() {
     const [recent, setRecent] = useState([]);
     const [currentuser, setCurrentuser] = useState();
     const [searchuser, setSearchuser] = useState('')
+    const showrecent = useRef(true)
     const [open, setOpen] = React.useState(false);
     // const [showchatid.current,setshowchatid.current] = useState(0);
     
@@ -141,13 +131,20 @@ const Seen =(room_name) =>{
 
 
 return(
-    <div style={{
-      marginLeft: '15%',
-      display:'flex',
-      }}>
+    <div className='root'>
       
-      <div className={classes.root1} style={{border:'ridge'}}>
-      <h3 style={{margin:'5px',textAlign:'center'}}>RECENT</h3>
+      <div style={{border:'ridge',display:showrecent.current?'block':'none'}}>
+      <div style={{margin:'5px',fontFamily:'sans-serif'}}>
+      CHATS
+      <AddBoxIcon 
+            type="submit"
+            variant="contained"
+            color="primary"
+            onClick={()=>{setOpen(true)}}
+            style={{float:'right'}}
+    />
+      </div>
+     
       <div style={{
         overflow:'auto',
         marginBottom:'10px',
@@ -170,7 +167,7 @@ return(
       console.log(isseenref.current,"refffffffffffffffffffff")
       Seen(rec.room_name)
         }}>
-        <Badge  variant="dot" color="secondary" badgeContent={ rec.sender==currentuser || isSeen[rec.room_name]==1?0:" "}>
+        
           <Paper style={{
             marginTop:'5px',
             backgroundColor:'#cae8fa',
@@ -184,8 +181,9 @@ return(
             }}>{rec.sender===currentuser?rec.receivername:rec.sendername}
             </div>
             {rec.send_msg} :{rec.get_time_ago}
+            <Badge style={{float:'right',marginRight:'5px'}}  variant="dot" color="secondary" badgeContent={ rec.sender==currentuser || isSeen[rec.room_name]==1?0:" "}></Badge>
           </Paper>
-      </Badge>
+      
       </CardActionArea>
       </>
      )
@@ -194,16 +192,7 @@ return(
     <div ref={recentEndRef} />
   </div>
   <Container  maxWidth="xs" style={{position: 'relative',bottom:10}}>
-    <Button 
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={()=>{setOpen(true)}}
-            style={{marginTop:'4px'}}
-    >
-    New Chat 
-    </Button>
+    
     </Container >
   </div>
 
@@ -211,6 +200,7 @@ return(
 
 
   <div>
+          {window.innerWidth < 700 && showchatid.current!=0?showrecent.current=false:<></>}
           {showchatid.current===0?<h1 style={{marginLeft:'20px'}}>INBOX</h1>:<Chat id={showchatid.current} name={sendername} />}
   </div>
     
