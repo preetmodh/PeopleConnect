@@ -159,7 +159,6 @@ return (
             label="type here"
             name="message"
             autoComplete="email"
-            autoFocus
             onChange={MessageChange} value={message}
     />
     <Button 

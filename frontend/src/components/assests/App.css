@@ -1,21 +1,21 @@
-.posts{
-  border-radius: 25px;
-  margin: 15px;
-  font-size: 28px;
-  float: left;
-  min-Height:50px;
-  min-width:100%;
 
-}
 
-.element{
-  padding-left: 10px;
-  float: left;
-  padding-Left: 10px;
-  padding-Right:10px;
-  margin-Right:50px
-}
+  @media (min-width:700px){
+    .Post {
+      border-radius: 3px;
+      border: 1px solid #e6e6e6;
+      background-color: #fff;
+      margin-left : 20%;
+      margin-right: 20%;
+      margin-bottom: 20px;
+  
+    }
+  }
+  @media (max-width:700px){
+    .Post {
+      border-radius: 3px;
+      background-color: #f0f0f0;
+      margin-bottom: 20px;
+    }
+  }
 
-.App {
-  text-align: center;
-}
