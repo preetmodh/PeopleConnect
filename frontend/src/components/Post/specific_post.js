@@ -174,7 +174,6 @@ const sendcomment =() =>{
 
               <CardContent>
               <div className="Post-image">
-{/* HEREEEEEEEEEE */}
               <div>
                   {post&&< img src={post.Image}style={{ width:"100%",height:'100%'}}/>}
               </div>
