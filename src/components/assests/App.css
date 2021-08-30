@@ -1,21 +1,38 @@
-.posts{
-  border-radius: 25px;
-  margin: 15px;
-  font-size: 28px;
-  float: left;
-  min-Height:50px;
-  min-width:100%;
 
-}
+@media (min-width:700px){
+    .root {
+      min-width: auto;
+      min-height: auto;
+      max-height: fit-content;
+      max-width: fit-content;
+      margin-left: 15%;
+      display:flex;
+    }
+    .root1{
+     overflow: auto;
+     margin-bottom: 10px;
+     height: 85vh;
+     width:100%;
+    }
+    .rootc{
+      min-width: 40vw;
+      min-height: auto;
+      max-height: fit-content;
+      max-width: 40vw;
+    }
+  }
+  @media (max-width:700px){
+    .root {
+      display:flex;
+    }
+    .root1{
+      color: rgb(42, 54, 165);
+    }
+    .rootc{
+      min-width: 95vw;
+      min-height: auto;
+      max-height: fit-content;
+      max-width: 95vw;
+    }
+  }
 
-.element{
-  padding-left: 10px;
-  float: left;
-  padding-Left: 10px;
-  padding-Right:10px;
-  margin-Right:50px
-}
-
-.App {
-  text-align: center;
-}

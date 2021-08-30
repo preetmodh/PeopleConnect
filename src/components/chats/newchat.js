@@ -79,7 +79,7 @@ function finduser(value){
             required
             fullWidth
             id="new"
-            label="New msg"
+            label="New Chat"
             name="recent"
             value={searchuser}
             onChange={(e) => {finduser(e.target.value)}} 

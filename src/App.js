@@ -30,14 +30,14 @@ export class App2 extends Component{
              
             
                 <div>
-                {window.innerWidth > 1000 ?
+                {window.innerWidth > 700 ?
                     <Home >
                     <div style={{margin:'auto'}}>
                         <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
-                        <Route exact path='/messages' component={ChatsRecent} />
+                        <Route exact path='/messages'  render={() => <ChatsRecent   key={uuidv4()}/>}/>
                         <Route exact path='/peoples' render={() => <People   key={uuidv4()}/>}/>
                         <Route exact path='/profile/:username' render={() => <Profile   key={uuidv4()}/>}   />
-                        <Route exact path='/home' component={Post} />
+                        <Route exact path='/home' render={() => <Post   key={uuidv4()}/>}/>
                         <Route exact path='/post/:id' component={SpecificPost} />
                         <Route exact path='/todo' render={() => <Todo   key={uuidv4()}/> }/>
                         </div>
@@ -45,10 +45,10 @@ export class App2 extends Component{
                     
                     <MobileHome>
                         <Route exact path='/notifications'  render={() => <Notification   key={uuidv4()}/>} />
-                        <Route exact path='/messages' component={ChatsRecent} />
+                        <Route exact path='/messages'  render={() => <ChatsRecent   key={uuidv4()}/>}/>
                         <Route exact path='/peoples' render={() => <People   key={uuidv4()}/>}/>
                         <Route exact path='/profile/:username' render={() => <Profile   key={uuidv4()}/>}   />
-                        <Route exact path='/home' component={Post} />
+                        <Route exact path='/home'  render={() => <Post   key={uuidv4()}/>}/>
                         <Route exact path='/post/:id' component={SpecificPost} />
                         <Route exact path='/todo' render={() => <Todo   key={uuidv4()}/> }/>
                     </MobileHome>

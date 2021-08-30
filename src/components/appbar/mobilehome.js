@@ -212,13 +212,17 @@ className={clsx(classes.appBar, {
             <HomeIcon style={{margin:'5px',color:'white' }}  className={classes.large} />
         </NavLink>
         <NavLink  to={'/messages'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
-            <MessageIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+        <Badge badgeContent={messageCount} color="secondary">
+          <MessageIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+          </Badge>
         </NavLink>
         <NavLink  to={`/profile/${username}`}   style={{ textDecoration: 'none',cursor:'pointer'}} >
             <AccountCircleIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
         </NavLink>
         <NavLink  to={'/notifications'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
+        <Badge badgeContent={notiCount} color="secondary">
             <NotificationsIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+          </Badge>
         </NavLink>
         <NavLink  to={'/todo'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
             <ExitToAppIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />

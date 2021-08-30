@@ -11,15 +11,10 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
 const useStyles = makeStyles({
-  root: {
-    minWidth: 450,
-    maxHeight:450,
-    minHeight:450,
-    maxWidth:500 ,
-  },
+ 
 
 });
 
@@ -104,14 +99,18 @@ const MessageChange=(event)=>{
 
 
 return (
-<div className={classes.root}  style={{border:'ridge',maxHeight:'85vh',maxWidth:'50vw'}}>
-  <NavLink to={`/profile/${params.name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+<div className="rootc"  style={{border:'ridge'}}>
+<NavLink to={`/messages`}  style={{textDecoration: 'none',cursor:'pointer',color:'black'}}>
+  <KeyboardBackspaceIcon style={{float:'left',marginTop:'5px'}}/>
+  </NavLink>
+  <NavLink to={`/profile/${params.name}`}  style={{ position: 'fixed',left:'50%',textDecoration: 'none',cursor:'pointer',color:'black'}}>
       <h2 style={{margin:'5px'}}>{params.name}</h2>
   </NavLink>
   
   <div style={{
     overflow:'auto',
     marginBottom:'20px',
+    marginTop:'40px',
     height:'60vh',
     width:'100%',
     }}>
@@ -159,7 +158,6 @@ return (
             label="type here"
             name="message"
             autoComplete="email"
-            autoFocus
             onChange={MessageChange} value={message}
     />
     <Button 
