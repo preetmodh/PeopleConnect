@@ -58,6 +58,7 @@ export default function ChatsRecent() {
   const handleClose = (value) => {
     if ('id' in value){
       showchatid.current=value['id']
+      change(false)
       setSendername(value['name'])
     }
       setOpen(false);
