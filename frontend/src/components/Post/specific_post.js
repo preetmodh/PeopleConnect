@@ -274,7 +274,7 @@ const sendcomment =(e) =>{
             fullWidth
             variant="contained"
             color="primary"
-            onClick={(e)=>{sendcomment()}}
+            onClick={(e)=>{sendcomment(e)}}
             
     >
     GO

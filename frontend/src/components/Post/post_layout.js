@@ -14,6 +14,7 @@ import Icon from '@material-ui/core/Icon';
 import CardMedia from '@material-ui/core/CardMedia';
 import { Avatar, Card, CardActions, CardContent, CardHeader, Paper, Typography } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
+import ForumIcon from '@material-ui/icons/Forum';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -185,7 +186,9 @@ const useStyles = makeStyles((theme) => ({
       </IconButton>
             {likedCount[post.id]}&nbsp;
             
-            
+            <IconButton  className={classes.button}>
+            <NavLink to={`/post/${post.id}`}> <Icon><ForumIcon /></Icon></NavLink>
+      </IconButton>
             <div>Caption:{post.caption}</div>
             </div>
 
