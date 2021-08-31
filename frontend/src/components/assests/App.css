@@ -1,5 +1,12 @@
 
 @media (min-width:700px){
+  .container{
+    position: relative;
+    max-width: 30%;
+    max-height: 30%;
+    margin-top: 40px;
+    margin-left: 80px;
+  }
     .root {
       min-width: auto;
       min-height: auto;
@@ -36,6 +43,11 @@
     }
   }
   @media (max-width:700px){
+    .container{
+      position: relative;
+      max-width: 95%;
+      margin-left: 10px;
+    }
     .root {
       display:flex;
     }
