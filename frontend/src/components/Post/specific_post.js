@@ -212,7 +212,7 @@ const sendcomment =(e) =>{
       
     <CardContent >
     
-      {Comments&& Comments.map((Comment)=>{
+      {Comments? Comments.map((Comment)=>{
      return(
        <>
       <Paper style={{
@@ -239,7 +239,9 @@ const sendcomment =(e) =>{
       </Paper>
       </>
      )
-   })}
+   }):<h6 style={{
+    marginTop:'20px',
+    }}>No Comments</h6>}
 
 
     </CardContent>
