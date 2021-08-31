@@ -107,9 +107,10 @@ export default function AddPost (props){
                     fullWidth required
                 />
             <TextField
+            required
                     autoFocus margin="dense" id="caption" label="caption" type="text" name="caption"
                     onChange={changeDetail} value={postData.caption}
-                    fullWidth required
+                    fullWidth 
                 />
             <div>
                 <input required accept="image/*"  name="Image" type="file" onChange={changeDetail}/>

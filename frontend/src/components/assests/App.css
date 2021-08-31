@@ -17,6 +17,23 @@
       max-height: fit-content;
       max-width: 40vw;
     }
+    .element{
+      padding-left: 10px;
+      padding-Left: 10px;
+      padding-Right:10px;
+    }
+    .subelement{
+      color: #3c7a67;
+      float: right;
+
+    }
+    .notification{
+      border-radius: 25px;
+      margin-bottom: 15px;
+      font-size: 28px;
+      float: left;
+      min-width:60vw;
+    }
   }
   @media (max-width:700px){
     .root {
@@ -26,10 +43,28 @@
       max-width: 90vw;
     }
     .rootc{
-      min-width: 95vw;
+      min-width: 93vw;
       min-height: auto;
       max-height: fit-content;
-      max-width: 95vw;
+      max-width: 93vw;
+    }
+    .element{
+      padding-left: 10px;
+      padding-Left: 10px;
+      padding-Right:10px;
+    }
+    .subelement{
+      font-size: 20px;
+      float:right;
+      margin-top: 10px;
+      color: #3c7a67;
+    }
+    .notification{
+      border-radius: 25px;
+      margin-bottom: 20px;
+      font-size: 28px;
+      float: left;
+      min-width:90vw;
+      max-width:90vw;
     }
   }
-

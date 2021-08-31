@@ -181,11 +181,11 @@ className={clsx(classes.appBar, {
 })}
 >
 <Toolbar>
-<Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
-        <Avatar style={{margin:'15px' }}  src={profile} className={classes.large} />
-        <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>{username}</h8>
-</Box>
-<Box display='flex'> 
+<Box display='flex' flexGrow={1} >
+        <Avatar style={{marginTop:'15px',marginLeft:'3px',marginRight:'3px' }}  src={profile} className={classes.large} />
+        <h8 style={{ fontSize: 18,marginTop:'25px',marginRight:'20px',whitespace: 'nowrap'}}>{username}</h8>
+
+<Search/>
       <Button onClick={logout} style={{ fontSize:15,margin:'15px',color:'white' }}>Logout</Button>
 </Box>
 </Toolbar>
@@ -225,7 +225,7 @@ className={clsx(classes.appBar, {
           </Badge>
         </NavLink>
         <NavLink  to={'/todo'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
-            <ExitToAppIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+            <AssignmentTurnedInIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
         </NavLink>
         </div>
       </AppBar>

@@ -197,17 +197,12 @@ className={clsx(classes.appBar, {
   <MenuIcon />
 </IconButton>
 
-<Box display='flex' flexGrow={1} style={{marginRight:'20px'}}>
-        <Avatar style={{margin:'15px' }}  src={profile} className={classes.large} />
-        <h8 style={{ fontSize: 18,marginTop:'25px',whitespace: 'nowrap',marginRight:'10px'}}>{username}</h8>
-</Box>
-<Box display='flex'>
-      <h8 style={{ fontSize: 20,marginTop:'23px' ,marginRight:'3px'}}>Search</h8>
+
+      <Avatar style={{margin:'15px' }}  src={profile} className={classes.large} />
+      <h8 style={{ fontSize: 18,marginTop:'5px',whitespace: 'nowrap',marginRight:'30%'}}>{username}</h8>
       <Search/>
-      
-      
-      <Button onClick={logout} style={{ fontSize:15,margin:'15px',color:'white' }}>Logout</Button>
-</Box>
+      <Button onClick={logout} style={{ fontSize:15,margin:'15px',color:'white',marginLeft:'30%' }}>Logout</Button>
+
 </Toolbar>
 </AppBar>
 <Drawer

@@ -10,6 +10,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Input } from '@material-ui/core';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -18,6 +19,12 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     marginRight: theme.spacing(2),
   },
+  textfield:{
+    color:'white',
+    minWidth:'10%',
+    maxWidth:'90%'
+
+}
 }));
 
 export default function Search() {
@@ -81,14 +88,29 @@ export default function Search() {
   return (
     <div className={classes.root}>
       <div>
-      <Input
+      <form  noValidate autoComplete="off">
+      <TextField
+            aria-controls={open ? 'menu-list-grow' : undefined}
+            ref={anchorRef}
+            aria-haspopup="true"
+            value={searchValue}
+            label="Search here"
+            InputProps={{
+              className: classes.textfield
+            }}
+            onChange={(e) => {search(e.target.value)}}
+            onClick={handleToggle}
+    />
+    </form>
+      {/* <Input
        ref={anchorRef}
           aria-controls={open ? 'menu-list-grow' : undefined}
           aria-haspopup="true"
           onClick={handleToggle}
           value={searchValue}
+          label="Search"
             onChange={(e) => {search(e.target.value)}}
-           style={{ fontSize:20,margin:'18px',marginRight:'500px',minWidth:'30%' ,color:'white',}}></Input>
+           style={{ fontSize:20,margin:'18px',minWidth:'30%' ,color:'white',}}></Input> */}
         
  
         <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal  style={{overflow:'auto',maxHeight:300}}>

@@ -72,7 +72,8 @@ export default function Chat(params) {
 }, [params.id]); 
   
 messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
-const sendMessage = () => {
+const sendMessage = (e) => {
+  e.preventDefault();
   const body = {
     sender: currentuser,
     receiver: id,
@@ -149,19 +150,22 @@ return (
     
   </div >
   <Container  maxWidth="xs" style={{position: 'relative',bottom:'35px'}}>
-   <TextField
+  <form  noValidate autoComplete="off"><TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
             label="type here"
             name="message"
-            autoComplete="email"
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                sendMessage(event);
+              }
+            }}
+
             onChange={MessageChange} value={message}
-    />
+    /></form>
     <Button 
-            type="submit"
             fullWidth
             variant="contained"
             color="primary"
@@ -169,6 +173,7 @@ return (
     >
     GO
     </Button>
+    
     </Container >
   
   </div>
