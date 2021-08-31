@@ -38,26 +38,29 @@ export default function Notification(){
    
 
       const array=[]
-
+      var url =''
       for (var i=0;i<list.length;i++){
         var title=''
         if (list[i]['notification_type']==1){
             title= ' Liked your post.'
+            url='/post/'+list[i]['post']
         }
         else if (list[i]['notification_type']==2){
             title= ' Commented on your post.'
+            url='/post/'+list[i]['post']
         }
         else{
             title= ' Followed you.'
+            url=`/profile/${list[i]['get_sendername']}`
         }
+        
 
             array.push(
-                <NavLink to={`/profile/${list[i]['get_sendername']}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
-                    <div  class="posts" style={{backgroundColor:list[i]['is_seen'] ? '#6cd1a4':'#9dfcbe'}} >
+                <NavLink to={url}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
+                    <div  class="notification" style={{backgroundColor:list[i]['is_seen'] ? '#6cd1a4':'#9dfcbe'}} >
                     <div class="element" >
                         <span >{list[i]['get_sendername']}  {title}</span>
-                        <br />
-                        <span >{list[i]['get_date']}</span>
+                        <span class="subelement">{list[i]['get_time_ago']}</span>
                     </div>
                     </div>
                 </NavLink>
@@ -69,7 +72,7 @@ export default function Notification(){
 
 
     return(
-        <div style={{marginTop:'5px',marginLeft:'100px',marginRight:'450px'}}>
+        <div style={{marginTop:'5px'}}>
         {array}
         
         </div>

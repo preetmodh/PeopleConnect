@@ -10,6 +10,14 @@
       margin-bottom: 20px;
   
     }
+    .Postcomment{
+      border-radius: 3px;
+      border: 1px solid #e6e6e6;
+      background-color: #fff;
+      margin-left : 40%;
+      margin-right: 40%;
+      margin-bottom: 20px;
+    }
   }
   @media (max-width:700px){
     .Post {

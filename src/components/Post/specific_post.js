@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useState,useRef } from "react";
 import "../assests/post.css";
+import '../assests/App.css';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
@@ -14,6 +15,7 @@ import axios from "axios";
 import AddPost from "./actions/add_post";
 import Icon from '@material-ui/core/Icon';
 import { NavLink, useHistory, useParams } from "react-router-dom";
+import KeyboardBackspace from "@material-ui/icons/KeyboardBackspace";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -127,8 +129,8 @@ export default function SpecificPost(){
 
           messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
           
-const sendcomment =() =>{
-  console.log("calllllllllllll")
+const sendcomment =(e) =>{
+  e.preventDefault();
   const body={
     body:newcomment,
     post:id,
@@ -139,7 +141,6 @@ const sendcomment =() =>{
         },
        
       }).then((res)=>{
-        console.log(res);
         setComments([...Comments,...[res.data]])
         setNewcomment('')
     },(error)=>{console.log(error.message,error.response)})
@@ -150,7 +151,8 @@ const sendcomment =() =>{
           return(
             
               <div  style={{display:'flex'}} >
-              {post&&<Card display='flex' className={classes.Comment} flexGrow={1} style={{marginLeft:'5%',minWidth: 450,overflow:'auto',
+              {post&& window.innerWidth > 700 &&
+              <Card display='flex' className={classes.Comment} flexGrow={1} style={{marginLeft:'5%',minWidth: 450,overflow:'auto',
     maxHeight:'85vh',
     maxWidth:'75vw'}}>
               
@@ -191,25 +193,21 @@ const sendcomment =() =>{
               </CardContent>
               
 </Card>}
-<div className={classes.Comment2}  style={{ border:'ridge  ',  
-maxHeight:'85vh',
-maxWidth:'40vw',
- 
-}}>
-<h3 style={{margin:'5px'}}>Comments</h3>  
-<div   style={{
-  
-  overflow:'auto',
-  width:'100%',
-  height:'70%',
-}}>
+<div className="rootc"  style={{border:'ridge'}}>
+<NavLink to={`/home`}  style={{textDecoration: 'none',cursor:'pointer',color:'black'}}>
+  <KeyboardBackspace style={{float:'left',marginTop:'5px'}}/>
+  </NavLink>
+  <h2 style={{margin:'5px'}}>Comments</h2>
 
-  {/* <div className={classes.Comment} style={{
+  
+  <div style={{
     overflow:'auto',
-    marginBottom:'10px',
+    marginBottom:'20px',
+    marginTop:'40px',
+    height:'50vh',
     width:'100%',
-    height:'100%'
-    }}> */}
+    }}>
+
       
       
     <CardContent >
@@ -219,10 +217,9 @@ maxWidth:'40vw',
        <>
       <Paper style={{
         marginTop:'5px',
-        
         position:'relative',
-        
-        maxWidth:'51%',
+        backgroundColor:'#cae8fa',
+        maxWidth:'91%',
         }}>
         <NavLink to={`/profile/${Comment.username}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
           <strong>{Comment.username}</strong>
@@ -264,6 +261,11 @@ maxWidth:'40vw',
             name="message"
             autoComplete="email"
             value={newcomment}
+            onKeyPress={event => {
+              if (event.key === 'Enter') {
+                sendcomment(event);
+              }
+            }}
             onChange={(event)=>{setNewcomment(event.target.value)}}
             
     />

@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
         color: blue[600],
       },
     followingButton:{
-        marginLeft:100,
+        marginLeft:0,
     },
     
   }));
