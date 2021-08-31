@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../assests/App.css';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -26,13 +27,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '30%',
      maxHeight: '30%',
      marginTop:80,
-     marginLeft:80
-  },
-  container:{
-    position:'relative',
-    maxWidth: '30%',
-     maxHeight: '30%',
-     marginTop:40,
      marginLeft:80
   },
   avatar: {
@@ -96,10 +90,11 @@ export default function Register() {
 }
   return (
     <div  style={{display:'flex'}} >
-     <Svg className={classes.svg} />
-    <Container component="main" maxWidth="xs" className={classes.container} >
+      {window.innerWidth >700 && <Svg className={classes.svg}/>}
+    <div component="main"  className='container'>
       <CssBaseline />
       <div className={classes.paper}>
+      {window.innerWidth <700 && <Svg style={{maxHeight:'40vh',maxWidth:'40vw'}}/>}
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
@@ -165,7 +160,7 @@ export default function Register() {
           </Grid>
         </form>
       </div>
-    </Container>
+    </div>
     </div>
   );
 }

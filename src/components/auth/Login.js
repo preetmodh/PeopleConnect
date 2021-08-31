@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import '../assests/App.css';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -30,13 +31,6 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '30%',
      maxHeight: '30%',
      marginTop:80,
-     marginLeft:80
-  },
-  container:{
-    position:'relative',
-    maxWidth: '30%',
-     maxHeight: '30%',
-     marginTop:40,
      marginLeft:80
   },
   form: {
@@ -123,12 +117,13 @@ export default function Login() {
 
   return (
     <div  style={{display:'flex'}} >
-    <Svg className={classes.svg}/>
-    <Container className={classes.container} component="main" maxWidth="xs" >
+     {window.innerWidth >700 && <Svg className={classes.svg}/>}
+    <div className='container' component="main">
       <CssBaseline />
       <div className={classes.paper}>
+      {window.innerWidth <700 && <Svg style={{maxHeight:'40vh',maxWidth:'40vw'}}/>}
         <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
+        <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
           Sign in
@@ -176,7 +171,7 @@ export default function Login() {
           </Grid>
         </form>
       </div>
-    </Container>
+    </div>
     </div>
   );
 }
