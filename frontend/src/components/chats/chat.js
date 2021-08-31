@@ -169,7 +169,7 @@ return (
             fullWidth
             variant="contained"
             color="primary"
-            onClick={sendMessage}
+            onClick={e => {sendMessage(e)}}
     >
     GO
     </Button>

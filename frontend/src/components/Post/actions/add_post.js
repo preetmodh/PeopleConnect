@@ -50,6 +50,7 @@ export default function AddPost (props){
     const[PostImage,setPostImage]=useState(null);
     const[PreviewImage,setPreviewImage]=useState('');
     const[show,setshow]=useState('none');
+    const [see,setSee] = useState(false);
     
     const changeDetail=(event)=>{
         
@@ -119,7 +120,7 @@ export default function AddPost (props){
                 <img src={PreviewImage} style={{maxHeight:500,maxWidth:500}}/>
             </div>
             <div>
-                <Button onClick={(e)=>{post(e);setshow('block')}}>Post</Button>
+                <Button disabled={see} onClick={(e)=>{post(e);setshow('block');setSee(true)}}>Post</Button>
             </div>
         </Dialog>
 
