@@ -121,7 +121,7 @@ export default function AddPost (props){
             </div>
             <div>
                 <Button disabled={see} onClick={(e)=>{post(e);setshow('block');setSee(true)}}>Post</Button>
-                <CircularProgress disabled={see?false:true}/>
+                <CircularProgress style={{display:see==false?'none':'block'}}/>
             </div>
         </Dialog>
 
