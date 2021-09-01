@@ -80,8 +80,10 @@ const AllTask=(props)=>{
                         </Typography>
                     </AccordionDetails>
                     <div style={{marginBottom:'10px'}}>
-                    <DeleteTask props={task}/>
-                    <CompleteTask props={task}/>
+                    {window.innerWidth <700 && <div>
+                      <DeleteTask props={task}/>
+                       <CompleteTask props={task}/>
+                      </div>}
                     </div>
                     
             </Accordion>
