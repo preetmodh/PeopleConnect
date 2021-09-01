@@ -57,7 +57,11 @@ const AllTask=(props)=>{
                     style={{overflow:'auto '}} 
                     >
                     
-                        <Typography className={classes.heading}>{task.title}</Typography>
+                        <Typography style={{
+                            whiteSpace: 'pre-wrap',
+                            overflowWrap: 'break-word',
+                            }}
+                            className={classes.heading}>{task.title}</Typography>
                         {task && task.due_date&&
                           <Typography className={classes.secondaryHeading}>
                               {'Due: '+dateFormatter(task.due_date)}
@@ -68,17 +72,15 @@ const AllTask=(props)=>{
                       <DeleteTask props={task}/>
                        <CompleteTask props={task}/>
                       </div>}
-
- 
                        
                     </AccordionSummary>
                     <AccordionDetails >
                         <Typography style={{fontSize:20,fontFamily:'sans-serif'}}>
                             {task.desc}
                         </Typography>
+                    </AccordionDetails>
                     <DeleteTask props={task}/>
                     <CompleteTask props={task}/>
-                    </AccordionDetails>
             </Accordion>
             <br/>
             </div>
