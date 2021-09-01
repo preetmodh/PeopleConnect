@@ -56,7 +56,8 @@
       max-width: 90vw;
     }
     .root1{
-      max-width: 90vw;
+      max-width: 80vw;
+      min-width: 80vw;
     }
     .rootc{
       min-width: 93vw;
