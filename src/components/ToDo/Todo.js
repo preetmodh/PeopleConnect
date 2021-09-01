@@ -11,22 +11,8 @@ import ShowTask from './ShowTask';
 import './App.css';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    backgroundColor: '#F0F8FF',
-    '& > *': {
-      margin: theme.spacing(2),
-      
-    },
-    
-  },
   styleh1:{
-            textAlign:'center',fontFamily:'cursive',
-            
-           
-            
-            
-           
-            
+            textAlign:'center',fontFamily:'Roboto',
           }
 }));
 
@@ -69,24 +55,27 @@ export default function ContainedButtons() {
   
 
   return (
-    <div className="todoH1">
-    
-    
-    
-    <div className={classes.root}>
+    <div className="todo">
+    <div>
     <br/>
-    
-      <Button onClick={()=>{setShowPage(0)}} variant="contained" color="secondary">All Tasks</Button>
-      <Button onClick={()=>{setShowPage(1)}} variant="contained" color="primary">
+    <div style={{
+        display:'grid',
+        alignContent:'space-evenly',
+        gridTemplateColumns:'auto auto auto auto ',
+        }}>
+      <Button style={{fontSize:'15px',marginLeft:'10px',padding:'5px'}}onClick={()=>{setShowPage(0)}} variant="contained" color="secondary">All Tasks</Button>
+      <Button style={{fontSize:'14px',marginLeft:'10px',padding:'5px'}}onClick={()=>{setShowPage(1)}} variant="contained" color="primary">
         Create Task
       </Button>
-      <Button onClick={()=>{setShowPage(2)}} variant="contained" color="secondary">
+      <Button style={{fontSize:'14px',marginLeft:'10px',padding:'5px'}}onClick={()=>{setShowPage(2)}} variant="contained" color="secondary">
         Pending Task
       </Button>
-     
-      <Button onClick={()=>{setShowPage(3)}} variant="contained" color="primary" >
+      <Button style={{fontSize:'12px',marginLeft:'10px',padding:'5px'}}onClick={()=>{setShowPage(3)}} variant="contained" color="primary" >
       Completed Task
       </Button>
+      </div>
+     
+      
       <br/>
       {showPage==0&&<ShowTask props={taskList}   />}
       {showPage==1&&<CreateTask/>}

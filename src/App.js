@@ -13,6 +13,12 @@ import Profile from './components/user/profile';
 import SpecificPost from './components/Post/specific_post';
 import Todo from './components/ToDo/Todo';
 import MobileHome from './components/appbar/mobilehome';
+
+
+// window.addEventListener("resize", function() {
+//     return window.innerWidth;
+//   });
+
 export class App2 extends Component{
    
    render(){

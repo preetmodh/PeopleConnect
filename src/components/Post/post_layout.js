@@ -186,7 +186,7 @@ const useStyles = makeStyles((theme) => ({
       </IconButton>
             {likedCount[post.id]}&nbsp;
             
-            <IconButton  className={classes.button}  color={"#dedede"}>
+            <IconButton  className={classes.button}  color={""}>
             <NavLink to={`/post/${post.id}`} style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}> <Icon><ForumIcon /></Icon></NavLink>
       </IconButton>
             <div>Caption:{post.caption}</div>

@@ -74,11 +74,11 @@ const DeleteTask=(props)=>{
          <ColorButton
             variant="contained"
             
-        
+            style={{marginLeft:'75px',marginRight:'10px'}}
             startIcon={<DeleteIcon />}
             onClick={()=>{setOpen(true);setDeleteAlertId(task.id)}}
         >
-              Delete
+              {window.innerWidth > 700 && 'Delete'}
             </ColorButton>
             {open&& task.id==deleteAlertId &&
                           
