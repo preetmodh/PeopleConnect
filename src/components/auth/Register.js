@@ -141,6 +141,9 @@ export default function Register() {
                 onChange={event => setPass(event.target.value)}
               />
             </Grid>
+            <Grid item xs={12}>
+              <span>password must contain minimum 8 characters, one number and one special character</span>
+            </Grid>
           </Grid>
           <Button
             fullWidth
