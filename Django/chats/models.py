@@ -4,7 +4,7 @@ from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 import json
 from django.db.models.signals import post_save, post_delete
-
+import timeago
 
 
 # Create your models here.
@@ -26,22 +26,7 @@ class RecentChat(models.Model):
     def receivername(self):
         return self.receiver.user_name
     def get_time_ago(self):
-        time = datetime.now()
-        if self.created_at == None:
-            return None
-        if  self.created_at.minute == time.minute and self.created_at.hour == time.hour and self.created_at.day == time.day:
-            return "Now"
-        elif  self.created_at.hour == time.hour and self.created_at.day == time.day:
-            return str(time.minute - self.created_at.minute) + " minutes ago"
-        elif self.created_at.day == time.day:
-            return str(time.hour - self.created_at.hour) + " hours ago"
-        else:
-            if self.created_at.month == time.month:
-                return str(time.day - self.created_at.day) + " days ago"
-            else:
-                if self.created_at.year == time.year:
-                    return str(time.month - self.created_at.month) + " months ago"
-        return str(self.created_at)
+        return timeago.format(self.created_at, datetime.now())
 
     def send_recent(sender, instance, *args, **kwargs):
         from .serializers import ChatRecentSerializer
@@ -101,22 +86,7 @@ class Chat(models.Model):
         return self.sender.user_name
 
     def get_time_ago(self):
-        time = datetime.now()
-        if self.created_at == None:
-            return None
-        if  self.created_at.minute == time.minute and self.created_at.hour == time.hour and self.created_at.day == time.day:
-            return "Now"
-        elif  self.created_at.hour == time.hour and self.created_at.day == time.day:
-            return str(time.minute - self.created_at.minute) + " minutes ago"
-        elif self.created_at.day == time.day:
-            return str(time.hour - self.created_at.hour) + " hours ago"
-        else:
-            if self.created_at.month == time.month:
-                return str(time.day - self.created_at.day) + " days ago"
-            else:
-                if self.created_at.year == time.year:
-                    return str(time.month - self.created_at.month) + " months ago"
-        return str(self.created_at)
+        return timeago.format(self.created_at, datetime.now())
 
 
     def send_new_message(sender, instance, *args, **kwargs):
