@@ -57,10 +57,7 @@ const AllTask=(props)=>{
                     style={{overflow:'auto '}} 
                     >
                     
-                        <Typography style={{
-                            whiteSpace: 'pre-wrap',
-                            overflowWrap: 'break-word',
-                            }}
+                        <Typography
                             className={classes.heading}>{task.title}</Typography>
                         {task && task.due_date&&
                           <Typography className={classes.secondaryHeading}>
