@@ -168,7 +168,6 @@ const useStyles = makeStyles((theme) => ({
               </div>
 
             </header>
-            <NavLink to={`/post/${post.id}`}>
               <div className="Post-image">
 
                 <div className="Post-image-bg">
@@ -178,7 +177,6 @@ const useStyles = makeStyles((theme) => ({
                 </div>
 
               </div>
-            </NavLink>
             <div className="Post-caption">
             
             <IconButton onClick={()=>likeDislike(post.id)} color={isLiked[post.id]==1? "secondary":""} className={classes.button} aria-label="Add an alarm">
