@@ -74,13 +74,16 @@ const AllTask=(props)=>{
                       </div>}
                        
                     </AccordionSummary>
-                    <AccordionDetails >
+                    <AccordionDetails  >
                         <Typography style={{fontSize:20,fontFamily:'sans-serif'}}>
                             {task.desc}
                         </Typography>
                     </AccordionDetails>
+                    <div style={{marginBottom:'10px'}}>
                     <DeleteTask props={task}/>
                     <CompleteTask props={task}/>
+                    </div>
+                    
             </Accordion>
             <br/>
             </div>
