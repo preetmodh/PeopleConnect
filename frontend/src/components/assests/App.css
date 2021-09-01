@@ -50,6 +50,10 @@
     }
     .root {
       display:flex;
+      min-width: 90vw;
+      min-height: auto;
+      max-height: 85vh;
+      max-width: 90vw;
     }
     .root1{
       max-width: 90vw;
