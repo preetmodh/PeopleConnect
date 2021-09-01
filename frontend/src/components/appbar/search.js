@@ -34,7 +34,7 @@ export default function Search() {
   const anchorRef = React.useRef(null);
 
   const handleToggle = () => {
-    setOpen((prevOpen) => !prevOpen);
+    setOpen(true);
   };
 
   const handleClose = (event) => {

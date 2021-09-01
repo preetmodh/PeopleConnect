@@ -56,7 +56,7 @@ const CreateTask=()=>{
             <br/><br/><br/>
 
             
-            <textarea placeholder="Description" style={{fontSize:20}} name="desc" label='desc' onChange={change} value={taskData.desc}  rows="5" cols="50">
+            <textarea placeholder="Description" style={{fontSize:20}} name="desc" label='desc' onChange={change} value={taskData.desc}  rows="5" cols="20">
                 
             </textarea>
             <br/><br/><br/>

@@ -5,18 +5,13 @@ import AccordionDetails from '@material-ui/core/AccordionDetails';
 import AccordionSummary from '@material-ui/core/AccordionSummary';
 import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import './App.css';
 //components
 import DeleteTask from './DeleteTask';
 import CompleteTask from './CompleteTask';
 
 const useStyles = makeStyles((theme) => ({
-    root: {
 
-    },
-    button:{
-        float:'right',
-    },
     heading: {
       fontSize: 25,
       flexBasis: '33.33%',
@@ -25,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
       fontFamily:'sans-serif',
     },
     secondaryHeading: {
-      fontSize: 20,
+      fontSize: 18,
       font:'bold',
       
     },
@@ -48,17 +43,18 @@ const AllTask=(props)=>{
     return date.slice(0,10)+' Time:'+date.slice(11,19);
   }
   return (
-    <div style={{backgroundColor: '#F0F8FF',}}>
+    <div  className="todo" style={{backgroundColor: '#F0F8FF',}}>
       
      {taskList&&
         taskList.map((task)=>{
             return (
-              <>
+              <div >
                 <Accordion className={classes.root} expanded={expanded === `${task.id}`} onChange={handleChange(`${task.id}`)}>
                     <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2bh-content"
                     id="panel2bh-header"
+                    style={{overflow:'auto '}} 
                     >
                     
                         <Typography className={classes.heading}>{task.title}</Typography>
@@ -67,19 +63,25 @@ const AllTask=(props)=>{
                               {'Due: '+dateFormatter(task.due_date)}
                           </Typography>
                         }
-                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                       <DeleteTask props={task}/>&nbsp;&nbsp;&nbsp;
+              
+                      {window.innerWidth >700 && <div>
+                      <DeleteTask props={task}/>
                        <CompleteTask props={task}/>
+                      </div>}
 
+ 
+                       
                     </AccordionSummary>
                     <AccordionDetails >
                         <Typography style={{fontSize:20,fontFamily:'sans-serif'}}>
                             {task.desc}
                         </Typography>
+                    <DeleteTask props={task}/>
+                    <CompleteTask props={task}/>
                     </AccordionDetails>
             </Accordion>
             <br/>
-            </>
+            </div>
             )
         })
      }

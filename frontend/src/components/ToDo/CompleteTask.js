@@ -66,13 +66,11 @@ const CompleteTask=(props)=>{
          
          <ColorButton
                             variant="contained"
-                            
-                            
                             startIcon={<DoneOutlineIcon />}
                             onClick={()=>{setOpen(true);setCompleteAlertId(task.id)}}
                             disabled={task.complete}
                         >
-                            Complete
+                            {window.innerWidth > 700 && 'Complete'}
                         </ColorButton>
                         
             {open&& task.id==CompleteAlertId &&
