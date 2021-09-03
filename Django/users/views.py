@@ -1,14 +1,15 @@
 from django.db import models
 from django.shortcuts import render
 from rest_framework import generics,filters
+from rest_framework import response
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.views import APIView
 from .serializers import CustomUserSerializer,CustomFollowSerializer
+from rest_framework.parsers import MultiPartParser, FormParser
 from .models import User,Follow
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-
 import random
 
 # Create your views here.
@@ -19,6 +20,20 @@ import random
 class CreateUserAPIView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
+
+    parser_classes = [MultiPartParser, FormParser]
+    def get(self, request, *args, **kwargs):
+        username=request.query_params['username']
+        user=User.objects.get(user_name=username)
+        data={'userphoto':user.picture}
+        return Response(data,status=200)
+    def put(self,request,format=None,*args,**kwargs):
+        authentication_classes=[TokenAuthentication,]
+        permission_classes=[IsAuthenticated,]
+        user=request.user
+        user._picture=request.data['Image']
+        user.save()
+        return Response({},status=200)
 
 class CreateFollowAPIView(generics.ListCreateAPIView):
     #permission_classes = [IsAuthenticated]

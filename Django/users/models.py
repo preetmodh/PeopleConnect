@@ -73,9 +73,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def picture(self):
-        if self._picture:
+        try: 
+            self._picture.url
             return self._picture.url
-        else:
+        except:
             return 'https://cdn.icon-icons.com/icons2/1378/PNG/512/avatardefault_92824.png'
     def __str__(self):
         return self.user_name
