@@ -37,7 +37,7 @@ import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import SettingsIcon from '@material-ui/icons/Settings';
 import Search from './search';
 import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
-
+import People from '../people';
 
 
 

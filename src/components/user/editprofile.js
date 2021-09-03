@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
   
 
 
-export default function AddPost (props){
+export default function Editprofile (props){
     const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
 
     const x=localStorage.getItem('token')
@@ -38,15 +38,6 @@ export default function AddPost (props){
       onClose();
     };
     
-    const initialFormData = Object.freeze({
-		title:'',
-        caption:'',
-        
-        tags:[1],
-	});
-
-	const [postData, updateFormData] = useState(initialFormData);
-
     const[PostImage,setPostImage]=useState(null);
     const[PreviewImage,setPreviewImage]=useState('');
     const[show,setshow]=useState('none');
@@ -60,27 +51,15 @@ export default function AddPost (props){
                
                setPostImage(event.target.files[0])   
         }
-        else{
-               
-                updateFormData({
-                    ...postData,
-                    [event.target.name]: event.target.value,
-                });
-                
-           }  
+       
     };
     const post=(e)=>{
         setshow('block');
         e.preventDefault();
-
-        let formData = new FormData();
-		formData.append('title', 'temp');
-		formData.append('caption', postData.caption);
-		formData.append('tags', postData.tags);
-		
+        let formData = new FormData();	
 		formData.append('Image', PostImage);
         console.log(formData.getAll('Image'));
-        axios.post(`${BASE_URL_HTTP}/posts/profile_post/aa`,
+        axios.put(`${BASE_URL_HTTP}/user/register`,
             formData
         , {
             headers: {
@@ -100,13 +79,6 @@ export default function AddPost (props){
         <LinearProgress style={{display:show}}/>
         <Dialog onClose={handleClose}  open={open} style={{minWidth:'400px',minHeight:'40%'}}>
             <DialogTitle >Add Post</DialogTitle>
-            
-            <TextField
-            required
-                    autoFocus margin="dense" id="caption" label="caption" type="text" name="caption"
-                    onChange={changeDetail} value={postData.caption}
-                    fullWidth 
-                />
             <div>
                 <input required accept="image/*"  name="Image" type="file" onChange={changeDetail}/>
             </div>

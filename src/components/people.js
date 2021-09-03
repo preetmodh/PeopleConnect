@@ -24,7 +24,7 @@ export default function People(){
     }, [])
     
     return(
-        <div style={{marginLeft:300}}>
+        <div >
             <h1>Suggested Friends</h1>
             <div >
                 <ul style={{fontSize:30}}>
