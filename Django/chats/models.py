@@ -105,18 +105,24 @@ class Chat(models.Model):
         try:
             recent=RecentChat.objects.get(room_name=instance.room_name,)
             recent.delete()
+            is_seen=instance.is_seen
+            if instance.sender==instance.receiver:
+                is_seen=True
             recent_chat=RecentChat(receiver=instance.receiver,
                                     sender=instance.sender,
                                     room_name=instance.room_name,
                                     message=instance.message,
-                                    is_seen=instance.is_seen)
+                                    is_seen=is_seen)
             recent_chat.save()
         except:
+            is_seen=instance.is_seen
+            if instance.sender==instance.receiver:
+                is_seen=True
             recent_chat=RecentChat(receiver=instance.receiver,
                                     sender=instance.sender,
                                     room_name=instance.room_name,
                                     message=instance.message,
-                                    is_seen=instance.is_seen)
+                                    is_seen=is_seen)
             recent_chat.save()
 
 
