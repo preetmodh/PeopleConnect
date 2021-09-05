@@ -49,14 +49,14 @@ class suggested_friends(generics.ListAPIView):
         following_obj=Follow.objects.filter(follower=request.user)
         items = list(following_obj)
         following_obj_set=set(following_obj)
-        someFollowingObjs = random.sample(items, int(len(items)/2))
+        someFollowingObjs = random.sample(items, int(len(items)))
         
         
         for i in range(len(someFollowingObjs)):
             following_id=someFollowingObjs[i].following
             following_following_obj=Follow.objects.filter(follower=following_id)
             items = list(following_following_obj)
-            somefollowing_following_Objs = random.sample(items, int(len(items)/2))
+            somefollowing_following_Objs = random.sample(items, int(len(items)))
             seti=set()
             
             for j in range(len(somefollowing_following_Objs)):
