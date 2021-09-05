@@ -30,32 +30,15 @@ export default function Profile(){
     const x=localStorage.getItem('token')
     //hooks 
     const[followState,setfollowState]=useState(0);
-    const changeFollowState=(val)=>{setfollowState(val)};
     const[userphoto,setUserphoto]=useState();
     const [iscurrentuser,setiscurrentuser]=useState(false);
     const [open, setOpen] = React.useState(false);
-    
-
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-        
-        setfollowState(0);
-    };
     const [OpenAddPost,setOpenAddPost]=useState(false);
-    const handleCloseAddPost = () => {
-        setOpenAddPost(false);
-    };
-    
-      const classes = useStyles();
+    const classes = useStyles();
       const parameters={
         type: 'profile',
         url:`${BASE_URL_HTTP}/posts/profile_post/${username}`
       }
-
 
     useEffect(()=>{
         axios.get(`${BASE_URL_HTTP}/user/register`,{
@@ -67,32 +50,35 @@ export default function Profile(){
             }
             }).then((res)=>{
                 setUserphoto(res.data.userphoto)
-                console.log("res",res.data.userphoto)   
+                setiscurrentuser(res.data.is_current_user) 
         }
         ,(error)=>{console.log(error.message,error.response)})
     },[])
 
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+    const changeFollowState=(val)=>{setfollowState(val)};
 
-      const getdata =() =>{
-        axios.get(`${BASE_URL_HTTP}/user/register`,{
-            headers: {
-                'Authorization': `token ${x}`,  
-              },
-              params: {
-                username: username,
-            }
-            }).then((res)=>{
-                setUserphoto(res.data.userphoto)
-                setiscurrentuser(res.data.is_current_user)
-                console.log(res.data.userphoto)   
-        }
-        ,(error)=>{console.log(error.message,error.response)})
-      }
+    const handleClose = () => {
+        setOpen(false);
+        
+        setfollowState(0);
+    };
+    
+    const handleCloseAddPost = () => {
+        setOpenAddPost(false);
+    };
+    
+      
+
+
+   
 
     return(
         <>
-        {userphoto && <div>
-            <Avatar src={userphoto}/>
+         <div>
+            {userphoto && <Avatar src={userphoto}/>}
             <h2>{username}</h2>
             <div className={classes.follow_following_div}>
 
@@ -111,7 +97,7 @@ export default function Profile(){
             <div className={classes.profilePosts}>
                 <PostLayout params={parameters}/>
             </div>
-        </div>}
+        </div>
         </>
     )
 }
