@@ -67,10 +67,13 @@ class suggested_friends(generics.ListAPIView):
             for i in seti:
                 friends.add(i)
         friends.difference(following_obj_set)
-        
+        j=0
         data={'suggested_friends':[]}
         for i in friends:
             data['suggested_friends'].append(CustomUserSerializer( i.following).data)
+            j+=1
+            if j>10:
+                break
             
         return Response(data,status=202)
 
