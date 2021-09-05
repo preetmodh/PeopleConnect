@@ -121,9 +121,7 @@ export default function Followers(props){
         {followers&&followers.map((follower) => (
             <ListItem>
                     <ListItemAvatar>
-                    <Avatar src={follower.picture}>
-                        
-                    </Avatar>
+                    <Avatar src={follower.picture}/>
                     </ListItemAvatar>
                     <NavLink to={`/profile/${follower.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
                       <ListItemText style={{minWidth:300}} primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />

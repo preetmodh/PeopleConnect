@@ -146,9 +146,7 @@ export default function Following(props){
             <>
               <ListItem key={following.id}>
                       <ListItemAvatar>
-                      <Avatar>
-                          <ImageIcon />
-                      </Avatar>
+                          <Avatar src={following.picture}/>
                       </ListItemAvatar>
                       
                       <NavLink to={`/profile/${following.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
