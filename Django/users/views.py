@@ -20,7 +20,6 @@ import random
 class CreateUserAPIView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
-
     parser_classes = [MultiPartParser, FormParser]
     def get(self, request, *args, **kwargs):
         username=request.query_params['username']
@@ -137,16 +136,10 @@ class followers_followings(APIView):
         b = Follow (follower=user, following=following_obj)
         b.save()
         return Response('Followed',status=200)
-    # def post(self, request, *args, **kwargs):
-    #     request.data['follower']=request.user
-        
-    #     return self.create(request, *args, **kwargs)
 
 class FindUser(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
     filter_backends = [filters.SearchFilter]
-    # '^' Starts-with search.
-    # '=' Exact matches.
     search_fields = ['^user_name']
       
