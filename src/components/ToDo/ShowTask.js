@@ -54,7 +54,6 @@ const AllTask=(props)=>{
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2bh-content"
                     id="panel2bh-header"
-                    style={{overflow:'auto '}} 
                     >
                     
                         <Typography
