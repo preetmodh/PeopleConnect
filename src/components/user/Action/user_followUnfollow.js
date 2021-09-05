@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }))(Button);
 
-export default function User_followUnfollow(props){
+export default function UserfollowUnfollow(props){
     const x=localStorage.getItem('token')
     const classes = useStyles();
     const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;

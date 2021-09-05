@@ -8,7 +8,7 @@ import Editprofile from './editprofile';
 import Followers from "./followers";
 import Following from "./following";
 import PostLayout from "../Post/post_layout";
-import User_followUnfollow from "./Action/user_followUnfollow";
+import UserfollowUnfollow from "./Action/user_followUnfollow";
 import { Avatar, Button } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +32,7 @@ export default function Profile(){
     const[followState,setfollowState]=useState(0);
     const changeFollowState=(val)=>{setfollowState(val)};
     const[userphoto,setUserphoto]=useState();
-
+    const [iscurrentuser,setiscurrentuser]=useState(false);
     const [open, setOpen] = React.useState(false);
     
 
@@ -83,6 +83,7 @@ export default function Profile(){
             }
             }).then((res)=>{
                 setUserphoto(res.data.userphoto)
+                setiscurrentuser(res.data.is_current_user)
                 console.log(res.data.userphoto)   
         }
         ,(error)=>{console.log(error.message,error.response)})
@@ -94,9 +95,10 @@ export default function Profile(){
             <Avatar src={userphoto}/>
             <h2>{username}</h2>
             <div className={classes.follow_following_div}>
+
                 
-                <User_followUnfollow username={username}/>
-                <Button variant='outlined' onClick={()=>{setOpenAddPost(true)}}>Edit Profile</Button>
+                <UserfollowUnfollow username={username}/>
+                {iscurrentuser ?<Button variant='outlined' onClick={()=>{setOpenAddPost(true)}}>Edit Profile</Button>:<></>}
                 <Button variant='outlined' onClick={()=>{changeFollowState(1);setOpen(true)}}>Followers</Button>
                 <Button variant='outlined' onClick={()=>{changeFollowState(2);setOpen(true)}}>Following</Button>
                 { OpenAddPost && <Editprofile  open={OpenAddPost} onClose={handleCloseAddPost}/>}
