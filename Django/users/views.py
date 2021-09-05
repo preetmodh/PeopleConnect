@@ -25,7 +25,7 @@ class CreateUserAPIView(generics.ListCreateAPIView):
     def get(self, request, *args, **kwargs):
         username=request.query_params['username']
         user=User.objects.get(user_name=username)
-        data={'userphoto':user.picture}
+        data={'userphoto':user.picture,'is_current_user':request.user==user}
         return Response(data,status=200)
     def put(self,request,format=None,*args,**kwargs):
         authentication_classes=[TokenAuthentication,]
