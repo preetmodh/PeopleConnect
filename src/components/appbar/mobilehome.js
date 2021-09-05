@@ -42,7 +42,6 @@ import AssignmentTurnedInIcon from '@material-ui/icons/AssignmentTurnedIn';
 
 
 
-
 const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
@@ -112,7 +111,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
   
-
 
 
 export default function MobileHome({children}) {
@@ -205,27 +203,29 @@ className={clsx(classes.appBar, {
         display:'grid',
         alignContent:'space-evenly',
         gridTemplateColumns:'auto auto auto auto auto auto',
-        marginLeft:'15%',
-        marginRight:'5%',
+
         }}>
         <NavLink  to={'/home'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
-            <HomeIcon style={{margin:'5px',color:'white' }}  className={classes.large} />
+            <HomeIcon style={{margin:'5px',color:'white',fontSize:'35px' }}  className={classes.large} />
+        </NavLink>
+        <NavLink  to={'/peoples'} color='black'  style={{ textDecoration: 'none',cursor:'pointer'}} >
+            <PeopleIcon style={{margin:'5px',color:'white',fontSize:'35px' }}   className={classes.large} />
         </NavLink>
         <NavLink  to={'/messages'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
         <Badge badgeContent={messageCount} color="secondary">
-          <MessageIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+          <MessageIcon style={{margin:'5px',color:'white',fontSize:'35px'  }}  className={classes.large} />
           </Badge>
         </NavLink>
         <NavLink  to={`/profile/${username}`}   style={{ textDecoration: 'none',cursor:'pointer'}} >
-            <AccountCircleIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+            <AccountCircleIcon style={{margin:'5px',color:'white',fontSize:'35px'  }}  className={classes.large} />
         </NavLink>
         <NavLink  to={'/notifications'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
         <Badge badgeContent={notiCount} color="secondary">
-            <NotificationsIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+            <NotificationsIcon style={{margin:'5px',color:'white',fontSize:'35px'  }}  className={classes.large} />
           </Badge>
         </NavLink>
         <NavLink  to={'/todo'}   style={{ textDecoration: 'none',cursor:'pointer'}} >
-            <AssignmentTurnedInIcon style={{margin:'5px',color:'white'  }}  className={classes.large} />
+            <AssignmentTurnedInIcon style={{margin:'5px',color:'white',fontSize:'35px'  }}  className={classes.large} />
         </NavLink>
         </div>
       </AppBar>
