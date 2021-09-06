@@ -108,14 +108,14 @@ export default function AddPost (props){
                     fullWidth 
                 />
             <div>
-                <input required accept="image/*"  name="Image" type="file" onChange={changeDetail}/>
+                <input required accept="*/*"  name="Image" type="file" onChange={changeDetail}/>
             </div>
             <div>
                 <img src={PreviewImage} style={{maxHeight:500,maxWidth:500}}/>
             </div>
             <div>
                 <Button disabled={see} onClick={(e)=>{post(e);setshow('block');setSee(true)}}>Post</Button>
-                <CircularProgress style={{display:see==false?'none':'block'}}/>
+                <CircularProgress style={{display:see==false?'none':'block',marginBottom:'10px'}}/>
             </div>
         </Dialog>
 

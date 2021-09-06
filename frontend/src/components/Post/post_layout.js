@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import "../assests/post.css";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -143,7 +143,10 @@ const useStyles = makeStyles((theme) => ({
       <>
       
 
-      { Posts&& Posts.map((post)=>{return(
+      { Posts&& Posts.map((post)=>{
+        var isvideo=true;
+        return(
+        
         <>
           
           <article className="Post" >
@@ -171,9 +174,12 @@ const useStyles = makeStyles((theme) => ({
               <div className="Post-image">
 
                 <div className="Post-image-bg">
-
-                {post.Image && <img alt="Icon Living" src={post.Image} />}
-
+                
+                {post.Image &&  <img  src={post.Image} onError={(e)=>{isvideo=true;e.target.onerror = null; e.target.src="";}}/>}
+                {/* {post.Image && isvideo && <video  controls >
+                <source src={post.Image} type="video/mp4"  />
+                </video>}
+                 */}
                 </div>
 
               </div>
