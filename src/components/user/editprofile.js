@@ -78,7 +78,7 @@ export default function Editprofile (props){
         <>
         <LinearProgress style={{display:show}}/>
         <Dialog onClose={handleClose}  open={open} style={{minWidth:'400px',minHeight:'40%'}}>
-            <DialogTitle >Add Post</DialogTitle>
+            <DialogTitle >Edit Photo</DialogTitle>
             <div>
                 <input required accept="image/*"  name="Image" type="file" onChange={changeDetail}/>
             </div>
@@ -86,7 +86,7 @@ export default function Editprofile (props){
                 <img src={PreviewImage} style={{maxHeight:500,maxWidth:500}}/>
             </div>
             <div>
-                <Button disabled={see} onClick={(e)=>{post(e);setshow('block');setSee(true)}}>Post</Button>
+                <Button disabled={see} onClick={(e)=>{post(e);setshow('block');setSee(true)}}>Save</Button>
                 <CircularProgress style={{display:see==false?'none':'block'}}/>
             </div>
         </Dialog>
