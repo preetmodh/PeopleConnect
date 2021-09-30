@@ -8,6 +8,8 @@ import Dialog from '@material-ui/core/Dialog';
 import { Button } from "@material-ui/core";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -27,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function AddPost (props){
+    let history = useHistory();
     const BASE_URL_HTTP=process.env.REACT_APP_BASE_URL_HTPP;
 
     const x=localStorage.getItem('token')
@@ -55,7 +58,6 @@ export default function AddPost (props){
     const changeDetail=(event)=>{
         
         if(event.target.name=='Image'){
-            console.log(event.target.files[0])
                 setPreviewImage(URL.createObjectURL(event.target.files[0]));
                
                setPostImage(event.target.files[0])   
@@ -79,7 +81,6 @@ export default function AddPost (props){
 		formData.append('tags', postData.tags);
 		
 		formData.append('Image', PostImage);
-        console.log(formData.getAll('Image'));
         axios.post(`${BASE_URL_HTTP}/posts/profile_post/aa`,
             formData
         , {
@@ -90,8 +91,7 @@ export default function AddPost (props){
             },
            
           }).then((res)=>{
-            console.log(res);
-            window.location.reload();
+            history.push('/home');
 
         },(error)=>{console.log(error.message,error.response)})
     }
@@ -108,14 +108,14 @@ export default function AddPost (props){
                     fullWidth 
                 />
             <div>
-                <input required accept="image/*"  name="Image" type="file" onChange={changeDetail}/>
+                <input required accept="*/*"  name="Image" type="file" onChange={changeDetail}/>
             </div>
             <div>
                 <img src={PreviewImage} style={{maxHeight:500,maxWidth:500}}/>
             </div>
             <div>
                 <Button disabled={see} onClick={(e)=>{post(e);setshow('block');setSee(true)}}>Post</Button>
-                <CircularProgress style={{display:see==false?'none':'block'}}/>
+                <CircularProgress style={{display:see==false?'none':'block',marginBottom:'10px'}}/>
             </div>
         </Dialog>
 

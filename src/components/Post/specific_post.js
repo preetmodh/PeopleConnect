@@ -80,10 +80,7 @@ export default function SpecificPost(){
           data: {
             post_id:id,
           }
-        }).then((res)=>{
-          console.log('donzo');
-          console.log(res);
-          
+        }).then((res)=>{        
           setisLiked(0);
           setlikedCount(likedCount-1);
       },(error)=>{console.log(error.message,error.response)})
@@ -96,9 +93,6 @@ export default function SpecificPost(){
           },
          
         }).then((res)=>{
-          console.log('donzo');
-          console.log(res);
-          
           setisLiked(1);
           setlikedCount(likedCount+1);
       },(error)=>{console.log(error.message,error.response)})
@@ -113,8 +107,6 @@ export default function SpecificPost(){
                 },
                
               }).then((res)=>{
-              console.log('donzo');
-              console.log(res);
               setpost(res.data.post_data);
               setLikes(res.data.likes);
               setComments(res.data.comments);

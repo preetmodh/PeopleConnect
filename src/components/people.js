@@ -17,8 +17,6 @@ export default function People(){
             headers: {
                 'Authorization': `token ${x}`,
               }}).then((res)=>{
-            console.log('donzo');
-            console.log(res);
             setsuggestedFriends(res.data.suggested_friends);
         },(error)=>{console.log(error.message,error.response)})
         

@@ -72,8 +72,6 @@ export default function Followers(props){
           id:id,
         }
       }).then((res)=>{
-        console.log('donzo');
-        console.log(res);
         
         setfollowers_id({...followers_id,[id]:0});
     },(error)=>{console.log(error.message,error.response)})
@@ -90,8 +88,6 @@ export default function Followers(props){
                 
             }
             }).then((res)=>{
-            console.log('donzo');
-            console.log(res);
             setfollowers(res.data.followers);
             setiscurrentuser(res.data.iscuruser);
             const dict={}
@@ -121,9 +117,7 @@ export default function Followers(props){
         {followers&&followers.map((follower) => (
             <ListItem>
                     <ListItemAvatar>
-                    <Avatar src={follower.picture}>
-                        
-                    </Avatar>
+                    <Avatar src={follower.picture}/>
                     </ListItemAvatar>
                     <NavLink to={`/profile/${follower.user_name}`}  style={{ textDecoration: 'none',cursor:'pointer',color:'black'}}>
                       <ListItemText style={{minWidth:300}} primary={follower.user_name} secondary={follower.first_name+" "+follower.last_name} />

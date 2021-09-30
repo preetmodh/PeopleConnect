@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import "../assests/post.css";
 import ThumbUpAltIcon from '@material-ui/icons/ThumbUpAlt';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -68,8 +68,6 @@ const useStyles = makeStyles((theme) => ({
           }
         }).then((res)=>{
           
-          console.log(res);
-          
           setisLiked({...isLiked,[id]:0});
           setlikedCount({...likedCount,[id]:likedCount[id]-1});
       },(error)=>{console.log(error.message,error.response)})
@@ -82,8 +80,6 @@ const useStyles = makeStyles((theme) => ({
           },
          
         }).then((res)=>{
-          console.log('donzo');
-          console.log(res);
           
           setisLiked({...isLiked,[id]:1});
           setlikedCount({...likedCount,[id]:likedCount[id]+1});
@@ -123,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
               // setisLiked(res.data.likeDict);
               
               setlikedCount(Object.assign({},likedCount ,res.data.likeCount));
-            console.log(res);
             
         }
         ,(error)=>{console.log(error.message,error.response)})
@@ -143,7 +138,10 @@ const useStyles = makeStyles((theme) => ({
       <>
       
 
-      { Posts&& Posts.map((post)=>{return(
+      { Posts&& Posts.map((post)=>{
+        var isvideo=true;
+        return(
+        
         <>
           
           <article className="Post" >
@@ -171,9 +169,12 @@ const useStyles = makeStyles((theme) => ({
               <div className="Post-image">
 
                 <div className="Post-image-bg">
-
-                {post.Image && <img alt="Icon Living" src={post.Image} />}
-
+                
+                {post.Image &&  <img  src={post.Image} onError={(e)=>{isvideo=true;e.target.onerror = null; e.target.src="";}}/>}
+                {/* {post.Image && isvideo && <video  controls >
+                <source src={post.Image} type="video/mp4"  />
+                </video>}
+                 */}
                 </div>
 
               </div>

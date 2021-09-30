@@ -46,7 +46,6 @@ export default function Editprofile (props){
     const changeDetail=(event)=>{
         
         if(event.target.name=='Image'){
-            console.log(event.target.files[0])
                 setPreviewImage(URL.createObjectURL(event.target.files[0]));
                
                setPostImage(event.target.files[0])   
@@ -58,7 +57,6 @@ export default function Editprofile (props){
         e.preventDefault();
         let formData = new FormData();	
 		formData.append('Image', PostImage);
-        console.log(formData.getAll('Image'));
         axios.put(`${BASE_URL_HTTP}/user/register`,
             formData
         , {
@@ -69,7 +67,6 @@ export default function Editprofile (props){
             },
            
           }).then((res)=>{
-            console.log(res);
             window.location.reload();
 
         },(error)=>{console.log(error.message,error.response)})

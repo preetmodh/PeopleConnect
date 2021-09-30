@@ -74,7 +74,6 @@ export default function ChatsRecent() {
           }
           })
           .then((res) => {
-            console.log(res.data);
             setRecent(res.data.recent)
             setCurrentuser(res.data.current_user);
             setisSeen(res.data.seen);
@@ -111,7 +110,6 @@ export default function ChatsRecent() {
        
 
         return () => {
-         console.log(isseenref,"on dismountttttttttttttttttttt")
           chatSocket.close();
    
       }

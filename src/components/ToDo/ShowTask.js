@@ -39,7 +39,6 @@ const AllTask=(props)=>{
 
   //converting date to readable...
   const dateFormatter=(date)=>{
-    // console.log(date.slice(0,9)+date.slice(11,19));
     return date.slice(0,10)+' Time:'+date.slice(11,19);
   }
   return (
@@ -54,6 +53,7 @@ const AllTask=(props)=>{
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel2bh-content"
                     id="panel2bh-header"
+                    style={{overflow:'auto '}} 
                     >
                     
                         <Typography

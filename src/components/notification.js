@@ -14,7 +14,6 @@ export default function Notification(){
                     'Authorization': `token ${x}`,
                 }
                 }).then((res) => {
-                    console.log(res.data)
                     setList(res.data)
                 }).catch((error) => {
                     console.log(error);

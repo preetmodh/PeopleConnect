@@ -60,7 +60,6 @@ function finduser(value){
                   }
                   })
                   .then((res) => {
-                    console.log(res.data);
                     setData(res.data)
                   }, (error) => {console.log(error);})
         
