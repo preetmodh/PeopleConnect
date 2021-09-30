@@ -9,3 +9,6 @@ class Chats(admin.ModelAdmin):
 @admin.register(RecentChat)
 class RecentChat(admin.ModelAdmin):
     list_display=('sender','receiver','created_at')
+
+
+    
