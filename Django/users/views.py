@@ -20,7 +20,6 @@ import random
 class CreateUserAPIView(generics.ListCreateAPIView):
     queryset = User.objects.all()
     serializer_class = CustomUserSerializer
-    parser_classes = [MultiPartParser, FormParser]
     def get(self, request, *args, **kwargs):
         username=request.query_params['username']
         user=User.objects.get(user_name=username)
@@ -29,6 +28,7 @@ class CreateUserAPIView(generics.ListCreateAPIView):
     def put(self,request,format=None,*args,**kwargs):
         authentication_classes=[TokenAuthentication,]
         permission_classes=[IsAuthenticated,]
+        parser_classes = [MultiPartParser, FormParser]
         user=request.user
         user._picture=request.data['Image']
         user.save()
