@@ -70,7 +70,6 @@ export default function Register() {
         else{
           alert("Invalid Credentials")
         }
-        console.log(response);
       }, (error) => {
         if (error.response){
 

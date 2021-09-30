@@ -34,7 +34,6 @@ export default function ContainedButtons() {
             }
       }).then((res)=>{
           settaskList(res.data);
-          console.log(res.data);
 
           
       },(error)=>{

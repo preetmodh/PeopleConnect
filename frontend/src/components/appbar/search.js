@@ -75,7 +75,6 @@ export default function Search() {
               }
               })
               .then((res) => {
-                console.log(res.data);
                 setData(res.data)
               }, (error) => {console.log(error);})
     

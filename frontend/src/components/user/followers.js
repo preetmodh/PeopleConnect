@@ -72,8 +72,6 @@ export default function Followers(props){
           id:id,
         }
       }).then((res)=>{
-        console.log('donzo');
-        console.log(res);
         
         setfollowers_id({...followers_id,[id]:0});
     },(error)=>{console.log(error.message,error.response)})
@@ -90,8 +88,6 @@ export default function Followers(props){
                 
             }
             }).then((res)=>{
-            console.log('donzo');
-            console.log(res);
             setfollowers(res.data.followers);
             setiscurrentuser(res.data.iscuruser);
             const dict={}

@@ -80,7 +80,6 @@ export default function Login() {
   
 
   function signIn() {
-    console.log(`${BASE_URL_HTTP}/user/token`,"sssssssssssssss")
     axios.post(`${BASE_URL_HTTP}/user/token`, {
         username: email,
         password:password,

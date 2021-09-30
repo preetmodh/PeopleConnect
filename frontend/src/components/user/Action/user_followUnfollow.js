@@ -70,8 +70,6 @@ export default function UserfollowUnfollow(props){
             id:id,
           }
         }).then((res)=>{
-          console.log('donzo');
-          console.log(res);
           setisFollowing(false);
           
           
@@ -87,8 +85,6 @@ export default function UserfollowUnfollow(props){
         },
        
       }).then((res)=>{
-        console.log('donzo');
-        console.log(res);
         setisFollowing(true);
         
     },(error)=>{console.log(error.message,error.response)})
@@ -106,7 +102,6 @@ export default function UserfollowUnfollow(props){
             }
             }).then((res)=>{
             
-            console.log(res);
             
             setiscurrentuser(res.data.iscuruser);
             setisFollowing(res.data.is_following_curuser);

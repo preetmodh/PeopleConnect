@@ -68,8 +68,6 @@ const useStyles = makeStyles((theme) => ({
           }
         }).then((res)=>{
           
-          console.log(res);
-          
           setisLiked({...isLiked,[id]:0});
           setlikedCount({...likedCount,[id]:likedCount[id]-1});
       },(error)=>{console.log(error.message,error.response)})
@@ -82,8 +80,6 @@ const useStyles = makeStyles((theme) => ({
           },
          
         }).then((res)=>{
-          console.log('donzo');
-          console.log(res);
           
           setisLiked({...isLiked,[id]:1});
           setlikedCount({...likedCount,[id]:likedCount[id]+1});
@@ -123,7 +119,6 @@ const useStyles = makeStyles((theme) => ({
               // setisLiked(res.data.likeDict);
               
               setlikedCount(Object.assign({},likedCount ,res.data.likeCount));
-            console.log(res);
             
         }
         ,(error)=>{console.log(error.message,error.response)})

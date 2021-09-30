@@ -83,8 +83,6 @@ export default function Following(props){
             id:id,
           }
         }).then((res)=>{
-          console.log('donzo');
-          console.log(res);
           
           setfollowing_id({...following_id,[id]:0});
           
@@ -99,8 +97,6 @@ export default function Following(props){
         },
        
       }).then((res)=>{
-        console.log('donzo');
-        console.log(res);
         
         setfollowing_id({...following_id,[id]:1});
     },(error)=>{console.log(error.message,error.response)})
@@ -117,8 +113,6 @@ export default function Following(props){
                 
             }
             }).then((res)=>{
-            console.log('donzo');
-            console.log(res);
             setfollowing(res.data.following);
             setiscurrentuser(res.data.iscuruser);
             const dict={}
