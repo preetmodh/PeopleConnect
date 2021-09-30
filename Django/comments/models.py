@@ -23,7 +23,7 @@ class Comment(models.Model):
 		return self.user.user_name
 
 	def time_ago(self):
-		return timeago.format(self.created_at, datetime.now())
+		return timeago.format(self.date, datetime.now())
 
 	def user_comment_post(sender, instance, *args, **kwargs):
 		comment = instance
