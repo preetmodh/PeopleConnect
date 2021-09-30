@@ -263,16 +263,6 @@ const sendcomment =(e) =>{
             onChange={(event)=>{setNewcomment(event.target.value)}}
             
     />
-<Button 
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={(e)=>{sendcomment(e)}}
-            
-    >
-    GO
-    </Button>
 
     </Container >
 </div>

@@ -149,7 +149,7 @@ return (
     <div ref={messagesEndRef} />
     
   </div >
-  <Container  maxWidth="xs" style={{position: 'relative',bottom:'35px'}}>
+  <Container  maxWidth="xs" style={{position: 'relative',bottom:'15px'}}>
   <form  noValidate autoComplete="off"><TextField
             variant="outlined"
             margin="normal"
@@ -165,14 +165,7 @@ return (
 
             onChange={MessageChange} value={message}
     /></form>
-    <Button 
-            fullWidth
-            variant="contained"
-            color="primary"
-            onClick={e => {sendMessage(e)}}
-    >
-    GO
-    </Button>
+  
     
     </Container >
   

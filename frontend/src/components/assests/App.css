@@ -59,8 +59,8 @@
       max-width: 80vw;
     }
     .rootc{
-      min-width: 93vw;
-      min-height: auto;
+      min-width: 93vw ;
+      min-height: auto ;
       max-height: fit-content;
       max-width: 93vw;
     }
