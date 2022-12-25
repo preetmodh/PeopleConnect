@@ -2,11 +2,11 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated,AllowAny
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from .models import Chat,RecentChat
 from .serializers import ChatSerializer,ChatRecentSerializer
-from django.db.models import Q, query
+from django.db.models import Q
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 import json

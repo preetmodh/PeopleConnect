@@ -3,7 +3,7 @@ from datetime import datetime
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 import json
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save
 import timeago
 
 
@@ -49,6 +49,8 @@ class RecentChat(models.Model):
 			}
 		)
         from notifications.models import Notification
+        #Notification.notificationSave(instance=instance)
+
         count=Notification.objects.filter(is_seen=False,user=instance.receiver).count()
         message_count=RecentChat.objects.filter(receiver=instance.receiver,is_seen=False).count()
         data={'message_count':message_count,'count':count,'user':instance.receiver.user_name,'profile_pic':instance.receiver.picture}

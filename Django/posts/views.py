@@ -17,8 +17,6 @@ from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
 
-# Create your views here.
-
 class posts_particularUser(APIView):
     authentication_classes=[TokenAuthentication]
     permission_classes=[IsAuthenticated]

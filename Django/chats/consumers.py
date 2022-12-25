@@ -1,14 +1,14 @@
 import json
 from channels.generic.websocket import WebsocketConsumer
-from channels.generic.websocket import AsyncWebsocketConsumer
 from asgiref.sync import async_to_sync
-from .models import Chat
-from .serializers import ChatSerializer
 from rest_framework.response import Response
 
+
+# for one to one chat room
 class ChatConsumer(WebsocketConsumer):
     def connect(self):
         self.user = self.scope["user"]
+        # retrive chat room_id from incoming url
         chat_id=self.scope["url_route"]["kwargs"]["chat_id"]
         chat_id=sorted([str(self.user.id),str(chat_id)])
         self.room_name=chat_id[0]+"_"+chat_id[1]
@@ -42,7 +42,7 @@ class ChatConsumer(WebsocketConsumer):
         })) 
     
 
-
+# for recent chat list
 class ChatRecentConsumer(WebsocketConsumer):
     def connect(self):
         self.user = self.scope["user"]
