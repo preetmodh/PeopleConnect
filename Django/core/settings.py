@@ -14,8 +14,8 @@ SECRET_KEY = 'django-insecure-&qwqu)ezx88g*tj#)sr(w#z^usi+@6mwtbb@7o$!qg90dwdvtg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['people-connect.vercel.app','127.0.0.1','43ef-110-226-22-212.in.ngrok.io','peopleconnect-production.up.railway.app']
-
+#ALLOWED_HOSTS = ['people-connect.vercel.app','127.0.0.1','43ef-110-226-22-212.in.ngrok.io','peopleconnect-production.up.railway.app']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
