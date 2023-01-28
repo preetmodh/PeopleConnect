@@ -1,0 +1,34 @@
+version: "3"
+services:
+
+  database:
+    image: postgres:12.7-alpine
+    volumes:
+        - ./backup_data/db:/var/lib/postgresql/data
+    environment:
+        - POSTGRES_DB=postgres
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgres
+
+  backend:
+    build: ./Django
+    volumes:
+      - ./Django:/app
+    depends_on:
+      - database
+  
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./frontend:/app
+    depends_on:
+      - backend
+    ports:
+      - 80:80
+  
+  nginx_backend_server:
+    build: ./nginx_backend_server
+    ports:
+        - 8000:8000
+    depends_on:
+        - backend
