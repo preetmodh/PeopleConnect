@@ -5,7 +5,7 @@ channels and signals), post their updates, like, comment and view other
 users’ posts & profiles, search users & follow-unfollow them and get
 notified about activities on their profile.\
 \
-To visit website [Click Here](https://peopleconnectreact.herokuapp.com/login)
+To visit website [Click Here](https://people-connect.vercel.app/)
 ## Requirements:
 * Python Installed
 * npm Installed
