@@ -60,3 +60,4 @@ uritemplate==3.0.1
 urllib3==1.26.6
 zope.event==4.6
 zope.interface==5.4.0
+whitenoise
