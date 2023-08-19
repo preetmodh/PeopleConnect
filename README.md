@@ -6,6 +6,7 @@ users’ posts & profiles, search users & follow-unfollow them and get
 notified about activities on their profile.\
 \
 To visit website [Click Here](https://people-connect.vercel.app/)
+<!-- Backend hosted here : https://peopleconnect.onrender.com -->
 ## Requirements:
 * Python Installed
 * npm Installed
