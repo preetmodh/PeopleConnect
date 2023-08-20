@@ -41,7 +41,7 @@ export default function Profile(){
       }
 
     useEffect(()=>{
-        axios.get(`${BASE_URL_HTTP}/user/register`,{
+        axios.get(`${BASE_URL_HTTP}/posts/profile_post/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,  
               },
@@ -50,7 +50,8 @@ export default function Profile(){
             }
             }).then((res)=>{
                 setUserphoto(res.data.userphoto)
-                setiscurrentuser(res.data.is_current_user) 
+                setiscurrentuser(res.data.is_current_user)
+                console.log("ssssssss",res)
         }
         ,(error)=>{console.log(error.message,error.response)})
     },[])
@@ -82,7 +83,6 @@ export default function Profile(){
             <h2>{username}</h2>
             <div className={classes.follow_following_div}>
 
-                
                 <UserfollowUnfollow username={username}/>
                 {iscurrentuser ?<Button variant='outlined' onClick={()=>{setOpenAddPost(true)}}>Edit Profile</Button>:<></>}
                 <Button variant='outlined' onClick={()=>{changeFollowState(1);setOpen(true)}}>Followers</Button>
