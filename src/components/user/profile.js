@@ -31,7 +31,7 @@ export default function Profile(){
     //hooks 
     const[followState,setfollowState]=useState(0);
     const[userphoto,setUserphoto]=useState();
-    const [iscurrentuser,setiscurrentuser]=useState(false);
+    const [iscurrentuser,setiscurrentuser]=useState(true);
     const [open, setOpen] = React.useState(false);
     const [OpenAddPost,setOpenAddPost]=useState(false);
     const classes = useStyles();
