@@ -29,7 +29,7 @@ class posts_particularUser(APIView):
         user=request.user
         posts_data=[]
         likeDict={}
-        page_number = request.GET.get('page')
+        page_number = request.GET.get('page') or '0'
         if(typ=='profile'):
             user=User.objects.get(user_name=kwargs['username'])
             posts_obj=Post.objects.filter(user=user)
@@ -75,7 +75,9 @@ class posts_particularUser(APIView):
             'likeDict':likeDict,
             'likeCount':likeCountDict,
             'pageCnt':pageCnt,
-            'isCurrenUser':request.user==user},
+            'isCurrenUser':request.user==user,
+            'userphoto' : user.picture,
+            },
             status=200)
     def post(self,request,format=None,*args,**kwargs):
         user=request.user
