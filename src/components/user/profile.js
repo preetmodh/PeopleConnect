@@ -45,9 +45,9 @@ export default function Profile(){
             headers: {
                 'Authorization': `token ${x}`,  
               },
-            //   params: {
-            //     username: username,
-            // }
+              params: {
+                username: username,
+            }
             }).then((res)=>{
                 setUserphoto(res.data.userphoto)
                 setiscurrentuser(res.data.is_current_user)
