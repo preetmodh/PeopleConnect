@@ -47,11 +47,11 @@ export default function Profile(){
               },
               params: {
                 username: username,
+                type: 'profile',
             }
             }).then((res)=>{
                 setUserphoto(res.data.userphoto)
-                setiscurrentuser(res.data.is_current_user)
-                console.log("ssssssss",res)
+                setiscurrentuser(res.data.isCurrenUser)
         }
         ,(error)=>{console.log(error.message,error.response)})
     },[])
