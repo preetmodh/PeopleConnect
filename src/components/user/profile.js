@@ -41,13 +41,13 @@ export default function Profile(){
       }
 
     useEffect(()=>{
-        axios.get(`${BASE_URL_HTTP}/posts/profile_post`,{
+        axios.get(`${BASE_URL_HTTP}/posts/profile_post/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,  
               },
-              params: {
-                username: username,
-            }
+            //   params: {
+            //     username: username,
+            // }
             }).then((res)=>{
                 setUserphoto(res.data.userphoto)
                 setiscurrentuser(res.data.is_current_user)
