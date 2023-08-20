@@ -88,7 +88,8 @@ DATABASES = {
     }
 }
 
-db_from_env =dj_database_url.config(conn_max_age=600)
+DATABASE_URL = os.getenv('DATABASE_URL')
+db_from_env = dj_database_url.config(default=DATABASE_URL)
 DATABASES['default'].update(db_from_env)
 
 
