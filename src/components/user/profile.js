@@ -31,7 +31,7 @@ export default function Profile(){
     //hooks 
     const[followState,setfollowState]=useState(0);
     const[userphoto,setUserphoto]=useState();
-    const [iscurrentuser,setiscurrentuser]=useState(true);
+    const [iscurrentuser,setiscurrentuser]=useState(false);
     const [open, setOpen] = React.useState(false);
     const [OpenAddPost,setOpenAddPost]=useState(false);
     const classes = useStyles();
@@ -41,7 +41,7 @@ export default function Profile(){
       }
 
     useEffect(()=>{
-        axios.get(`${BASE_URL_HTTP}/user/register`,{
+        axios.get(`${BASE_URL_HTTP}/posts/profile_post/${username}`,{
             headers: {
                 'Authorization': `token ${x}`,  
               },
@@ -51,7 +51,6 @@ export default function Profile(){
             }).then((res)=>{
                 setUserphoto(res.data.userphoto)
                 setiscurrentuser(res.data.is_current_user)
-                console.log(res,"ssssssssssssssssssssssssssssssssssssss",x)
         }
         ,(error)=>{console.log(error.message,error.response)})
     },[])
