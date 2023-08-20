@@ -51,6 +51,7 @@ export default function Profile(){
             }).then((res)=>{
                 setUserphoto(res.data.userphoto)
                 setiscurrentuser(res.data.is_current_user)
+                console.log("ssssssss",res)
         }
         ,(error)=>{console.log(error.message,error.response)})
     },[])
