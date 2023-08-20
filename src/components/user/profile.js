@@ -82,7 +82,6 @@ export default function Profile(){
             <h2>{username}</h2>
             <div className={classes.follow_following_div}>
 
-                
                 <UserfollowUnfollow username={username}/>
                 {iscurrentuser ?<Button variant='outlined' onClick={()=>{setOpenAddPost(true)}}>Edit Profile</Button>:<></>}
                 <Button variant='outlined' onClick={()=>{changeFollowState(1);setOpen(true)}}>Followers</Button>
