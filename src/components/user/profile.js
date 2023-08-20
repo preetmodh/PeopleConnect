@@ -41,7 +41,7 @@ export default function Profile(){
       }
 
     useEffect(()=>{
-        axios.get(`${BASE_URL_HTTP}/posts/profile_post/${username}`,{
+        axios.get(`${BASE_URL_HTTP}/posts/profile_post`,{
             headers: {
                 'Authorization': `token ${x}`,  
               },
