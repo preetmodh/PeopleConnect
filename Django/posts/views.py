@@ -8,20 +8,14 @@ from posts.serializers import PostSerializer,LikeSerializer
 from comments.serializers import CommentSerializer
 from .models import Likes, Post
 from django.shortcuts import render
-from django.db import models
-from django.shortcuts import render
 from rest_framework import generics,pagination
-from .pagination import postPagination
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated,AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
 from rest_framework.parsers import MultiPartParser, FormParser
 from django.shortcuts import get_object_or_404
 from django.core.paginator import Paginator
-
-# Create your views here.
 
 class posts_particularUser(APIView):
     authentication_classes=[TokenAuthentication]
@@ -35,7 +29,7 @@ class posts_particularUser(APIView):
         user=request.user
         posts_data=[]
         likeDict={}
-        page_number = request.GET.get('page')
+        page_number = request.GET.get('page') or '0'
         if(typ=='profile'):
             user=User.objects.get(user_name=kwargs['username'])
             posts_obj=Post.objects.filter(user=user)
@@ -81,7 +75,9 @@ class posts_particularUser(APIView):
             'likeDict':likeDict,
             'likeCount':likeCountDict,
             'pageCnt':pageCnt,
-            'isCurrenUser':request.user==user},
+            'isCurrenUser':request.user==user,
+            'userphoto' : user.picture,
+            },
             status=200)
     def post(self,request,format=None,*args,**kwargs):
         user=request.user
@@ -138,11 +134,7 @@ class SpecificPost(APIView):
             if(i.user==request.user):
                 isLiked=1
         comments=CommentSerializer(comment_objs,many=True).data
-        # for i in comment_objs:
-        #     data=CommentSerializer(i).data
-        #     data['username']=i.user.user_name
-        #     comments.append(data)
-            
+ 
         res_data={'post_data':post_data,'likes':likes,'comments':comments,'isLiked':isLiked}
         return Response(res_data,status=200)
         
