@@ -88,7 +88,7 @@ DATABASES = {
   }
 }
 
-DATABASE_URL = os.getenv('DATABASE_URL')
+DATABASE_URL = os.getenv('postgres://peopleconnect_bhv9_user:ufMIomHBgmmFGZ1jhezSebuKKIEUVfEk@dpg-cobcg4uv3ddc73f82kh0-a/peopleconnect_bhv9')
 db_from_env = dj_database_url.config(default=DATABASE_URL)
 DATABASES['default'].update(db_from_env)
 
