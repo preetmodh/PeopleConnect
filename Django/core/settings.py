@@ -81,14 +81,21 @@ TEMPLATES = [
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': BASE_DIR / 'db.sqlite3',
+#    }
+#}
+
 DATABASES = {
-   'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-  }
+    'default': {
+        #dj_database_url.parse(os.environ.get('DATABASE_URL'))
+        #dj_database_url.parse(os.environ.get('postgres://peopleconnect_bhv9_user:ufMIomHBgmmFGZ1jhezSebuKKIEUVfEk@dpg-cobcg4uv3ddc73f82kh0-a.singapore-postgres.render.com/peopleconnect_bhv9'))
+    }
 }
 
-DATABASE_URL = os.getenv('postgres://peopleconnect_bhv9_user:ufMIomHBgmmFGZ1jhezSebuKKIEUVfEk@dpg-cobcg4uv3ddc73f82kh0-a/peopleconnect_bhv9')
+DATABASE_URL = 'postgres://peopleconnect_bhv9_user:ufMIomHBgmmFGZ1jhezSebuKKIEUVfEk@dpg-cobcg4uv3ddc73f82kh0-a.singapore-postgres.render.com/peopleconnect_bhv9'
 db_from_env = dj_database_url.config(default=DATABASE_URL)
 DATABASES['default'].update(db_from_env)
 
