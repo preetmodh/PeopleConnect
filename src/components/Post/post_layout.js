@@ -132,7 +132,22 @@ const useStyles = makeStyles((theme) => ({
       
     };
 
-
+const convertDriveUrl = (url) => {
+      // Check if the URL is a Google Drive image URL
+      if (url.includes('drive.google.com')) {
+          // Extract the file ID from the URL
+          const fileId = url.match(/[-\w]{25,}/);
+          if (fileId) {
+              // Construct the viewable URL format
+              return `https://lh3.google.com/u/0/d/${fileId[0]}`;
+          } else {
+              console.error('Invalid Google Drive URL');
+              return url; // Return original URL if unable to extract file ID
+          }
+      } else {
+          return url; // Return original URL if not a Google Drive URL
+      }
+  };
 
     return (
       <>
@@ -170,7 +185,7 @@ const useStyles = makeStyles((theme) => ({
 
                 <div className="Post-image-bg">
                 
-                {post.Image &&  <img  src={post.Image} onError={(e)=>{isvideo=true;e.target.onerror = null; e.target.src="";}}/>}
+                {post.Image &&  <img  src={convertDriveUrl(post.Image)} onError={(e)=>{isvideo=true;e.target.onerror = null; e.target.src="";}}/>}
                 {/* {post.Image && isvideo && <video  controls >
                 <source src={post.Image} type="video/mp4"  />
                 </video>}
